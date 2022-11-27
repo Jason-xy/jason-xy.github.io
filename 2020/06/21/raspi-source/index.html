@@ -1,0 +1,1075 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="awesome-raspberry-pi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="转载自Github：awesome-raspberry-pi-zh      树莓派（Raspberry Pi，下面简称RPi）是一系列由英国树莓派基金会（Raspberry Pi Foundation）开发的仅信用卡大小的微型计算机，截止到2017年2月，共发行了RPi 1，RPi 2，RPi 3以及RPi Zero 四款。树莓派发行的初衷，是在学校以及发展中国家推广基础计算机科学，官方主页：R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派(Raspberry Pi)资源大全中文版">
+<meta property="og:url" content="https://jason-xy.github.io/2020/06/21/raspi-source/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="转载自Github：awesome-raspberry-pi-zh      树莓派（Raspberry Pi，下面简称RPi）是一系列由英国树莓派基金会（Raspberry Pi Foundation）开发的仅信用卡大小的微型计算机，截止到2017年2月，共发行了RPi 1，RPi 2，RPi 3以及RPi Zero 四款。树莓派发行的初衷，是在学校以及发展中国家推广基础计算机科学，官方主页：R">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.raspberrypi.org/wp-content/uploads/2012/03/raspberry-pi-logo.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-3.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-0.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-0.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-0.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/687474703a2f2f6d6972726f72732e6372656174697665636f6d6d6f6e732e6f72672f70726573736b69742f627574746f6e732f38387833312f7376672f63632d7a65726f2e737667.svg">
+<meta property="article:published_time" content="2020-06-21T05:13:47.000Z">
+<meta property="article:modified_time" content="2022-11-27T18:15:51.413Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="raspberry-pi">
+<meta property="article:tag" content="awesome">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.raspberrypi.org/wp-content/uploads/2012/03/raspberry-pi-logo.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>树莓派(Raspberry Pi)资源大全中文版 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categorys/tech">
+                    
+                    技术
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categorys/life">
+                    
+                    生活
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categorys/whiteboard">
+                    
+                    白板
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">树莓派(Raspberry Pi)资源大全中文版</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        awesome-raspberry-pi
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-06-21 13:13" pubdate>
+          2020年6月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="技术"
+        id="heading-a95dd3e179418be1ecd2a719a22db70e" role="tab" data-toggle="collapse" href="#collapse-a95dd3e179418be1ecd2a719a22db70e"
+        aria-expanded="true"
+      >
+        技术
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a95dd3e179418be1ecd2a719a22db70e"
+           role="tabpanel" aria-labelledby="heading-a95dd3e179418be1ecd2a719a22db70e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="false"
+      >
+        Algorithm
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/19/bpnn/" title="BP神经网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">BP神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/19/pnn/" title="感知器（神经网络模型）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">感知器（神经网络模型）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="true"
+      >
+        Linux
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/18/raspi-vpn/" title="Ras-Pi的VPN设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ras-Pi的VPN设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/18/linux-wifi/" title="linux 命令行下配置 wlan 无线网卡"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux 命令行下配置 wlan 无线网卡</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/21/raspi-source/" title="树莓派(Raspberry Pi)资源大全中文版"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">树莓派(Raspberry Pi)资源大全中文版</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/18/wordpress-docker/" title="使用docker部署WordPress"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用docker部署WordPress</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">树莓派(Raspberry Pi)资源大全中文版</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><a target="_blank" rel="noopener" href="https://github.com/wwj718/awesome-raspberry-pi-zh" title="转载自Github：awesome-raspberry-pi-zh">转载自Github：awesome-raspberry-pi-zh</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://www.raspberrypi.org"><img src="https://www.raspberrypi.org/wp-content/uploads/2012/03/raspberry-pi-logo.png" srcset="/img/loading.gif" lazyload alt="Raspberry Pi Logo" align="left" style="margin-right: 25px" height=150></a></p>
+<blockquote>
+<p>树莓派（Raspberry Pi，下面简称RPi）是一系列由英国树莓派基金会（Raspberry Pi Foundation）开发的仅信用卡大小的微型计算机，截止到2017年2月，共发行了RPi 1，RPi 2，RPi 3以及RPi Zero 四款。树莓派发行的初衷，是在学校以及发展中国家推广基础计算机科学，官方主页：<a target="_blank" rel="noopener" href="https://raspberrypi.org/">Raspberry Pi Homepage</a></p>
+</blockquote>
+<p>   本列表翻译自<a target="_blank" rel="noopener" href="https://github.com/thibmaek/awesome-raspberry-pi">awesome-raspberry-pi</a> ，是由 <a target="_blank" rel="noopener" href="https://github.com/thibmaek">thibmaek</a> 发起并维护的树莓派资源列表，内容包括树莓派相关的工具、项目、系统镜像、社区及其他一些资源。</p>
+<p>   Awesome-XXX 是GitHub上知名的一组项目，其主页：<a target="_blank" rel="noopener" href="https://github.com/sindresorhus/awesome/blob/master/awesome.md">Awesome 清单</a></p>
+<p>   近期我正好在折腾树莓派，觉得资源列表上有很多好玩的项目，遂决定译个中文版本，之后会根据我个人的使用情况添加更详细的注脚，也非常欢迎国内的树莓派爱好者一起来维护这个列表，但在这之前，请先阅读<a href="CONTRIBUTING.md">贡献指南</a></p>
+<h2 id="项目的参与者"><a href="#项目的参与者" class="headerlink" title="项目的参与者"></a>项目的参与者</h2><ul>
+<li>Todo：<ul>
+<li><input disabled="" type="checkbox"> 添加国内开发者有趣的项目</li>
+</ul>
+</li>
+</ul>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#os-images">系统镜像</a></li>
+<li><a href="#tools">工具</a></li>
+<li><a href="#projects">项目</a></li>
+<li><a href="#resources">资源</a></li>
+</ul>
+   <h2 id="os-images">系统镜像</h2>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian</a> - 来自树莓派官方的操作系统，基于Debian，同时官方也提供了一个Raspbian的精简版。</li>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/noobs/">NOOBS</a> - 新的开箱即用软件, 为初学者准备的系统安装工具.</li>
+<li><a target="_blank" rel="noopener" href="https://ubuntu-mate.org/raspberry-pi/">Ubuntu MATE</a> - 为树莓派准备的Ubuntu发行版，基于MATE桌面环境. <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></li>
+<li><a target="_blank" rel="noopener" href="https://developer.ubuntu.com/en/snappy/start/raspberry-pi-2/">Snappy Ubuntu Core</a> - 为物联网准备的Ubuntu官方最小发行版 <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></li>
+<li><a target="_blank" rel="noopener" href="https://developer.microsoft.com/nl-nl/windows/iot/Downloads.htm">Windows 10 IoT Core</a> - 为物联网准备的Windows 10发行版. <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></li>
+<li><a target="_blank" rel="noopener" href="https://osmc.tv/">OSMC</a> - 基于Kodi的开源数字媒体中心系统.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openfans-community-offical/Debian-Pi-Aarch64" title="Debian-Pi-Aarch64">Debian-Pi-Aarch64</a> - 为全新Raspberry Pi 4B适配的64位操作系统.</li>
+<li><a target="_blank" rel="noopener" href="http://pinet.org.uk/">PiNet</a> - 用于管理树莓派课堂的系统.</li>
+<li><a target="_blank" rel="noopener" href="https://www.riscosopen.org/content/downloads/raspberry-pi">Risc OS</a> - 非Linux操作系统, 来自ARM微处理器的开发小组</li>
+<li><a target="_blank" rel="noopener" href="http://www.runeaudio.com/">RuneAudio</a> - 免费和开源和操作系统，可将嵌入式硬件变为Hi-fi音乐播放器</li>
+<li><a target="_blank" rel="noopener" href="http://openelec.tv/">OpenELEC</a> - 开放的嵌入式Linux娱乐中心，基于Kodi构建的轻量级系统.</li>
+<li><a target="_blank" rel="noopener" href="http://blog.hypriot.com/about/">HypriotOS</a> - 基于Debian的最小操作系统，为运行docker做了优化.</li>
+<li><a target="_blank" rel="noopener" href="https://www.offensive-security.com/kali-linux-arm-images/">Kali Linux</a> -  为渗透测试和正义黑客准备的Linux发行版，运行在ARM设备上</li>
+<li><a target="_blank" rel="noopener" href="https://retropie.org.uk/">RetroPie</a> - 在树莓派玩复古游戏。</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.alpinelinux.org/wiki/Raspberry_Pi">Alpine Linux</a> - 面向安全的linux发行版，基于musl libc和busybox.</li>
+<li><a target="_blank" rel="noopener" href="https://archlinuxarm.org/">Arch Linux ARM</a> - 轻量且灵活的linux发行版，力图保持简单.</li>
+<li><a target="_blank" rel="noopener" href="https://volumio.org/">Volumio</a> - 高保真音乐播放器</li>
+<li><a target="_blank" rel="noopener" href="https://www.recalbox.com/">Recalbox</a> - 更轻巧的复古游戏和媒体中心</li>
+<li><a target="_blank" rel="noopener" href="http://lakka.tv/">Lakka</a> - 在树莓派上玩复古游戏，完全基于RetroArch构建.</li>
+<li><a target="_blank" rel="noopener" href="http://www.rasplex.com/">RasPlex</a> - 为树莓派准备的Plex客户端.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/futurice/chilipie-kiosk">chilipie-kiosk</a> - 可直接引导到全屏Chrome的镜像，非常适合用于仪表板和构建监视器。 <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Fourdee/DietPi">DietPi</a> -  为2G SD卡准备的最小镜像， 带有许多可配置项和脚本.</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.centos.org/SpecialInterestGroup/AltArch/Arm32/RaspberryPi3">CentOS</a> - 运行在树莓派上的CentOS. <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></li>
+<li><a target="_blank" rel="noopener" href="https://minibianpi.wordpress.com/">Minibian</a> - 最小的 Raspbian (比 Jessie Lite还要轻量).</li>
+<li><a target="_blank" rel="noopener" href="http://www.berryterminal.com/doku.php/berryboot">BerryBoot</a> - 系统启动加载器(Bootloader) &#x2F;通用操作系统安装程序 , 支持 VNC 和 HDMI-CEC.</li>
+<li><a target="_blank" rel="noopener" href="https://piratebox.cc/raspberry_pi:diy">PirateBox</a> - 匿名的离线移动文件共享&#x2F;通信系统。</li>
+<li><a target="_blank" rel="noopener" href="https://octopi.octoprint.org/">OctoPi</a> - 为3d打印机准备的发行版.</li>
+<li><a target="_blank" rel="noopener" href="http://developers.kano.me/downloads/">Kano OS</a> - 为探索、创造和玩耍准备准备的开源操作系统 – 对树莓派免费.</li>
+<li><a target="_blank" rel="noopener" href="https://resinos.io/">resinOS</a> - 在嵌入式设备中跑docker容器的开源操作系统, 考虑了生产环境所需的可靠性</li>
+<li><a target="_blank" rel="noopener" href="https://fedoraproject.org/wiki/Raspberry_Pi#Preparing_the_SD_card">Fedora</a> <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ccrisan/motioneyeos/wiki">motionEyeOS</a> - 将微型计算机打造为视频监控系统的Linux发行版。</li>
+<li><a target="_blank" rel="noopener" href="https://ownyourbits.com/2017/02/13/nextcloud-ready-raspberry-pi-image/">NextCloudPi</a> - 基于 LAMP（Linux Apache Mysql PHP） 的 Nextcloud 系统镜像，用于搭建家庭私有云服务。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openfans-community-offical/Debian-Pi-Aarch64">Debian-Pi-Aarch64</a>全球发行的第一个同时支持树莓派全系64位硬件的64位系统 !!!</li>
+</ul>
+   <h2 id="tools">工具</h2>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.pibakery.org/">PiBakery</a> - 基于google的blockly项目, 为树莓派准备的易用的配置工具.</li>
+<li><a target="_blank" rel="noopener" href="http://www.tweaking4all.com/software/macosx-software/macosx-apple-pi-baker/">ApplePi Bakery</a>  - macOS应用程序,可轻松地将系统镜像安装&#x2F;备份&#x2F;恢复到SD卡上.</li>
+<li><a target="_blank" rel="noopener" href="https://www.etcher.io/">Etcher</a> - 跨平台的SD卡烧录程序，使用简单，易于扩展.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Drewsif/PiShrink/">PiShrink</a> - Bash脚本，它会自动缩小pi镜像，之后在启动时将其调整为SD卡的最大存储空间大小</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/StarshipEngineer/OpenVPN-Setup">OpenVPN-Setup</a> - 用于将树莓派设置为OpenVPN服务器的Shell脚本.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/RPi-Distro/pi-gen">pi-gen</a> - 用于构建树莓派官方镜像的工具. 你可以将其用于构建自己的定制镜像（预装特定软件）</li>
+<li><a target="_blank" rel="noopener" href="http://www.pivpn.io/">PiVPN</a> - 简单、灵活的单行安装脚本，用于在树莓派上安装OpenVPN服务</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/initialstate/pi-sensor-free-presence-detector/wiki">Network Presence Detector</a> - 配置Pi0，使其可以在wifi网络里扫描，发现谁是”home”</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/resin-io-playground/resin-bridge">Resin Bridge</a> - 一个能够将RPid的wlan0接口和连接在eth0接口上的设备进行桥接的程序。</li>
+<li><a target="_blank" rel="noopener" href="https://steveedson.co.uk/tools/wpa/">WiFi config generator</a> - 用于生成一个包含wifi配置信息的配置文件wpa_supplicant.conf的小程序。</li>
+<li><a target="_blank" rel="noopener" href="https://ownyourbits.com/2017/02/06/raspbian-on-qemu-with-network-access/">Raspbian QEMU with network</a> - 在 Raspbian上运行QEMU的小程序。</li>
+</ul>
+   <h2 id="projects">项目</h2>
+
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://cdn-learn.adafruit.com/downloads/pdf/mini-oontz-3d-printed-midi-controller.pdf">Mini OONTZ</a> - 3D打印的迷你MIDI控制器</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://gnurds.com/index.php/2012/10/02/raspberry-pi-power-strip/">Power Sniffing Strip</a> - 藏在电源插座里的树莓派, 用于嗅探网络数据.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://medium.com/@pieterjan_m/erlang-pi2-arm-cluster-vs-xeon-vm-40871d35d356#.bpao66cm8">Raspberry Pi Erlang Cluster</a> - 跑在树莓派2代上的Erlang集群</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.mjoldfield.com/atelier/2012/08/ntp-nixie.html">NTP driven Nixie Clock</a> - 由树莓派驱动的数码管时钟</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://hackaday.com/2014/02/17/40-node-raspi-cluster/">40-node Raspberry Pi Cluster</a> - 40个节点构成的树莓派集群</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.widriksson.com/raspberry-pi-hadoop-cluster/">Raspberry PI Hadoop Cluster</a> - 跑在树莓派上的大数据集群.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.datastax.com/dev/blog/32-node-raspberry-pi-cassandra-cluster">Multi-Datacenter Cassandra on 32 Raspberry Pi’s</a> - 32个节点的树莓派cassandra数据库集群.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://bryanapperson.com/blog/the-definitive-guide-ceph-cluster-on-raspberry-pi/">Building a Ceph Cluster on Raspberry Pi</a> - 基于分布式对象存储系统RADOS的高度冗、低功耗家庭存储解决方案。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/evancohen/smart-mirror">Smart Mirror</a> - 带语音控制智能镜子，集成物联网. <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://magicmirror.builders/">Magic Mirror</a> - 开源模块化智能镜子平台. <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-2%2B.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 2+"></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.haschek.at/post/f31aa">Door bot</a> - 门卫机器人，感知到门被打开时将给你发送信息.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.reddit.com/r/raspberry_pi/comments/53nj1z/chromebook_charger_kiosk_last_minute_charge_for/">Chromebook Charger Kiosk</a> - 给在校生的Chromebooks准备的定时充电站</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://jasperproject.github.io/">Jasper</a> - 灵活的开源个人助理.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://lightberry.eu/">Lightberry</a> - 为树莓派和电视准备的LED照明解决方</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/SecPi/SecPi">SecPi</a> - 基于Raspberry Pi的家庭报警系统.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/n0bel/PiClock">PiClock</a> - 别致的时钟</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/benjefferies/gogo-garage-opener">Garage Door Opener</a> - 车库开门器</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/stevelacy/movel">Movel</a> - 树莓派车载电脑</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/winkidney/PIFanTuner">PiFanTuner</a> - CPU风扇控制程序. <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-3.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi 3"></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://samy.pl/skyjack/">SkyJack</a> - 在无线距离内，劫持并控制任何的Parrot AR Drone.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/nerves-project">Nerves Project</a> - 为嵌入式设备准备的erlang交叉编译环境</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/rothgar/rpi-wordpress">Wordpress using Docker</a> - 使用docker跑wordpress（采用动态DNS）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://pi-hole.net/">Pi-hole</a> - 为互联网广告准备的黑洞.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://resin.io/blog/planning-lunch-with-a-slackbot-on-resin-io/">Planning lunch with a Slackbot on resin.io</a> - 用nodejs写的Slack机器人– 帮助解决”我们该吃什么”</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/evancohen/sonus">Sonus</a> - 开源、跨平台的语音识别框架（Google Cloud Speech）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/samaaron/sonic-pi">Sonic Pi</a> - 让大家能够通过制作音乐来学习编程的一款音乐合成器</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/alexa/alexa-avs-sample-app/wiki/Raspberry-Pi">Alexa AVS</a> - 基于Java客户端和Node.js服务端的 Alexa Voice Service 示例程序</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://pi4j.com/">Pi4j Project</a> - 为RPi编写的具有友好API的Java I&#x2F;O 库</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/blog/harry-potter-and-the-real-life-daily-prophet/">Harry Potter and the real life Daily Prophet</a> - 通过RPi的7英寸显示模拟哈利波特中的魔法报纸（动态头条）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://denis.papathanasiou.org/posts/2015.05.30.post.html">PiScan</a> - 基于RPi和 EAN 扫描仪的 Amazon 条形码扫描器.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.htxt.co.za/2017/02/07/pie-ink-is-a-raspberry-pi-name-tag-that-uses-an-e-ink-display/">PiE-Ink</a> - 在RPi Zero上运行的E-ink身份卡片 <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-0.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi Zero"></p>
+</li>
+</ul>
+   <h2 id="resources">资源</h2>
+
+<h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.liquidlight.co.uk/blog/article/raspberry-pi-what-is-it-and-why-do-i-need-one/">Raspberry Pi and why do I need one?</a> - 本文介绍树莓派以及能用它做些什么</li>
+<li><a target="_blank" rel="noopener" href="https://raspberrypi.about.com/od/Power/tp/10-Ways-to-Power-your-Raspberry-Pi.htm">10 Ways To Power</a> - 十种给树莓派供电的方法.</li>
+</ul>
+<h3 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.thibmaekelbergh.be/2015/02/16/bridging-wifi-to-the-raspberry-pi-over-ethernet.html">Bridging Wifi to the Raspberry Pi over Ethernet</a> - 在macOS和树莓派之间设置网络</li>
+<li><a target="_blank" rel="noopener" href="https://blog.thibmaekelbergh.be/2015/05/07/raspberry-pi-login-with-ssh-keys.html">Raspberry Pi login with SSH keys</a> - ssh免密码登录树莓派（使用SSH key）</li>
+<li><a target="_blank" rel="noopener" href="http://blog.hsp.dk/how-to-setup-vpn-server-on-raspberry-pi-or-digitalocean/">How to setup a secure VPN server on Raspberry Pi or DigitalOcean</a> - 简单、安全而详细的指南：在树莓派上设置VPN</li>
+<li><a target="_blank" rel="noopener" href="https://thesocietea.org/2016/03/controlling-spotify-with-slack-and-a-raspberry-pi/">Controlling Spotify with Slack and a Raspberry Pi</a> - Node.js项目， 使用libspotify控制 Spotify 和 Slack.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/irtimmer/moonlight-embedded">Moonlight</a> - 嵌入式系统的Gamestream客户端（把电脑主机的游戏串流到树莓派，然后输出到电视玩）</li>
+<li><a target="_blank" rel="noopener" href="http://blog.gbaman.info/?p=791">Raspberry Pi Zero: Programming over USB</a> - 树莓派Zero：使用USB来编程，无需网络连接、键盘或者屏幕 <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-0.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi Zero"></li>
+<li><a target="_blank" rel="noopener" href="https://www.mikestreety.co.uk/blog/use-a-raspberry-pi-with-multiple-wifi-networks">Use a Raspberry Pi with multiple WiFi networks</a> - 将树莓派接入多个无线网络的教程.</li>
+<li><a target="_blank" rel="noopener" href="http://www.htpcguides.com/category/raspberry-pi/">Raspberry Pi Media Server Guides</a> - 用树莓派搭建媒体服务器的教程（HTPC：Home Theater Personal Computer，即家庭影院电脑）</li>
+<li><a target="_blank" rel="noopener" href="http://n-o-d-e.net/post/150780207431/turn-the-raspberry-pi-zero-into-a-mini-dongle">Turn the Raspberry Pi Zero into a mini dongle computer</a> - 设置pi0，使其可以用USB登录ssh 和 vnc . <img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/rpi-0.png" srcset="/img/loading.gif" lazyload alt="Supports Raspberry Pi Zero"></li>
+<li><a target="_blank" rel="noopener" href="http://developer.radiusnetworks.com/2014/04/27/how-to-make-a-raspberry-pi-turn-on-a-lamp-with-an-ibeacon.html">How To Make a Raspberry Pi Turn on a Lamp with iBeacon™ Technology</a> - iBeacon新手教程.</li>
+<li><a target="_blank" rel="noopener" href="https://raymii.org/s/articles/Build_a_35_dollar_Time_Capsule_-_Raspberry_Pi_Time_Machine.html">Build a $35 Time Capsule</a> - 时光机器（备份服务）</li>
+<li><a target="_blank" rel="noopener" href="https://lifehacker.com/how-to-turn-your-raspberry-pi-into-a-retro-game-console-498561192">Raspberry Pi Game Console</a> - 用35美元搭建一个树莓派复古游戏机.</li>
+</ul>
+<h2 id="社区"><a href="#社区" class="headerlink" title="社区"></a>社区</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/forums/">Official Forum</a></li>
+<li><a target="_blank" rel="noopener" href="https://twitter.com/Raspberry_Pi"><code>@Raspberry_Pi</code> on Twitter</a></li>
+<li><a target="_blank" rel="noopener" href="https://webchat.freenode.net/?channels=%23raspberrypi"><code>#raspberrypi</code> on Freenode</a></li>
+<li><a target="_blank" rel="noopener" href="https://raspberrypi.stackexchange.com/">StackExchange</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.reddit.com/r/raspberry_pi">Reddit</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.reddit.com/r/RASPBERRY_PI_PROJECTS">Reddit Projects</a></li>
+<li><a target="_blank" rel="noopener" href="http://elinux.org/RPi_Hub">eLinux Hub</a></li>
+</ul>
+<h3 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h3><p>   可以在这里找到<a target="_blank" rel="noopener" href="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/CONTRIBUTING.md">贡献指南</a></p>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>   <a target="_blank" rel="noopener" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_source/media/badges/687474703a2f2f6d6972726f72732e6372656174697665636f6d6d6f6e732e6f72672f70726573736b69742f627574746f6e732f38387833312f7376672f63632d7a65726f2e737667.svg" srcset="/img/loading.gif" lazyload alt="CC0"></a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="category-chain-item">Linux</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/raspberry-pi/">#raspberry-pi</a>
+      
+        <a href="/tags/awesome/">#awesome</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>树莓派(Raspberry Pi)资源大全中文版</div>
+      <div>https://jason-xy.github.io/2020/06/21/raspi-source/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>awesome-raspberry-pi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年6月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/20/hd-cache/" title="基于PrimoCache的硬盘缓存加速">
+                        <span class="hidden-mobile">基于PrimoCache的硬盘缓存加速</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
