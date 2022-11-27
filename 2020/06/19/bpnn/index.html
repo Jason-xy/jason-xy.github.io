@@ -1,0 +1,945 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason Hsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="人工神经网络(Artificial Neural Network,简称 ANN)是利用仿生原理对人脑神经网络的结构和功能的简化抽象。人工神经网络是一种可以并行分散处理数据，具有非线性映射、容错能力强、自适应学习进化的特点。BP人工神经网络是在此基础上，基于误差反向传播算法而设计的多层前向神经网络。因其能够实现输入与输出间任意的非线性映射，因此在模式识别、自适应控制、风险评估等领域有着广泛的应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BP神经网络">
+<meta property="og:url" content="https://jason-xy.github.io/2020/06/19/bpnn/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="人工神经网络(Artificial Neural Network,简称 ANN)是利用仿生原理对人脑神经网络的结构和功能的简化抽象。人工神经网络是一种可以并行分散处理数据，具有非线性映射、容错能力强、自适应学习进化的特点。BP人工神经网络是在此基础上，基于误差反向传播算法而设计的多层前向神经网络。因其能够实现输入与输出间任意的非线性映射，因此在模式识别、自适应控制、风险评估等领域有着广泛的应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/BP.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E5%87%BD%E6%95%B0%E9%80%BC%E8%BF%911-768x448.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E6%8B%9F%E5%90%88%E6%9B%B2%E7%BA%BF1.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E8%AF%AF%E5%B7%AE%E6%9B%B2%E7%BA%BF1.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E6%8B%9F%E5%90%88%E6%9B%B2%E7%BA%BF2.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E8%AF%AF%E5%B7%AE%E6%9B%B2%E7%BA%BF2.png">
+<meta property="article:published_time" content="2020-06-19T04:23:47.000Z">
+<meta property="article:modified_time" content="2022-11-27T17:54:23.798Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="ai">
+<meta property="article:tag" content="nn">
+<meta property="article:tag" content="pnn">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/BP.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>BP神经网络 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categorys/tech">
+                    
+                    技术
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categorys/life">
+                    
+                    生活
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categorys/whiteboard">
+                    
+                    白板
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">BP神经网络</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Jason Hsu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-06-19 12:23" pubdate>
+          2020年6月19日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="技术"
+        id="heading-a95dd3e179418be1ecd2a719a22db70e" role="tab" data-toggle="collapse" href="#collapse-a95dd3e179418be1ecd2a719a22db70e"
+        aria-expanded="true"
+      >
+        技术
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a95dd3e179418be1ecd2a719a22db70e"
+           role="tabpanel" aria-labelledby="heading-a95dd3e179418be1ecd2a719a22db70e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="true"
+      >
+        Algorithm
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="true"
+      >
+        AI
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/19/bpnn/" title="BP神经网络"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">BP神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/19/pnn/" title="感知器（神经网络模型）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">感知器（神经网络模型）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/18/raspi-vpn/" title="Ras-Pi的VPN设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ras-Pi的VPN设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/18/linux-wifi/" title="linux 命令行下配置 wlan 无线网卡"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux 命令行下配置 wlan 无线网卡</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/18/wordpress-docker/" title="使用docker部署WordPress"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用docker部署WordPress</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">BP神经网络</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>人工神经网络(Artificial Neural Network,简称 ANN)是利用仿生原理对人脑神经网络的结构和功能的简化抽象。人工神经网络是一种可以并行分散处理数据，具有非线性映射、容错能力强、自适应学习进化的特点。BP人工神经网络是在此基础上，基于误差反向传播算法而设计的多层前向神经网络。因其能够实现输入与输出间任意的非线性映射，因此在模式识别、自适应控制、风险评估等领域有着广泛的应用。</p>
+<p>BP(back propagation)神经网络是1986年由Rumelhart和McClelland为首的科学家提出的概念，是一种按照误差逆向传播算法训练的多层前馈神经网络，是应用最广泛的神经网络。</p>
+<h4 id="BP神经网络的基本原理"><a href="#BP神经网络的基本原理" class="headerlink" title="BP神经网络的基本原理"></a>BP神经网络的基本原理</h4><p>BP算法在神经网络训练中是一个十分典型的学习算法。其构成如下：一个输入层，一个或者多个隐含层和一个输出层构成，各层又由若干个神经元节点构成，每个神经元的输出值由其输入值、传递函数、阈值所决定。神经网络的学习过程包括了正向传播和反向传播两个过程。正向传播的过程中，在输入层输出数据，经过隐含层一系列运算后，将输出层得到的结果与期望值比较，得到误差取值。若误差大于某个范围则进行反向传播，根据上一层的误差，对该层神经元的权值和阈值进行相应的修改，从而减小误差。如此循环，直到误差在精度范围内或者达到训练终止条件为止。</p>
+<h4 id="BP神经网络的训练方法"><a href="#BP神经网络的训练方法" class="headerlink" title="BP神经网络的训练方法"></a>BP神经网络的训练方法</h4><p>BP神经网络的基本训练步骤如下：</p>
+<ol>
+<li>BP神经网络的构建和初始化，确定隐含层层数，确定各层的节点数，随机生成各个节点的权值和阈值；</li>
+<li>输入训练数据集，训练输入数据以及其对应的输出数据；</li>
+<li>根据输入样本计算输出数据；</li>
+<li>根据输出数据和期望数据计算误差，并判定是否达到精度，若达到精度就停止运行并取得各节点权值和阈值，否则继续执行（5）；</li>
+<li>根据误差反向传播，修正各层各节点的权值和阈值；</li>
+<li>继续执行（3）。</li>
+</ol>
+<h4 id="基本BP神经网络的构建与训练（Python）"><a href="#基本BP神经网络的构建与训练（Python）" class="headerlink" title="基本BP神经网络的构建与训练（Python）"></a>基本BP神经网络的构建与训练（Python）</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">import</span> numpy as np<br><br><span class="hljs-comment">#sigmoid 激活函数</span><br><span class="hljs-attribute">def</span> sigmoid1(x):<br>	<span class="hljs-attribute">a</span>=<span class="hljs-number">1</span>/(<span class="hljs-number">1</span>+np.exp(-x))<br>	<span class="hljs-attribute">return</span> a<br><br><span class="hljs-comment">#训练集</span><br><span class="hljs-attribute">training_set</span>=np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]])<br><span class="hljs-attribute">yy</span>=np.zeros((<span class="hljs-number">4</span>,<span class="hljs-number">1</span>))<br><span class="hljs-attribute">eta</span>=<span class="hljs-number">0</span>.<span class="hljs-number">1</span><br><br><span class="hljs-comment">#定义连接权、阈值</span><br><span class="hljs-attribute">vih</span>=np.random.rand(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>)	#输入层与隐层连接权<br><span class="hljs-attribute">delt_vih</span>=np.zeros((<span class="hljs-number">2</span>,<span class="hljs-number">2</span>))<br><span class="hljs-attribute">r</span>=np.random.rand(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)	#隐层阈值<br><span class="hljs-attribute">delt_r</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">2</span>))<br><span class="hljs-attribute">whj</span>=np.random.rand(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)	#隐层与输出层连接权<br><span class="hljs-attribute">delt_whj</span>=np.zeros((<span class="hljs-number">2</span>,<span class="hljs-number">1</span>))<br><span class="hljs-attribute">o</span>=np.random.rand(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)	#输出层阈值<br><span class="hljs-attribute">delt_o</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))<br><span class="hljs-comment">#创建隐层</span><br><br><span class="hljs-attribute">alph</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">2</span>))<br><span class="hljs-attribute">b</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">2</span>))<br><span class="hljs-attribute">e</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">2</span>))	#隐层梯度项<br><span class="hljs-comment">#创建输出层</span><br><span class="hljs-attribute">beita</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))<br><span class="hljs-attribute">y</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))<br><span class="hljs-attribute">g</span>=np.zeros((<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))	#输出层梯度项<br><span class="hljs-comment">#开始训练</span><br><span class="hljs-attribute">times</span>=input(How many times do you want to train:\n)<br><span class="hljs-attribute">times</span>=int(times)<br><span class="hljs-attribute">for</span> daishu in range(<span class="hljs-number">0</span>,times):<br>	<span class="hljs-attribute">for</span> train in range(<span class="hljs-number">0</span>,<span class="hljs-number">4</span>):<br>	<span class="hljs-comment">#计算隐层的输入</span><br>	<span class="hljs-attribute">alph</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=vih[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*training_set[train,<span class="hljs-number">0</span>]+vih[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]*training_set[train,<span class="hljs-number">1</span>]<br>	<span class="hljs-attribute">alph</span>[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]=vih[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]*training_set[train,<span class="hljs-number">0</span>]+vih[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]*training_set[train,<span class="hljs-number">1</span>]<br>	<span class="hljs-comment">#计算隐层输出</span><br>	<span class="hljs-attribute">b</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=sigmoid1(alph[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]-r[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])<br>	<span class="hljs-attribute">b</span>[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]=sigmoid1(alph[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]-r[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>])<br>	<span class="hljs-comment">#计算输出层的输入</span><br>	<span class="hljs-attribute">beita</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=whj[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*b[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]+whj[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]*b[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]<br>	<span class="hljs-comment">#输出层输出</span><br>	<span class="hljs-attribute">y</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=sigmoid1(beita[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]-o[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])<br>	<span class="hljs-attribute">yy</span>[train,<span class="hljs-number">0</span>]=y[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-comment">#输出层梯度项</span><br>	<span class="hljs-attribute">g</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=y[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*(<span class="hljs-number">1</span>-y[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])*(training_set[train,<span class="hljs-number">2</span>]-y[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])<br>	<span class="hljs-comment">#隐层梯度项</span><br>	<span class="hljs-attribute">e</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=b[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*(<span class="hljs-number">1</span>-b[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])*(whj[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*g[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])<br>	<span class="hljs-attribute">e</span>[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]=b[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]*(<span class="hljs-number">1</span>-b[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>])*(whj[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]*g[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])<br>	<span class="hljs-comment">#更新连接权和阈值</span><br>	<span class="hljs-attribute">delt_whj</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=eta*g[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*b[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">delt_whj</span>[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]=eta*g[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*b[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]<br>	<span class="hljs-attribute">whj</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=delt_whj[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]+whj[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">whj</span>[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]=delt_whj[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]+whj[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">delt_o</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=-(eta*g[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])<br>	<span class="hljs-attribute">o</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=delt_o[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]+o[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">delt_vih</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=eta*e[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*training_set[train,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">delt_vih</span>[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]=eta*e[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]*training_set[train,<span class="hljs-number">1</span>]<br>	<span class="hljs-attribute">delt_vih</span>[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]=eta*e[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]*training_set[train,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">delt_vih</span>[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]=eta*e[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]*training_set[train,<span class="hljs-number">1</span>]<br>	<span class="hljs-attribute">vih</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=vih[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]+delt_vih[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">vih</span>[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]=vih[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]+delt_vih[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">vih</span>[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]=vih[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]+delt_vih[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]<br>	<span class="hljs-attribute">vih</span>[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]=vih[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]+delt_vih[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]<br>	<span class="hljs-attribute">delt_r</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=-(eta*e[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])<br>	<span class="hljs-attribute">delt_r</span>[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]=-(eta*e[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>])<br>	<span class="hljs-attribute">r</span>[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]=delt_r[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]+r[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">r</span>[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]=delt_r[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]+r[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]<br><br><span class="hljs-attribute">training_set</span>=training_set.astype(np.float64)<br><span class="hljs-attribute">training_set</span>[:,<span class="hljs-number">2</span>]=yy[:,<span class="hljs-number">0</span>]<br><span class="hljs-attribute">print</span>(Output:)<br><span class="hljs-attribute">print</span>(training_set)<br></code></pre></td></tr></table></figure>
+
+<p>测试结果如下：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/BP.png" srcset="/img/loading.gif" lazyload alt="/"></p>
+<h4 id="BP神经网络函数逼近实验"><a href="#BP神经网络函数逼近实验" class="headerlink" title="BP神经网络函数逼近实验"></a>BP神经网络函数逼近实验</h4><p>网络构建模型：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E5%87%BD%E6%95%B0%E9%80%BC%E8%BF%911-768x448.jpg" srcset="/img/loading.gif" lazyload>神经网络模型</p>
+<p><strong>对函数 f(x)&#x3D;x2&#x2F;3 +0.9√(3.3-x2 )×sin(31.41593x)的拟合（Python ）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> math<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> time<br><span class="hljs-comment">#计时</span><br>start=time.time()<br><span class="hljs-comment"># 取得样本</span><br>x = np.linspace(-<span class="hljs-number">1.81659</span>,<span class="hljs-number">1.81659</span>,<span class="hljs-number">100</span>)<span class="hljs-comment">#获取-10 到 10 之间距离相等的 10000 个点，作为 x 取值。</span><br>x_size = x.size<br>y = np.zeros((x_size,<span class="hljs-number">1</span>))<span class="hljs-comment">#生成 y 数组</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(x_size):<br>	y[i]= math.<span class="hljs-built_in">pow</span>(math.<span class="hljs-built_in">pow</span>(x[i],<span class="hljs-number">2</span>),<span class="hljs-number">1</span>/<span class="hljs-number">3</span>)+<span class="hljs-number">0.9</span>*math.<span class="hljs-built_in">pow</span>((<span class="hljs-number">3.3</span>-<br>math.<span class="hljs-built_in">pow</span>(x[i],<span class="hljs-number">2</span>)),<span class="hljs-number">0.5</span>)*math.sin(<span class="hljs-number">10</span>*math.pi*x[i])<span class="hljs-comment">#得到样本集</span><br><br><span class="hljs-comment">#网络参数</span><br>hidesize = <span class="hljs-number">5</span> <span class="hljs-comment">#隐层神经元个数</span><br>W1 = np.random.random((hidesize,<span class="hljs-number">1</span>)) <span class="hljs-comment">#输入层与隐层之间的权重</span><br>B1 = np.random.random((hidesize,<span class="hljs-number">1</span>)) <span class="hljs-comment">#隐含层神经元的阈值</span><br>W2 = np.random.random((<span class="hljs-number">1</span>,hidesize)) <span class="hljs-comment">#隐含层与输出层之间的权重</span><br>B2 = np.random.random((<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)) <span class="hljs-comment">#输出层神经元的阈值</span><br>threshold = <span class="hljs-number">0.05</span><span class="hljs-comment">#速率</span><br>max_steps = <span class="hljs-number">1001</span><span class="hljs-comment">#训练次数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">sigmoid</span>(<span class="hljs-params">x_</span>):<span class="hljs-comment">#激活函数</span><br>	y_ = <span class="hljs-number">1</span>/(<span class="hljs-number">1</span>+math.exp(-x_))<br>	<span class="hljs-keyword">return</span> y_<br><br><span class="hljs-comment">#开始训练</span><br>E = np.zeros((max_steps,<span class="hljs-number">1</span>))<span class="hljs-comment">#误差随迭代次数的变化</span><br>Y = np.zeros((x_size,<span class="hljs-number">1</span>)) <span class="hljs-comment"># 模型的输出结果</span><br><span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(max_steps):<br>	temp = <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(x_size):<br><br>	<span class="hljs-comment">#正向传播</span><br>	hide_in = np.dot(x[i],W1)-B1 <span class="hljs-comment"># 隐含层输入数据</span><br>	hide_out = np.zeros((hidesize,<span class="hljs-number">1</span>)) <span class="hljs-comment">#隐含层的输出数据</span><br>	<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(hidesize):<br>	hide_out[j] = sigmoid(hide_in[j])<br>	y_out = np.dot(W2,hide_out) - B2 <span class="hljs-comment">#模型输出</span><br>	Y[i] = y_out<br>	e = y_out - y[i] <span class="hljs-comment">#模型输出减去实际结果。得出误差</span><br><br>	<span class="hljs-comment">#反向传播</span><br>	dB2 = -<span class="hljs-number">1</span>*threshold*e<span class="hljs-comment">#输出层阈值误差</span><br>	dW2 = e*threshold*np.transpose(hide_out)<span class="hljs-comment">#输出层权值误差</span><br>	dB1 = np.zeros((hidesize,<span class="hljs-number">1</span>))<span class="hljs-comment">#输入层阈值误差</span><br>	<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(hidesize):<br>	dB1[j] = np.dot(np.dot(W2[<span class="hljs-number">0</span>][j],sigmoid(hide_in[j])),(<span class="hljs-number">1</span>-sigmoid(hide_in[j]))*(-<br>*e*threshold)<br>	dW1 = np.zeros((hidesize,<span class="hljs-number">1</span>))<span class="hljs-comment">#输出层权值误差</span><br>	<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(hidesize):<br>	dW1[j] = np.dot(np.dot(W2[<span class="hljs-number">0</span>][j],sigmoid(hide_in[j])),(<span class="hljs-number">1</span>-<br>sigmoid(hide_in[j]))*x[i]*e*threshold)<br><span class="hljs-comment">#参数修正</span><br>W1 = W1 - dW1<br>B1 = B1 - dB1<br>W2 = W2 - dW2<br>B2 = B2 - dB2<br>temp = temp + <span class="hljs-built_in">abs</span>(e)<br><br>E[k] = temp<br><span class="hljs-comment">#训练进度</span><br><span class="hljs-keyword">if</span> k%<span class="hljs-number">100</span>==<span class="hljs-number">0</span>:<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;已训练%d 次&#x27;</span>%k)<br>stop=time.time()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;训练用时%ds&#x27;</span>%(stop-start))<br><br><span class="hljs-comment">#训练结果</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;输入层权值 w1：&#x27;</span>)<br><span class="hljs-built_in">print</span>(W1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;输入层阈值 b1：&#x27;</span>)<br><span class="hljs-built_in">print</span>(B1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;输出层权值 w2：&#x27;</span>)<br><span class="hljs-built_in">print</span>(W2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;输出层阈值 b2：&#x27;</span>)<br><span class="hljs-built_in">print</span>(B2)<br><span class="hljs-comment">#拟合曲线</span><br>plt.figure()<br>plt.plot(x,y)<br>plt.plot(x,Y,color=<span class="hljs-string">&#x27;red&#x27;</span>,linestyle=<span class="hljs-string">&#x27;--&#x27;</span>)<br><br>plt.show()<br><span class="hljs-comment">#误差变化</span><br>steps = np.linspace(<span class="hljs-number">0</span>,max_steps,max_steps)<br>plt.figure()<br>plt.plot(steps,E)<br>plt.show()<br></code></pre></td></tr></table></figure>
+
+<p><strong>第一组测试结果：</strong></p>
+<p>样本数量 100，训练次数 1000，训练速率 0.05</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs inform7">已训练 0 次<br>训练用时 0s<br>已训练 100 次<br>训练用时 1s<br>已训练 200 次<br>训练用时 2s<br>已训练 300 次<br>训练用时 3s<br>已训练 400 次<br>训练用时 4s<br>已训练 500 次<br>训练用时 5s<br>已训练 600 次<br>训练用时 6s<br>已训练 700 次<br>训练用时 8s<br>已训练 800 次<br>训练用时 9s<br>已训练 900 次<br>训练用时 10s<br>已训练 1000 次<br>训练用时 11s<br>输入层权值 w1：<br><span class="hljs-comment">[<span class="hljs-comment">[ 3.12169479]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-0.12887541]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-3.3705294 ]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[ 0.68280681]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-0.15176392]</span>]</span><br>输入层阈值 b1：<br><span class="hljs-comment">[<span class="hljs-comment">[2.41933289]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[2.5423254 ]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[2.67626102]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[2.92251419]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[2.58144723]</span>]</span>			<br>输出层权值 w2：<br><span class="hljs-comment">[<span class="hljs-comment">[1.25280733]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[0.07273052]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[1.29053161]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[0.28913382]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[0.09012128]</span>]</span><br>输出层阈值 b2：<br><span class="hljs-comment">[<span class="hljs-comment">[-0.13334891]</span>]</span>	<br></code></pre></td></tr></table></figure>
+
+<p>拟合曲线：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E6%8B%9F%E5%90%88%E6%9B%B2%E7%BA%BF1.jpg" srcset="/img/loading.gif" lazyload alt="拟合曲线-1"></p>
+<p>误差曲线：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E8%AF%AF%E5%B7%AE%E6%9B%B2%E7%BA%BF1.png" srcset="/img/loading.gif" lazyload alt="误差曲线-1"></p>
+<p><strong>第二组测试结果：</strong></p>
+<p>样本数量 10000，训练次数 1000，训练速率 0.05</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs inform7">已训练 0 次<br>训练用时 1s<br>已训练 100 次<br>训练用时 114s<br>已训练 200 次<br>训练用时 227s<br><br>已训练 300 次<br>训练用时 341s<br>已训练 400 次<br>训练用时 454s<br>已训练 500 次<br>训练用时 567s<br>已训练 600 次<br>训练用时 680s<br>已训练 700 次<br>训练用时 793s<br>已训练 800 次<br>训练用时 907s<br>已训练 900 次<br>训练用时 1020s<br>已训练 1000 次<br>训练用时 1134s<br>输入层权值 w1：<br><span class="hljs-comment">[<span class="hljs-comment">[-9.34109363]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-6.26655843]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[ 0.38915887]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-2.666515 ]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-2.69118967]</span>]</span><br>输入层阈值 b1：<br><span class="hljs-comment">[<span class="hljs-comment">[ 1.47712007]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[ 4.86462404]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-2.89037925]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[ 1.12851018]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[ 1.31828715]</span>]</span><br>输出层权值 w2：<br><span class="hljs-comment">[<span class="hljs-comment">[3.28226408]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[4.90921857]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[4.96920982]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-4.36115203]</span></span><br><span class="hljs-comment"><span class="hljs-comment">[-4.59367305]</span>]</span><br>输出层阈值 b2：<br><span class="hljs-comment">[<span class="hljs-comment">[3.29980763]</span>]</span><br></code></pre></td></tr></table></figure>
+
+<p>拟合曲线：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E6%8B%9F%E5%90%88%E6%9B%B2%E7%BA%BF2.jpg" srcset="/img/loading.gif" lazyload alt="拟合曲线-2"></p>
+<p>误差曲线：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/BPNN/%E8%AF%AF%E5%B7%AE%E6%9B%B2%E7%BA%BF2.png" srcset="/img/loading.gif" lazyload alt="误差曲线-2"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/AI/" class="category-chain-item">AI</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ai/">#ai</a>
+      
+        <a href="/tags/nn/">#nn</a>
+      
+        <a href="/tags/pnn/">#pnn</a>
+      
+        <a href="/tags/algorithm/">#algorithm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>BP神经网络</div>
+      <div>https://jason-xy.github.io/2020/06/19/bpnn/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason Hsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年6月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/20/hd-cache/" title="基于PrimoCache的硬盘缓存加速">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于PrimoCache的硬盘缓存加速</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/19/pnn/" title="感知器（神经网络模型）">
+                        <span class="hidden-mobile">感知器（神经网络模型）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
