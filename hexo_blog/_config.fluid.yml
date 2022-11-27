@@ -1,0 +1,750 @@
+# Theme configuration
+
+#---------------------------
+# Global
+#---------------------------
+author: Jason Hsu
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+# Force all links to be HTTPS (applicable to HTTP mixed error)
+force_https: true
+
+# Icon for browser tab
+favicon: /img/tab.jpg
+
+# Icon for Apple touch
+apple_touch_icon: /img/tab.jpg
+
+# Title separator in browser tab, eg: article - site
+tab_title_separator: " - "
+
+# Enhancements to code blocks
+code:
+  # Enable copy code button
+  copy_btn: true
+
+  # Code language
+  language:
+    enable: true
+    default: "TEXT"
+
+  # Code highlight
+  highlight:
+    enable: true
+
+    # If true, the code block display line numbers
+    line_number: true
+
+    # Highlight library
+    # Options: highlightjs | prismjs
+    lib: "highlightjs"
+
+    highlightjs:
+      # Select a style in the link
+      # See: https://highlightjs.org/static/demo/
+      style: "github gist"
+      style_dark: "dark"
+
+    prismjs:
+      # Select the style button on the right side of the link page, you can also set the CSS link
+      # See: https://prismjs.com/
+      style: "default"
+      style_dark: "tomorrow night"
+
+      # If true, it will be generated locally (but some prismjs plugins are not supported). If false, it will be generated via JS in the browser
+      preprocess: true
+
+# Some fun features
+fun_features:
+  # Typing animation for subtitle
+  typing:
+    enable: true
+
+    # Typing speed, the larger the number, the slower
+    typeSpeed: 70
+
+    # Cursor character
+    cursorChar: "_"
+
+    # If true, loop animation
+    loop: false
+
+    # Enable in specified page, all pages by default
+    # Options: home | post | tag | category | about | links | page | 404
+    scope: [home, 404]
+
+  # Add an anchor icon to the title on the post page
+  anchorjs:
+    enable: true
+    element: h1,h2,h3,h4,h5,h6
+    # Options: left | right
+    placement: left
+    # Options: hover | always | touch
+    visible: hover
+    # Options: § | # | ❡
+    icon: ""
+
+  # Progress bar when loading
+  progressbar:
+    enable: true
+    height_px: 3
+    color: "#29d"
+    # See: https://github.com/rstacruz/nprogress
+    options: { showSpinner: false, trickleSpeed: 100 }
+
+# Theme dark mode. If enable, a switch button will appear on the menu, each of the visitor's browser will store his switch option
+dark_mode:
+  enable: true
+  # Default option (when the visitor switches manually, the default mode is no longer followed), choosing `auto` will give priority to prefers-color-scheme, and then enter the dark mode from 18:00 to 6:00 in the visitor’s local time
+  # Options: auto | light | dark
+  default: auto
+
+# Theme color, please use custom CSS to solve other colors, color schema can be inspired by the links below
+# See: https://www.webdesignrankings.com/resources/lolcolors/
+color:
+  # Color of body background
+  body_bg_color: "#eee"
+  # Color in dark mode, the same below
+  body_bg_color_dark: "#181c27"
+
+  # Color of navigation bar background
+  navbar_bg_color: "#2f4154"
+  navbar_bg_color_dark: "#1f3144"
+
+  # Color of navigation bar text
+  navbar_text_color: "#fff"
+  navbar_text_color_dark: "#d0d0d0"
+
+  # Color of navigation bar text
+  subtitle_color: "#fff"
+  subtitle_color_dark: "#d0d0d0"
+
+  # Color of global text
+  text_color: "#3c4858"
+  text_color_dark: "#c4c6c9"
+
+  # Color of global secondary text (excerpt, introduction, etc.)
+  sec_text_color: "#718096"
+  sec_text_color_dark: "#a7a9ad"
+
+  # Color of main board
+  board_color: "#fff"
+  board_color_dark: "#252d38"
+
+  # Color of post text
+  post_text_color: "#2c3e50"
+  post_text_color_dark: "#c4c6c9"
+
+  # Color of Article heading (h1 h2 h3...)
+  post_heading_color: "#1a202c"
+  post_heading_color_dark: "#c4c6c9"
+
+  # Color of post link
+  post_link_color: "#0366d6"
+  post_link_color_dark: "#1589e9"
+
+  # Color of link when hovering
+  link_hover_color: "#30a9de"
+  link_hover_color_dark: "#30a9de"
+
+  # Color of link background when hovering
+  link_hover_bg_color: "#f8f9fa"
+  link_hover_bg_color_dark: "#364151"
+
+  # Color of horizontal rule and table border
+  line_color: "#eaecef"
+  line_color_dark: "#435266"
+
+  # Color of scrollbar
+  scrollbar_color: "#c4c6c9"
+  scrollbar_color_dark: "#687582"
+
+  # Color of scrollbar when hovering
+  scrollbar_hover_color: "#a6a6a6"
+  scrollbar_hover_color_dark: "#9da8b3"
+
+  # Color of button
+  button_bg_color: "transparent"
+  button_bg_color_dark: "transparent"
+
+  # Color of button when hovering
+  button_hover_bg_color: "#f2f3f5"
+  button_hover_bg_color_dark: "#46647e"
+
+# Font
+font:
+  font_size: 16px
+  font_family:
+  letter_spacing: 0.02em
+  code_font_size: 85%
+
+# custom css
+custom_css:
+  - /css/iconfont.css
+
+# Lazy loading of images and comment plugin on the page
+lazyload:
+  enable: true
+
+  # The placeholder image when loading
+  loading_img: /img/loading.gif
+
+  # If true, only enable lazyload on the post page. For custom pages, you can set 'lazyload: true' in front-matter
+  onlypost: false
+
+  # The factor of viewport height that triggers loading
+  offset_factor: 2
+
+# Icon library, which includes many social icons, does not include those theme dependent, so your can modify link by yourself. See: https://hexo.fluid-dev.com/docs/en/icon/
+iconfont: //at.alicdn.com/t/font_1736178_lbnruvf0jn.css
+
+#---------------------------
+# Header
+#---------------------------
+
+# Navbar
+navbar:
+  # The title on the left side of the navigation bar. If empty, it is based on `title` in hexo config
+  blog_title: The Road of Full Stack
+
+   # Navigation bar frosted glass special animation. It is an experimental feature
+  ground_glass:
+    enable: false
+
+    # Number of blurred pixel. the larger the number, the higher the blur
+    px: 3
+
+    # Ratio of opacity, 1.0 is completely opaque
+    # available: 0 - 1.0
+    alpha: 0.7
+  
+   # Navigation bar menu. `key` is used to associate languages/*.yml. If there is no association, the value of `key` itself will be displayed; if `icon` is a css class, it can be omitted; adding `name` can force the display of the specified name
+  menu:
+    - { key: '主页', link: '/', icon: 'iconfont icon-home-fill' }
+    - { key: '标签', link: '/tags/', icon: 'iconfont icon-tags-fill' }
+    - { key: '关于', link: '/about/', icon: 'iconfont icon-user-fill'}
+    - { 
+        key: '分类', 
+        link: '/categorys', 
+        icon: 'iconfont icon-guanli' ,
+        submenu: [
+          { key: '技术', link: '/categorys/tech' },
+          { key: '生活', link: '/categorys/life' },
+          { key: '白板', link: '/categorys/whiteboard' } # ≈ Others
+        ]
+      }
+
+# Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
+search:
+  enable: true
+
+  # Path for search index file, it can be a relative path or an absolute path
+  path: /local-search.xml
+
+  # The location where the index file is generated locally, it must be a relative location
+  generate_path: /local-search.xml
+
+  # Search field
+  # Options: post | page | all
+  field: all
+
+  # If true, search will scan the post content
+  content: true
+
+# Config of the big image on the first screen
+banner:
+  # Scrolling parallax
+  parallax: true
+
+  # Minimum ratio of width to height, applicable to the vertical screen of mobile device, if you need to close it, set it to 0
+  width_height_ratio: 1.0
+
+# Scroll down arrow
+scroll_down_arrow:
+  enable: true
+
+  # Only the height of the banner image is greater than the ratio, the arrow is displayed
+  # Available: 0 - 100
+  banner_height_limit: 80
+
+  # Auto scroll after page turning
+  scroll_after_turning_page: true
+
+# Scroll top arrow
+scroll_top_arrow:
+  enable: true
+
+# Open Graph metadata
+# See: https://hexo.io/docs/helpers.html#open-graph
+open_graph:
+  enable: true
+  twitter_card: summary_large_image
+  twitter_id:
+  twitter_site:
+  google_plus:
+  fb_admins:
+  fb_app_id:
+
+#---------------------------
+# Footer
+#---------------------------
+footer:
+  # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
+  content: 'Copyright  © 2019-2022 Jason_xy All Rights Reserved 
+    <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a>
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>'
+
+  # Display website PV and UV statistics
+  statistics:
+    enable: false
+
+    # Data source. If use leancloud, you need to set the parameter in `web_analytics: leancloud`
+    # Options: busuanzi | leancloud
+    source: "busuanzi"
+
+  # For Chinese mainland website policy, other areas keep disable
+  beian:
+    enable: false
+    # ICP证号
+    icp_text: 蜀ICP备19039469号-3
+    # 公安备案号，不填则只显示ICP
+    police_text:
+    # 公安备案的编号，用于URL跳转查询
+    police_code:
+    # 公安备案的图片. 为空时不显示备案图片
+    police_icon:
+
+#---------------------------
+# 首页
+# Home Page
+#---------------------------
+index:
+  # Path of Banner image, can be a relative path or an absolute path, the same on other pages
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+
+  # Height ratio of banner image
+  # Available: 0 - 100
+  banner_img_height: 100
+
+  # Opacity of the banner mask, 1.0 is completely opaque
+  # Available: 0 - 1.0
+  banner_mask_alpha: 0.3
+
+  # Independent config of home page subtitle
+  slogan:
+    enable: true
+
+    # If empty, text based on `subtitle` in hexo config
+    text: "The best way to predict the future is to create the future."
+
+    # Subtitle of the homepage through the API, must be returned a JSON. If the request fails, it will be displayed in `text` value. This feature must first enable the typing animation
+    api:
+      enable: false
+
+      # Request url
+      url: ""
+
+      # Request method
+      # Available: GET | POST | PUT
+      method: "GET"
+
+      # Request headers
+      headers: {}
+
+      # The value field of the string obtained from the response. For example, the response content is {"data": {"author": "fluid", "content": "An elegant theme"}}, the expected `keys: ['data','content']`; if the return is a list, the first item is automatically selected
+      keys: []
+
+  # Auto extract post
+  auto_excerpt:
+    enable: true
+
+  # The browser tag to open the post
+  # Available: _blank | _self
+  post_url_target: _self
+
+  # Meta information of post
+  post_meta:
+    date: true
+    category: true
+    tag: true
+
+  # If the posts are sorted by `sticky`, an icon is displayed in front of the post title
+  post_sticky:
+    enable: true
+    icon: "iconfont icon-top"
+
+#---------------------------
+# Post Page
+#---------------------------
+post:
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 70
+  banner_mask_alpha: 0.3
+
+  # Path of the default post cover when `index_img` is not set. If both are empty, no image will be displayed
+  default_index_img:
+
+  # Meta information below title
+  meta:
+    # Author, based on `author` field in front-matter, if not set, based on `author` value in hexo config
+    author:
+      enable: true
+
+    # Post date, based on `date` field in front-matter, if not set, based on create date of .md file
+    date:
+      enable: true
+      # ISO-8601 date format
+      # See: http://momentjs.cn/docs/#/parsing/string-format/
+      format: "LL a"
+
+    # Word count
+    wordcount:
+      enable: true
+
+    # Estimated reading time
+    min2read:
+      enable: true
+      # Average word length (chars count in word), ZH ≈ 2, EN ≈ 5
+      awl: 2
+      # Words per minute
+      wpm: 60
+
+    # Number of visits
+    views:
+      enable: true
+      # Data Source
+      # Options: busuanzi | leancloud
+      source: "busuanzi"
+
+  # Update date is displayed at the beginning of the post. The default date is the update date of the md file, which can be manually specified by `updated` in front-matter (same format as date)
+  updated:
+    enable: false
+
+    # ISO-8601 date format
+    # See: http://momentjs.cn/docs/#/parsing/string-format/
+    date_format: "LL a"
+
+    # If true, it will be a relative time, such as: "3 days ago"
+    relative: false
+
+    # Note class
+    # Options: default | primary | info | success | warning | danger | light
+    note_class: info
+
+  # Sidebar of category
+  category_bar:
+    enable: true
+
+    # If true, only set `category_bar: true` in Front-matter will enable sidebar of category, also set `category_bar: ["CategoryA"]` to specify categories
+    specific: true
+
+    # place in the board
+    # Options: left | right
+    placement: left
+
+    # Sort field for posts, with a minus sign is reverse order
+    # Options: date | title | or other field of front-matter
+    post_order_by: "title"
+
+    # The maximum number of posts in a single category. If the limit is exceeded, it will be displayed More. If 0 no limit
+    post_limit: 0
+
+  # Table of contents (TOC) in the sidebar
+  toc:
+    enable: true
+
+    # place in the board
+    # Options: left | right
+    placement: right
+
+    # TOC will select these nodes as headings
+    headingSelector: "h1,h2,h3,h4,h5,h6"
+
+    # Collapse depth. If 0, all headings collapsed. If greater than 0, it will be expanded by default if there are sub headings
+    collapseDepth: 0
+
+  # Copyright, will be displayed at the end of each post
+  copyright:
+    enable: true
+
+    # CreativeCommons license
+    # Options: BY | BY-SA | BY-ND | BY-NC | BY-NC-SA | BY-NC-ND
+    license: 'BY'
+    
+    # Show author
+    author:
+      enable: true
+
+    # Show post date
+    post_date:
+      enable: true
+      format: "LL"
+
+    # Show update date
+    update_date:
+      enable: false
+      format: "LL"
+
+  # Link to previous/next post
+  prev_next:
+    enable: true
+
+  # Image caption
+  image_caption:
+    enable: true
+
+  # Zoom feature of images
+  image_zoom:
+    enable: true
+    # The image url replacement when zooming, the feature can be used to replace the compressed image to the original image, eg: ['-slim', ''] removes `-slim` from the image url when zooming; if you want to use regular, use prefix `re:`, eg: ['re:\\d{3,4}\\/\\d{3,4}\\/','']
+    img_url_replace: ['', '']
+
+  # Support footnote syntax, footnotes will be generated at the bottom of the post page. If the Markdown renderer itself supports it, please disable it, otherwise it may conflict
+  footnote:
+    enable: true
+    # The section title of the footnote, you can also modify the header of a single page in the form of `footnote: <h2>Reference</h2>` in front-matter
+    header: ''
+
+  # Mathematical formula. If enable, you need to change the Markdown renderer, see: https://hexo.fluid-dev.com/docs/en/guide/#math
+  math:
+    # If you want to use math on the custom page, you need to set `math: true` in Front-matter
+    enable: false
+
+    # If true, only set `math: true` in Front-matter will enable math, to load faster when the page does not contain math
+    specific: false
+
+    # Options: mathjax | katex
+    engine: mathjax
+
+  # Flow chart, based on mermaid-js, see: https://hexo.fluid-dev.com/docs/en/guide/#mermaid
+  mermaid:
+    # If you want to use mermaid on the custom page, you need to set `mermaid: true` in Front-matter
+    enable: false
+
+    # If true, only set `mermaid: true` in Front-matter will enable mermaid, to load faster when the page does not contain mermaid
+    specific: false
+
+    # See: http://mermaid-js.github.io/mermaid/
+    options: { theme: 'default' }
+
+  # Comment plugin
+  comments:
+    enable: true
+    # The specified plugin needs to set the necessary parameters at the same time
+    # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
+    type: disqus
+
+
+#---------------------------
+# Comment plugins
+#
+# Enable comments need to be set `post: comments: enable: true`, then set the corresponding comment plugin parameters below according to `type`
+#---------------------------
+
+# Disqus
+# Based on third-party service
+# See: https://disqus.com
+disqus:
+  shortname:
+  # The following are Disqusjs configurations, please ignore if DisqusJS is not required
+  # See: https://github.com/SukkaW/DisqusJS
+  disqusjs: true
+  apikey: j1CuaShf67smXaSnx7eduv2fLi717eQ5b4mEVXfzwTzHjTPKJ3uN5IIP7V0UFYvX
+
+#---------------------------
+# Archive Page
+#---------------------------
+archive:
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+
+#---------------------------
+# Category Page
+#---------------------------
+category:
+  enable: true
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+  # Sort field for categories, with a minus sign is reverse order
+  # Options: length | name
+  order_by: "-length"
+
+  # Collapse depth. If 0, all posts collapsed. If greater than 0, it will be expanded by default if there are subcategories
+  collapse_depth: 0
+
+  # Sort field for posts, with a minus sign is reverse order
+  # Options: date | title | or other field of front-matter
+  post_order_by: "-date"
+
+  # The maximum number of posts in a single category. If the limit is exceeded, it will be displayed More. If 0 no limit
+  post_limit: 10
+
+
+#---------------------------
+# Tag Page
+#---------------------------
+tag:
+  enable: true
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 80
+  banner_mask_alpha: 0.3
+  tagcloud:
+    min_font: 15
+    max_font: 30
+    unit: px
+    start_color: "#BBBBEE"
+    end_color: "#337ab7"
+
+
+#---------------------------
+# About Page
+#---------------------------
+about:
+  enable: true
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+  avatar: /img/tab.jpg
+  name: "Jason Hsu"
+  intro: "UESTC(Software Engineering) Student | Intern of DJI Flight System Development"
+  # More icons can be found from https://hexo.fluid-dev.com/docs/en/icon/  `class` is the css class of the icon. If adding `qrcode`, The icon is no longer a link, but a hovering QR code
+  icons:
+    - { class: "iconfont icon-github-fill", link: "https://github.com/jason-xy", tip: "GitHub" }
+    - { class: "iconfont icon-bilibili-fill", link: "https://space.bilibili.com/354517342", tip: "Bili" }
+    - { class: "iconfont icon-zhihu-fill", link: "https://www.zhihu.com/people/jason-50-85", tip: "Zhihu" }
+
+
+#---------------------------
+# Custom Page
+# Custom Page through `hexo new page`
+#---------------------------
+page:
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+
+#---------------------------
+# 404 Page
+#---------------------------
+page404:
+  enable: true
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 85
+  banner_mask_alpha: 0.3
+  # Delay in redirecting to home page (milliseconds)
+  redirect_delay: 5000
+
+
+#---------------------------
+# Links Page
+#---------------------------
+links:
+  enable: true
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+  # Member item of page
+  items:
+    - {
+      title: "Fluid Blog",
+      intro: "主题博客",
+      link: "https://hexo.fluid-dev.com/",
+      avatar: "/img/favicon.png"
+    }
+    - {
+      title: "Fluid Docs",
+      intro: "主题使用指南",
+      link: "https://hexo.fluid-dev.com/docs/",
+      avatar: "/img/favicon.png"
+    }
+    - {
+      title: "Fluid Repo",
+      intro: "主题 GitHub 仓库",
+      link: "https://github.com/fluid-dev/hexo-theme-fluid",
+      avatar: "/img/favicon.png"
+    }
+
+  # When the member avatar fails to load, replace the specified image
+  onerror_avatar: /img/avatar.png
+
+  # Custom content at the bottom of the links
+  custom:
+    enable: false
+    content: '<hr><p>在下方留言申请加入我的友链，按如下格式提供信息：</p><ul><li>博客名：Fluid</li><li>简介：Fluid 主题官方博客</li><li>链接：https://hexo.fluid-dev.com</li><li>图片：https://hexo.fluid-dev.com/img/favicon.png</li></ul>'
+
+  # Comment plugin
+  comments:
+    enable: false
+    # The specified plugin needs to set the necessary parameters at the same time
+    # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
+    type: disqus
+
+
+#---------------------------
+# Here is the url prefix to configure the static assets. Set CDN addresses you want to customize.
+# Be aware that you would better use the same version as default ones to avoid potential problems.
+# DO NOT EDIT THE FOLLOWING SETTINGS UNLESS YOU KNOW WHAT YOU ARE DOING
+#---------------------------
+
+static_prefix:
+  # Internal static
+  internal_js: /js
+  internal_css: /css
+  internal_img: /img
+
+  anchor: https://lib.baomitu.com/anchor-js/4.3.1/
+
+  github_markdown: https://lib.baomitu.com/github-markdown-css/4.0.0/
+
+  jquery: https://lib.baomitu.com/jquery/3.6.0/
+
+  bootstrap: https://lib.baomitu.com/twitter-bootstrap/4.6.1/
+
+  prismjs: https://lib.baomitu.com/prism/1.28.0/
+
+  tocbot: https://lib.baomitu.com/tocbot/4.18.2/
+
+  typed: https://lib.baomitu.com/typed.js/2.0.12/
+
+  fancybox: https://lib.baomitu.com/fancybox/3.5.7/
+
+  nprogress: https://lib.baomitu.com/nprogress/0.2.0/
+
+  mathjax: https://lib.baomitu.com/mathjax/3.2.2/
+
+  katex: https://lib.baomitu.com/KaTeX/0.16.2/
+
+  busuanzi: https://busuanzi.ibruce.info/busuanzi/2.3/
+
+  clipboard: https://lib.baomitu.com/clipboard.js/2.0.11/
+
+  mermaid: https://lib.baomitu.com/mermaid/8.14.0/
+
+  valine: https://lib.baomitu.com/valine/1.5.1/
+
+  waline: https://lib.baomitu.com/waline/2.6.3/
+
+  gitalk: https://lib.baomitu.com/gitalk/1.8.0/
+
+  disqusjs: https://lib.baomitu.com/disqusjs/1.3.0/
+
+  twikoo: https://lib.baomitu.com/twikoo/1.6.7/
+
+  hint: https://lib.baomitu.com/hint.css/2.7.0/
+
+#---------------------------
+# Deploy
+#---------------------------
+deploy:
+  type: git
+  repo: https://github.com/Jason-xy/jason-xy.github.io
+  branch: [main]
+  message: [update blog]
