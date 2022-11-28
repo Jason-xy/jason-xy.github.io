@@ -181,7 +181,7 @@ font:
 
 # custom css
 custom_css:
-  - /css/iconfont.css
+  - //at.alicdn.com/t/c/font_3795310_i6hu1zbbt5s.css
 
 # Lazy loading of images and comment plugin on the page
 lazyload:
@@ -621,6 +621,7 @@ about:
     - { class: "iconfont icon-github-fill", link: "https://github.com/jason-xy", tip: "GitHub" }
     - { class: "iconfont icon-bilibili-fill", link: "https://space.bilibili.com/354517342", tip: "Bili" }
     - { class: "iconfont icon-zhihu-fill", link: "https://www.zhihu.com/people/jason-50-85", tip: "Zhihu" }
+    - { class: "iconfont icon-wodejianli", link: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/files/personal/%E5%BE%90%E6%B4%8B-%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6-18584810116.pdf", tip: "CV" }
 
 
 #---------------------------
