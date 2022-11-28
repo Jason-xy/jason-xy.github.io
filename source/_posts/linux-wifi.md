@@ -6,6 +6,7 @@ tags: ['linux', 'wifi']
 categories:
 - 技术
 - Linux
+- Usage
 ---
 
 ![](https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/28/1024px-WiFi_Logo.svg.png)

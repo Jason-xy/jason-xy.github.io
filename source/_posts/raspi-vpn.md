@@ -6,6 +6,7 @@ tags: ['raspberry-pi', 'vpn']
 categories:
 - 技术
 - Linux
+- ARM
 ---
 
 ![](https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/rasp-pi_vpn/86d8d8ae30cd6d7043056c6766004a68_waifu2x_4x_2n_jpg-768x699.png)

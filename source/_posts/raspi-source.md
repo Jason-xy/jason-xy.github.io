@@ -7,6 +7,7 @@ tags: ['raspberry-pi', 'awesome']
 categories:
 - 技术
 - Linux
+- ARM
 ---
 
 [转载自Github：awesome-raspberry-pi-zh](https://github.com/wwj718/awesome-raspberry-pi-zh "转载自Github：awesome-raspberry-pi-zh")
