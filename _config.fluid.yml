@@ -222,18 +222,10 @@ navbar:
    # Navigation bar menu. `key` is used to associate languages/*.yml. If there is no association, the value of `key` itself will be displayed; if `icon` is a css class, it can be omitted; adding `name` can force the display of the specified name
   menu:
     - { key: '主页', link: '/', icon: 'iconfont icon-home-fill' }
+    - { key: '分类', link: '/categories/', icon: 'iconfont icon-guanli' }
     - { key: '标签', link: '/tags/', icon: 'iconfont icon-tags-fill' }
     - { key: '关于', link: '/about/', icon: 'iconfont icon-user-fill'}
-    - { 
-        key: '分类', 
-        link: '/categorys', 
-        icon: 'iconfont icon-guanli' ,
-        submenu: [
-          { key: '技术', link: '/categorys/tech' },
-          { key: '生活', link: '/categorys/life' },
-          { key: '白板', link: '/categorys/whiteboard' } # ≈ Others
-        ]
-      }
+    - { key: '友链', link: '/links/', icon: 'iconfont icon-friends'}
 
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
 search:
@@ -535,7 +527,7 @@ post:
     enable: true
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
-    type: disqus
+    type: utterances
 
 
 #---------------------------
@@ -553,6 +545,16 @@ disqus:
   # See: https://github.com/SukkaW/DisqusJS
   disqusjs: true
   apikey: j1CuaShf67smXaSnx7eduv2fLi717eQ5b4mEVXfzwTzHjTPKJ3uN5IIP7V0UFYvX
+
+# Utterances
+# Based on GitHub Issues
+# See: https://utteranc.es
+utterances:
+  repo:
+  issue_term: pathname
+  label: utterances
+  theme: github-light
+  theme_dark: github-dark
 
 #---------------------------
 # Archive Page
@@ -654,22 +656,52 @@ links:
   # Member item of page
   items:
     - {
-      title: "Fluid Blog",
-      intro: "主题博客",
-      link: "https://hexo.fluid-dev.com/",
-      avatar: "/img/favicon.png"
+      title: "YIYANG SUN",
+      intro: "Love for life and frontend tech.",
+      link: "https://blog.syy11.cn/",
+      avatar: "https://avatars.githubusercontent.com/u/57290456?v=4"
     }
     - {
-      title: "Fluid Docs",
-      intro: "主题使用指南",
-      link: "https://hexo.fluid-dev.com/docs/",
-      avatar: "/img/favicon.png"
+      title: "Cosmos",
+      intro: "今日事,今日畢",
+      link: "https://cosmos-uestc.space/",
+      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/avatar-300x300.png"
     }
     - {
-      title: "Fluid Repo",
-      intro: "主题 GitHub 仓库",
-      link: "https://github.com/fluid-dev/hexo-theme-fluid",
-      avatar: "/img/favicon.png"
+      title: "进击の算法",
+      intro: "全栈工程师 刘训灼学长",
+      link: "https://liuxunzhuo.tech/",
+      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/a3779df830b0bd6aa0cd43d489c0c420-300x300.jpg"
+    }
+    - {
+      title: "南瓜奶酪",
+      intro: "让信念燃烧青春",
+      link: "https://blog.china97.cn/",
+      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2021/01/8ba6b3fe09630e500c7dcb5e848e22ed-300x300.jpeg"
+    }
+    - {
+      title: "稚晖君",
+      intro: "十年饮冰，难凉热血",
+      link: "http://pengzhihui.com/",
+      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/zhj-e1593015094344.jpg"
+    }
+    - {
+      title: "XyxGroup",
+      intro: "他山之石，可以攻玉",
+      link: "http://www.xinxinlighting.com/",
+      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/F962592221F0585E4D5538BD2C18C163-e1592653204343-300x300.jpg"
+    }
+    - {
+      title: "Mr_zwX",
+      intro: "眼界决定境界，格局决定结局",
+      link: "https://xuanland.cn/",
+      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/07/head-300x300.jpg"
+    }
+    - {
+      title: "ROYLEO",
+      intro: "鸡起犬眠，豕餐牛作。苏才郭福，姬子彭年",
+      link: "https://yirenliu.cn/",
+      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/09/touxiang-e5d29a1ce4bc4f4194b0d5db73b28fe1-300x300.jpg"
     }
 
   # When the member avatar fails to load, replace the specified image
