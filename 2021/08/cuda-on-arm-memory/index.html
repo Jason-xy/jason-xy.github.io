@@ -1,0 +1,1847 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason Hsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="🎉感谢来自NVIDIA企业级开发者社区的何琨（Ken）老师提供的资料和细致耐心的讲解 本篇不涉及存储单元的加速优化，重点演示最基础的内存申请释放、数据拷贝传输 存储单元（这块并没有完全学完，Constant memory和Texture memory存储介绍内容来源于搜索引擎）  Register寄存器是GPU最快的memory，寄存器变量是每个线程私有的，一旦thread执行结束，寄存器变量就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CUDA on Arm - 存储单元">
+<meta property="og:url" content="https://jason-xy.github.io/2021/08/cuda-on-arm-memory/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="🎉感谢来自NVIDIA企业级开发者社区的何琨（Ken）老师提供的资料和细致耐心的讲解 本篇不涉及存储单元的加速优化，重点演示最基础的内存申请释放、数据拷贝传输 存储单元（这块并没有完全学完，Constant memory和Texture memory存储介绍内容来源于搜索引擎）  Register寄存器是GPU最快的memory，寄存器变量是每个线程私有的，一旦thread执行结束，寄存器变量就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/23/image-20210823233746897.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824000328785.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/23/image-20210823235724074.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824000858814.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824001345666.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824001447544.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824002247739.png">
+<meta property="article:published_time" content="2021-08-24T07:42:20.000Z">
+<meta property="article:modified_time" content="2022-11-28T16:27:20.799Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="jetson">
+<meta property="article:tag" content="cuda">
+<meta property="article:tag" content="GPU">
+<meta property="article:tag" content="ARM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/23/image-20210823233746897.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>CUDA on Arm - 存储单元 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-friends"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">CUDA on Arm - 存储单元</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Jason Hsu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-08-24 15:42" pubdate>
+          2021年8月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          70 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="技术"
+        id="heading-a95dd3e179418be1ecd2a719a22db70e" role="tab" data-toggle="collapse" href="#collapse-a95dd3e179418be1ecd2a719a22db70e"
+        aria-expanded="true"
+      >
+        技术
+        <span class="list-group-count">(51)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a95dd3e179418be1ecd2a719a22db70e"
+           role="tabpanel" aria-labelledby="heading-a95dd3e179418be1ecd2a719a22db70e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="false"
+      >
+        Algorithm
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/bpnn/" title="BP神经网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">BP神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/pnn/" title="感知器（神经网络模型）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">感知器（神经网络模型）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/recursion-tail/" title="尾递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">尾递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/coin/" title="概率生成问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率生成问题</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="OJ"
+        id="heading-d62c64b8415b88b69d6076336d525c08" role="tab" data-toggle="collapse" href="#collapse-d62c64b8415b88b69d6076336d525c08"
+        aria-expanded="false"
+      >
+        OJ
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d62c64b8415b88b69d6076336d525c08"
+           role="tabpanel" aria-labelledby="heading-d62c64b8415b88b69d6076336d525c08">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/icoding-create-hash/" title="「Icoding题解」哈希表创建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-hash-add-int/" title="「Icoding题解」哈希表添加"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表添加</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-avl/" title="「Icoding题解」平衡二叉树(AVL)的插入算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」平衡二叉树(AVL)的插入算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-28/" title="「LeetCode」—— 28.实现 strStr() —KMP算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」—— 28.实现 strStr() —KMP算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-136/" title="「LeetCode」——136.只出现一次的数字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——136.只出现一次的数字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-217/" title="「LeetCode」——217.存在重复元素"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——217.存在重复元素</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-278/" title="「LeetCode」——278. 第一个错误的版本（二分查找）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——278. 第一个错误的版本（二分查找）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-8/" title="「LeetCode」——8.字符串转换整数 (atoi)"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——8.字符串转换整数 (atoi)</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Course"
+        id="heading-3730c9866421d81473613698c0c0ac4f" role="tab" data-toggle="collapse" href="#collapse-3730c9866421d81473613698c0c0ac4f"
+        aria-expanded="true"
+      >
+        Course
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3730c9866421d81473613698c0c0ac4f"
+           role="tabpanel" aria-labelledby="heading-3730c9866421d81473613698c0c0ac4f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/05/eosreview/" title="和廖老师一起学嵌入式操作系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和廖老师一起学嵌入式操作系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/osreview/" title="计算机操作系统重点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机操作系统重点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/11/csp-review/" title="计算机组成原理复习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机组成原理复习</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CUDA"
+        id="heading-a33b7755e5f9b504d2d038eaca4ff28d" role="tab" data-toggle="collapse" href="#collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+        aria-expanded="true"
+      >
+        CUDA
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+           role="tabpanel" aria-labelledby="heading-a33b7755e5f9b504d2d038eaca4ff28d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-l4t-ubuntu/" title="CUDA on Arm - L4t ubuntu基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - L4t ubuntu基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-memory/" title="CUDA on Arm - 存储单元"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">CUDA on Arm - 存储单元</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-parallelcomputing/" title="CUDA on Arm - 并行计算基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 并行计算基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-thread/" title="CUDA on Arm - 线程层次"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 线程层次</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-gpuhardware/" title="CUDA on Arm-GPU硬件架构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm-GPU硬件架构</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Embedded"
+        id="heading-069e7821d3b4c0bbf437147263eb4d0e" role="tab" data-toggle="collapse" href="#collapse-069e7821d3b4c0bbf437147263eb4d0e"
+        aria-expanded="false"
+      >
+        Embedded
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-069e7821d3b4c0bbf437147263eb4d0e"
+           role="tabpanel" aria-labelledby="heading-069e7821d3b4c0bbf437147263eb4d0e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hardware"
+        id="heading-3c02a379965ab0dfcd77b1c484450433" role="tab" data-toggle="collapse" href="#collapse-3c02a379965ab0dfcd77b1c484450433"
+        aria-expanded="false"
+      >
+        Hardware
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3c02a379965ab0dfcd77b1c484450433"
+           role="tabpanel" aria-labelledby="heading-3c02a379965ab0dfcd77b1c484450433">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/ad-stm32/" title="AD学习——STM32F103C8T6实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——STM32F103C8T6实战</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/09/ad20-learn/" title="AD学习——基本简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——基本简介</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Software"
+        id="heading-719d067b229178f03bcfa1da4ac4dede" role="tab" data-toggle="collapse" href="#collapse-719d067b229178f03bcfa1da4ac4dede"
+        aria-expanded="false"
+      >
+        Software
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-719d067b229178f03bcfa1da4ac4dede"
+           role="tabpanel" aria-labelledby="heading-719d067b229178f03bcfa1da4ac4dede">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/keil-1/" title="keil上手"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">keil上手</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ARM"
+        id="heading-47f45e65244c17ec9fa8771a5c6d60e1" role="tab" data-toggle="collapse" href="#collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+        aria-expanded="false"
+      >
+        ARM
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+           role="tabpanel" aria-labelledby="heading-47f45e65244c17ec9fa8771a5c6d60e1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/raspi-vpn/" title="Ras-Pi的VPN设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ras-Pi的VPN设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vs-code-pi/" title="使用VS Code远程开发树莓派"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用VS Code远程开发树莓派</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-source/" title="树莓派(Raspberry Pi)资源大全中文版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派(Raspberry Pi)资源大全中文版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-opencv/" title="树莓派安装OpenCV-4.3.0+Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装OpenCV-4.3.0+Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/raspi-config-sd/" title="树莓派安装raspi-config扩展SD卡空间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装raspi-config扩展SD卡空间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-kde/" title="树莓派的KDE桌面安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的KDE桌面安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-swap/" title="树莓派的SWAP分区扩展"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的SWAP分区扩展</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-flash-os/" title="树莓派系统镜像烧写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派系统镜像烧写</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/06/c-compile-speedup/" title="C/C++通用构建加速方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C/C++通用构建加速方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/linuxprocessesmanagement/" title="Linux进程管理-随笔记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux进程管理-随笔记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/detail-of-void/" title="void*是怎样的存在？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">void*是怎样的存在？</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/01/pc2jetpack/" title="PC模拟Jetson（Jetpack）运行环境"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PC模拟Jetson（Jetpack）运行环境</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/ubuntu-nvidia/" title="Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/manjaro-ifly/" title="manjaro 切换国内源及中文输入法安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">manjaro 切换国内源及中文输入法安装</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Usage"
+        id="heading-c64518704ce0c0d5501a45763f464276" role="tab" data-toggle="collapse" href="#collapse-c64518704ce0c0d5501a45763f464276"
+        aria-expanded="false"
+      >
+        Usage
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c64518704ce0c0d5501a45763f464276"
+           role="tabpanel" aria-labelledby="heading-c64518704ce0c0d5501a45763f464276">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/frp/" title="frp内网穿透方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">frp内网穿透方案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/linux-wifi/" title="linux 命令行下配置 wlan 无线网卡"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux 命令行下配置 wlan 无线网卡</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Robotics"
+        id="heading-c98c19727b6a8b8fcf6b4bf5ded39488" role="tab" data-toggle="collapse" href="#collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+        aria-expanded="false"
+      >
+        Robotics
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+           role="tabpanel" aria-labelledby="heading-c98c19727b6a8b8fcf6b4bf5ded39488">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/intel-t265-ros-jetson-with-cuda/" title="Intel T265 + ROS视觉里程计搭建——Jetson平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Intel T265 + ROS视觉里程计搭建——Jetson平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="System"
+        id="heading-a45da96d0bf6575970f2d27af22be28a" role="tab" data-toggle="collapse" href="#collapse-a45da96d0bf6575970f2d27af22be28a"
+        aria-expanded="false"
+      >
+        System
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a45da96d0bf6575970f2d27af22be28a"
+           role="tabpanel" aria-labelledby="heading-a45da96d0bf6575970f2d27af22be28a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/11/wuhutakeoff-v1-0/" title="四轴飞行器设计之系统集成"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">四轴飞行器设计之系统集成</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/docker-compose/" title="Docker Compose部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker Compose部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/docker-portainer/" title="Docker部署及Portainer可视化面板搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker部署及Portainer可视化面板搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vultr-vps/" title="Vultr VPS-服务器地址（机房）选择方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vultr VPS-服务器地址（机房）选择方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cdn/" title="WordPress全站优化策略——CDN加速配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——CDN加速配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cos/" title="WordPress全站优化策略——COS配置策略"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——COS配置策略</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/wordpress-docker/" title="使用docker部署WordPress"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用docker部署WordPress</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-nextcloud/" title="使用树莓派搭建私有云盘"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用树莓派搭建私有云盘</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cosfs/" title="挂载COS为本地磁盘——COSFS工具配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">挂载COS为本地磁盘——COSFS工具配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-bt/" title="树莓派部署宝塔面板+LAMP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派部署宝塔面板+LAMP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cos-ftp/" title="腾讯云COS-FTP部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">腾讯云COS-FTP部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CUDA on Arm - 存储单元</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>🎉感谢来自NVIDIA企业级开发者社区的何琨（Ken）老师提供的资料和细致耐心的讲解</p>
+<p>本篇不涉及存储单元的加速优化，重点演示最基础的内存申请释放、数据拷贝传输</p>
+<h2 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h2><p>（这块并没有完全学完，Constant memory和Texture memory存储介绍内容来源于搜索引擎）</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/23/image-20210823233746897.png" srcset="/img/loading.gif" lazyload alt="image-20210823233746897"></p>
+<h3 id="Register"><a href="#Register" class="headerlink" title="Register"></a>Register</h3><p>寄存器是GPU最快的memory，寄存器变量是每个线程私有的，一旦thread执行结束，寄存器变量就会失效。寄存器是稀有资源。在Fermi上，每个thread限制最多拥有63个register，Kepler则是255个。让自己的kernel使用较少的register就能够允许更多的block驻留在SM中，也就增加了Occupancy，提升了性能。</p>
+<p>寄存器不像共享内存、设备内存、常量内存和纹理内存显式声明，它们的声明不加任何限定符，就如普通变量一样，如<code> int a</code>。</p>
+<p>寄存器主要承担Scalar variables（标量变量）和编译时已知的静态索引的数组。</p>
+<h3 id="Local-memory"><a href="#Local-memory" class="headerlink" title="Local memory"></a>Local memory</h3><p>有时候，如果Register不够用了，那么就会使用Local memory来代替这部分寄存器空间。</p>
+<p>除此外，下面几种情况，编译器可能会把变量放置在Local memory：</p>
+<ul>
+<li>编译期无法决定确切值的本地数组。</li>
+<li>较大的结构体或者数组，也就是那些可能会消耗大量Register的变量。</li>
+<li>任何超过寄存器限制的变量。</li>
+</ul>
+<p>在Local memory中的变量本质上跟Global memory在同一块存储区。所以，Local memory有很高的atency和较低的bandwidth。在CC2.0以上，GPU针对Local memory会有L1（per-SM）和L2（per-device）两级cache。</p>
+<h3 id="Shared-memory"><a href="#Shared-memory" class="headerlink" title="Shared memory"></a>Shared memory</h3><p>用__shared__修饰符修饰的变量存放在Shared memory。因为Shared memory是on-chip的，他相比Local Memory和Global memory来说，拥有高的多bandwidth和低很多的latency。他的使用和CPU的L1 cache非常类似，但是他是programmable的。</p>
+<p>按惯例，像这类性能这么好的memory都是有限制的，Shared memory是以block为单位分配的。我们必须非常小心的使用Shared memory，否则会无意识的限制了active warp的数目。</p>
+<p>不同于Register，Shared memory尽管在kernel里声明的，但是他的生命周期是伴随整个block，而不是单个thread。当该block执行完毕，他所拥有的资源就会被释放，重新分配给别的block。</p>
+<p>Shared memory是thread交流的基本方式。同一个block中的thread通过Shared memory中的数据来相互合作。获取Shared memory的数据前必须先用__syncthreads()同步。</p>
+<h3 id="Global-memory"><a href="#Global-memory" class="headerlink" title="Global memory"></a>Global memory</h3><p>Global Memory是空间最大，latency最高，GPU最基础的memory。“global”指明了其生命周期。任意SM都可以在整个程序的生命期中获取其状态。global中的变量既可以是静态也可以是动态声明。可以使用__device__修饰符来限定其属性。Global memory的分配就是之前频繁使用的<code>cudaMalloc</code>，释放使用<code>cudaFree</code>。Global memory驻留在Device memory，可以通过32-byte、64-byte或者128-byte三种格式传输。这些memory transaction必须是对齐的，也就是说首地址必须是32、64或者128的倍数。优化memory transaction对于性能提升至关重要。当warp执行memory load&#x2F;store时，需要的transaction数量依赖于下面两个因素：</p>
+<ol>
+<li>Distribution of memory address across the thread of that warp 就是前文的连续</li>
+<li>Alignment of memory address per transaction 对齐</li>
+</ol>
+<p>一般来说，所需求的transaction越多，潜在的不必要数据传输就越多，从而导致throughput efficiency降低。</p>
+<h3 id="Constant-memory"><a href="#Constant-memory" class="headerlink" title="Constant memory"></a>Constant memory</h3><p>Constant Memory驻留在Device Memory，并且使用专用的Constant cache（per-SM）。该Memory的声明应该以__connstant__修饰。Constant的范围是全局的，针对所有kernel，对于所有CC其大小都是64KB。在同一个编译单元，Constant对所有kernel可见。</p>
+<p>当一个warp中所有thread都从同一个Memory地址读取数据时，Constant Memory表现最好。例如，计算公式中的系数。如果所有的thread从不同的地址读取数据，并且只读一次，那么Constant memory就不是很好的选择，因为一次读Constant memory操作会广播给所有thread知道。</p>
+<h3 id="Texture-memory"><a href="#Texture-memory" class="headerlink" title="Texture memory"></a>Texture memory</h3><p>Texture Memory驻留在Device memory中，并且使用一个只读cache（per-SM）。Texture Memory实际上也是Global Memory在一块，但是他有自己专有的只读cache。这个cache在浮点运算很有用。Texture Memory是针对2D空间局部性的优化策略，所以thread要获取2D数据就可以使用Texture Memory来达到很高的性能。</p>
+<h2 id="内存的分配与回收"><a href="#内存的分配与回收" class="headerlink" title="内存的分配与回收"></a>内存的分配与回收</h2><p>CPU内存</p>
+<ul>
+<li>malloc()</li>
+<li>memset()</li>
+<li>free()</li>
+</ul>
+<p>GPU内存</p>
+<ul>
+<li>cudaMalloc()</li>
+<li>cudaMemset()</li>
+<li>cudaFree()</li>
+</ul>
+<p><strong>当我们要为一个方阵<code>M[m * m]</code>申请GPU的存储单元时</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_m,<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>) * m * m);<br></code></pre></td></tr></table></figure>
+
+<p><strong>d_m：</strong>指向存储在Device端数据的地址的指针（双重指针）。</p>
+<p><strong>sizeof(int) * m * m：</strong>存储在Device端空间的大小。</p>
+<p><strong>当我们要释放申请的GPU的存储单元时</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaFree(d_m);<br></code></pre></td></tr></table></figure>
+
+<p>d_m：指向存储在Device端数据的地址的指针。</p>
+<h2 id="内存拷贝"><a href="#内存拷贝" class="headerlink" title="内存拷贝"></a>内存拷贝</h2><p>**cudaMemcpy(void <em>dst, const void <em>src, size_t count, cudaMemcpyKind kind)</em></em></p>
+<ul>
+<li><strong>dst:</strong> 目的内存地址</li>
+<li><strong>src:</strong> 源内存地址</li>
+<li><strong>count:</strong> 以字节为单位要拷贝的数据大小</li>
+<li><strong>kind:</strong> 数据传输方向</li>
+</ul>
+<p><strong>cudaMemcpyKind</strong></p>
+<ul>
+<li>cudaMemcpyHostToDevice</li>
+<li>cudaMemcpyDeviceToHost</li>
+<li>cudaMemcpyDeviceToDevice</li>
+<li>cudaMemcpyHostToHost</li>
+</ul>
+<p><strong>当我们要将准备好的数据从CPU内存传输到GPU的存储单元时</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaMemcpy(d_m, h_m, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>) * m * m, cudaMemcpyHostToDevice);<br></code></pre></td></tr></table></figure>
+
+<p><strong>d_m：</strong>传输的目的地，GPU存储单元</p>
+<p><strong>h_m：</strong>数据的源地址，CPU存储单元</p>
+<p><strong>sizeof(int) * m * m：</strong>数据传输的大小</p>
+<p><strong>cudaMemcpyHostToDevice：</strong>数据传输的方向，CPU -&gt; GPU</p>
+<p><strong>当我们要将准备好的数据从GPU存储单元传输到CPU的内存时</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaMemcpy(h_c, d_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>) * m * k, cudaMemcpyDeviceToHost);<br></code></pre></td></tr></table></figure>
+
+<h2 id="实验（矩阵乘法）"><a href="#实验（矩阵乘法）" class="headerlink" title="实验（矩阵乘法）"></a>实验（矩阵乘法）</h2><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824000328785.png" srcset="/img/loading.gif" lazyload alt="image-20210824000328785"></p>
+<p>矩阵相乘计算样例：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/23/image-20210823235724074.png" srcset="/img/loading.gif" lazyload alt="image-20210823235724074"></p>
+<h3 id="CPU矩阵乘法"><a href="#CPU矩阵乘法" class="headerlink" title="CPU矩阵乘法"></a>CPU矩阵乘法</h3><p>使用CPU完成这一过程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">cpu_matrix_mult</span><span class="hljs-params">(<span class="hljs-type">int</span> *h_m, <span class="hljs-type">int</span> *h_n, <span class="hljs-type">int</span> *h_result, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; ++i)&#123;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++j)&#123;<br>			<span class="hljs-type">int</span> tmp = <span class="hljs-number">0.0</span>;<br>			<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> h = <span class="hljs-number">0</span>; h &lt; n; ++h)&#123;<br>				tmp += h_m[i * n + h] * h_n[h * k + j];<br>            &#125;<br>			h_result[i * k + j] = tmp;<br>        &#125;<br>	&#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+
+<p>可见整个计算过程需要完成三重循环，总共需要计算<code>m * n * k</code>次<code>tmp += h_m[i * n + h] * h_n[h * k + j];</code>才能完成计算。下面采用CUDA的并行编程模型来尝试去掉部分循环进行加速。</p>
+<h3 id="二维网格和线程块"><a href="#二维网格和线程块" class="headerlink" title="二维网格和线程块"></a>二维网格和线程块</h3><p>为了解决矩阵乘法的问题，需要先搞定二维状态下线程的索引计算（当然也可以转换为一维）。</p>
+<p>线程的索引排序方式如下图：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824000858814.png" srcset="/img/loading.gif" lazyload alt="image-20210824000858814"></p>
+<p>Global linear memory index: <code>idx = iy * nx + ix</code></p>
+<p><strong>以44号线程为例</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> index = (blockIdx.y * blockDim.y + threadIdx.y) * nx+ (blockIdx.x * blockDim.x + threadIdx.x);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">Index = (<span class="hljs-number">2</span> * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>) * <span class="hljs-number">8</span> + (<span class="hljs-number">1</span> * <span class="hljs-number">4</span> + <span class="hljs-number">0</span>) <br>Index = <span class="hljs-number">44</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824001345666.png" srcset="/img/loading.gif" lazyload alt="image-20210824001345666"></p>
+<p>将整个grid对应到整个矩阵后，就如下图所示：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824001447544.png" srcset="/img/loading.gif" lazyload alt="image-20210824001447544"></p>
+<h3 id="GPU矩阵乘法"><a href="#GPU矩阵乘法" class="headerlink" title="GPU矩阵乘法"></a>GPU矩阵乘法</h3><p><strong>grid中多线程计算Pd</strong></p>
+<ul>
+<li>每个线程计算Pd的一个元素</li>
+</ul>
+<p><strong>每个线程</strong></p>
+<ul>
+<li>读入矩阵Md的一行，读入矩阵Nd的一列</li>
+<li>为每对Md和Nd元素执行一次乘法和加法</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824002247739.png" srcset="/img/loading.gif" lazyload alt="image-20210824002247739"></p>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> BLOCK_SIZE 16</span><br><br>__global__ <span class="hljs-type">void</span> <span class="hljs-title function_">gpu_matrix_mult</span><span class="hljs-params">(<span class="hljs-type">int</span> *a,<span class="hljs-type">int</span> *b, <span class="hljs-type">int</span> *c, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span><br>&#123; <br>    <span class="hljs-type">int</span> row = blockIdx.y * blockDim.y + threadIdx.y; <br>    <span class="hljs-type">int</span> col = blockIdx.x * blockDim.x + threadIdx.x;<br>    <span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>( col &lt; k &amp;&amp; row &lt; m) <br>    &#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <br>        &#123;<br>            sum += a[row * n + i] * b[i * k + col];<br>        &#125;<br>        c[row * k + col] = sum;<br>    &#125;<br>&#125; <br><br><span class="hljs-type">void</span> <span class="hljs-title function_">cpu_matrix_mult</span><span class="hljs-params">(<span class="hljs-type">int</span> *h_a, <span class="hljs-type">int</span> *h_b, <span class="hljs-type">int</span> *h_result, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; ++i) <br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++j) <br>        &#123;<br>            <span class="hljs-type">int</span> tmp = <span class="hljs-number">0.0</span>;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> h = <span class="hljs-number">0</span>; h &lt; n; ++h) <br>            &#123;<br>                tmp += h_a[i * n + h] * h_b[h * k + j];<br>            &#125;<br>            h_result[i * k + j] = tmp;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> <span class="hljs-type">const</span> *argv[])</span><br>&#123;<br>    <span class="hljs-type">int</span> m=<span class="hljs-number">1000</span>;<br>    <span class="hljs-type">int</span> n=<span class="hljs-number">2000</span>;<br>    <span class="hljs-type">int</span> k=<span class="hljs-number">3000</span>;<br><br>    <span class="hljs-type">int</span> *h_a, *h_b, *h_c, *h_cc;<br>    cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_a, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*n);<br>    cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_b, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*n*k);<br>    cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k);<br>    cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_cc, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k);<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; ++i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; ++j) &#123;<br>            h_a[i * n + j] = rand() % <span class="hljs-number">1024</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++j) &#123;<br>            h_b[i * k + j] = rand() % <span class="hljs-number">1024</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-type">int</span> *d_a, *d_b, *d_c;<br>    cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_a, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*n);<br>    cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_b, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*n*k);<br>    cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k);<br><br>    <span class="hljs-comment">// copy matrix A and B from host to device memory</span><br>    cudaMemcpy(d_a, h_a, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*n, cudaMemcpyHostToDevice);<br>    cudaMemcpy(d_b, h_b, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*n*k, cudaMemcpyHostToDevice);<br><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> grid_rows = (m + BLOCK_SIZE - <span class="hljs-number">1</span>) / BLOCK_SIZE;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> grid_cols = (k + BLOCK_SIZE - <span class="hljs-number">1</span>) / BLOCK_SIZE;<br>    dim3 <span class="hljs-title function_">dimGrid</span><span class="hljs-params">(grid_cols, grid_rows)</span>;<br>    dim3 <span class="hljs-title function_">dimBlock</span><span class="hljs-params">(BLOCK_SIZE, BLOCK_SIZE)</span>;<br>    gpu_matrix_mult&lt;&lt;&lt;dimGrid, dimBlock&gt;&gt;&gt;(d_a, d_b, d_c, m, n, k);    <br>    cudaMemcpy(h_c, d_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k, cudaMemcpyDeviceToHost);<br><br>    cpu_matrix_mult(h_a, h_b, h_cc, m, n, k);<br><br>    <span class="hljs-type">int</span> ok = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; ++i)<br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++j)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">fabs</span>(h_cc[i*k + j] - h_c[i*k + j])&gt;(<span class="hljs-number">1.0e-10</span>))<br>            &#123;<br>                ok = <span class="hljs-number">0</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span>(ok)<br>    &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Pass!!!\n&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error!!!\n&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// free memory</span><br>    cudaFree(d_a);<br>    cudaFree(d_b);<br>    cudaFree(d_c);<br>    cudaFreeHost(h_a);<br>    cudaFreeHost(h_b);<br>    cudaFreeHost(h_c);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h3><h4 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c">__global__ <span class="hljs-type">void</span> <span class="hljs-title function_">gpu_matrix_mult</span><span class="hljs-params">(<span class="hljs-type">int</span> *a,<span class="hljs-type">int</span> *b, <span class="hljs-type">int</span> *c, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span><br>&#123; <br>    <span class="hljs-type">int</span> row = blockIdx.y * blockDim.y + threadIdx.y; <br>    <span class="hljs-type">int</span> col = blockIdx.x * blockDim.x + threadIdx.x;<br>    <span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>( col &lt; k &amp;&amp; row &lt; m) <br>    &#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <br>        &#123;<br>            sum += a[row * n + i] * b[i * k + col];<br>        &#125;<br>        c[row * k + col] = sum;<br>    &#125;<br>&#125; <br></code></pre></td></tr></table></figure>
+
+<p>先计算好元素在矩阵中的行和列，每一个线程处理了矩阵Md的一行和矩阵Nd的一列，分别相乘再相加。将计算好的最终值写入Pd矩阵的对应位置即可。</p>
+<p>这里需要注意索引的计算方式，我们输入的矩阵实际上是一个一维的数组，那么需要将二维坐标线性化。</p>
+<h4 id="CPU计算函数"><a href="#CPU计算函数" class="headerlink" title="CPU计算函数"></a>CPU计算函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">cpu_matrix_mult</span><span class="hljs-params">(<span class="hljs-type">int</span> *h_a, <span class="hljs-type">int</span> *h_b, <span class="hljs-type">int</span> *h_result, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; ++i) <br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++j) <br>        &#123;<br>            <span class="hljs-type">int</span> tmp = <span class="hljs-number">0.0</span>;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> h = <span class="hljs-number">0</span>; h &lt; n; ++h) <br>            &#123;<br>                tmp += h_a[i * n + h] * h_b[h * k + j];<br>            &#125;<br>            h_result[i * k + j] = tmp;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>将CPU计算结果作为标准来对GPU计算结果进行校验。</p>
+<h4 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> *h_a, *h_b, *h_c, *h_cc;<br>cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_a, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*n);<br>cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_b, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*n*k);<br>cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k);<br>cudaMallocHost((<span class="hljs-type">void</span> **) &amp;h_cc, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k);<br></code></pre></td></tr></table></figure>
+
+<p>定义变量并在Host上分配数组空间。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; ++i) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; ++j) &#123;<br>        h_a[i * n + j] = rand() % <span class="hljs-number">1024</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++j) &#123;<br>        h_b[i * k + j] = rand() % <span class="hljs-number">1024</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在Host端初始化数组。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> *d_a, *d_b, *d_c;<br>cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_a, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*n);<br>cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_b, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*n*k);<br>cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k);<br></code></pre></td></tr></table></figure>
+
+<p>定义变量，并调用<code>cudaMalloc</code>在GPU端为变量分配内存空间。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaMemcpy(d_a, h_a, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*n, cudaMemcpyHostToDevice);<br>cudaMemcpy(d_b, h_b, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*n*k, cudaMemcpyHostToDevice);<br></code></pre></td></tr></table></figure>
+
+<p>将在CPU端初始化好的数组拷贝到GPU，便于在GPU并行处理数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">dim3 <span class="hljs-title function_">dimGrid</span><span class="hljs-params">(grid_cols, grid_rows)</span>;<br>dim3 <span class="hljs-title function_">dimBlock</span><span class="hljs-params">(BLOCK_SIZE, BLOCK_SIZE)</span>;<br>gpu_matrix_mult&lt;&lt;&lt;dimGrid, dimBlock&gt;&gt;&gt;(d_a, d_b, d_c, m, n, k); <br>cudaMemcpy(h_c, d_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*m*k, cudaMemcpyDeviceToHost);<br></code></pre></td></tr></table></figure>
+
+<p>完成执行设置并调用核函数，在GPU上开始程序的并行部分。</p>
+<p>计算完成后结果存储在<code>d_c</code>所指向的GPU内存中，需要调用<code>cudaMemcpy</code>将数据从Device拷贝到Host中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c">cpu_matrix_mult(h_a, h_b, h_cc, m, n, k);<br><br><span class="hljs-type">int</span> ok = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; ++i)<br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++j)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">fabs</span>(h_cc[i*k + j] - h_c[i*k + j])&gt;(<span class="hljs-number">1.0e-10</span>))<br>        &#123;<br>            ok = <span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span>(ok)<br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Pass!!!\n&quot;</span>);<br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error!!!\n&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在CPU中完成标准答案的计算并与GPU计算结果进行对比校验。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaFree(d_a);<br>cudaFree(d_b);<br>cudaFree(d_c);<br>cudaFreeHost(h_a);<br>cudaFreeHost(h_b);<br>cudaFreeHost(h_c);<br></code></pre></td></tr></table></figure>
+
+<p>调用<code>cudaFree</code>相关函数释放刚刚在Host和Device中分配的内存，随即程序结束。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/CUDA/" class="category-chain-item">CUDA</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ubuntu/">#ubuntu</a>
+      
+        <a href="/tags/jetson/">#jetson</a>
+      
+        <a href="/tags/cuda/">#cuda</a>
+      
+        <a href="/tags/GPU/">#GPU</a>
+      
+        <a href="/tags/ARM/">#ARM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CUDA on Arm - 存储单元</div>
+      <div>https://jason-xy.github.io/2021/08/cuda-on-arm-memory/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason Hsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年8月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/coin/" title="概率生成问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">概率生成问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/cuda-on-arm-thread/" title="CUDA on Arm - 线程层次">
+                        <span class="hidden-mobile">CUDA on Arm - 线程层次</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

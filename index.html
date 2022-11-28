@@ -122,6 +122,18 @@
           
           
             <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -145,39 +157,11 @@
           
           
           
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-guanli"></i>
-                分类
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-friends"></i>
+                友链
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/categorys/tech">
-                    
-                    技术
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/categorys/life">
-                    
-                    生活
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/categorys/whiteboard">
-                    
-                    白板
-                  </a>
-                
-              </div>
             </li>
           
         
@@ -247,15 +231,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/06/27/raspi-swap/" target="_self">
-          树莓派的SWAP分区扩展
+        <a href="/2022/06/c-compile-speedup/" target="_self">
+          C/C++通用构建加速方法
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/27/raspi-swap/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/06/c-compile-speedup/" target="_self">
         <div>
-          SWAP分区简介Swap分区是磁盘上的一个特殊用途的分区。是当系统的物理内存不够用的时候，把物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap分区中，等到那些程序要运行时，再从Swap分区中恢复保存的数据到内存中。分配太多的Swap空间，会浪费磁盘空间，而Swap空间太少，则系统会发生错误。一般在内存
+          C&#x2F;C++编译基本原理对于C&#x2F;C++代码通常来说整个构建过程分为以下几个主要部分：  预处理 在此阶段主要完成的工作是将头文件展开、替换宏指令、条件编译展开、消除注释。  编译 在此阶段主要将预编译好的文件转换成汇编语言（高级语言-&gt;LLVM平台无关语言-&gt;平台汇编语言）。  汇编 在此阶段将汇编语言转换为二进制机器语言。  链接 将编译产物和预编译制品（.o、.a
         </div>
       </a>
 
@@ -263,8 +247,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-27 23:12" pubdate>
-              2020-06-27
+            <time datetime="2022-06-03 14:21" pubdate>
+              2022-06-03
             </time>
           </div>
         
@@ -289,7 +273,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/ARM/" class="category-chain-item">ARM</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/Basic/" class="category-chain-item">Basic</a>
   
   
 
@@ -308,86 +292,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/raspberry-pi/">#raspberry-pi</a>
+              <a href="/tags/c-c/">#c/c++</a>
             
-              <a href="/tags/swap/">#swap</a>
+              <a href="/tags/compile/">#compile</a>
             
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/06/24/icoding-avl/" target="_self">
-          「Icoding题解」平衡二叉树(AVL)的插入算法
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/24/icoding-avl/" target="_self">
-        <div>
-          AVL添加题目链接 平衡二叉树，是一种二叉排序树，其中每个结点的左子树和右子树的高度差至多等于1。它是一种高度平衡的二叉排序树。现二叉平衡树结点定义如下： 12345678typedef struct node&#123;    int val;    struct node *left;    struct node *right;    struct node *parent;    int
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-24 20:23" pubdate>
-              2020-06-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/" class="category-chain-item">Algorithm</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/OJ/" class="category-chain-item">OJ</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/algorithm/">#algorithm</a>
-            
-              <a href="/tags/oj/">#oj</a>
+              <a href="/tags/link/">#link</a>
             
           </div>
         
@@ -401,15 +310,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/06/24/raspi-flash-os/" target="_self">
-          树莓派系统镜像烧写
+        <a href="/2021/10/linuxprocessesmanagement/" target="_self">
+          Linux进程管理-随笔记录
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/24/raspi-flash-os/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/10/linuxprocessesmanagement/" target="_self">
         <div>
-          镜像准备可以适用于树莓派的系统镜像资源十分丰富，根据个人的需求有不同的系统镜像选择，正如我们之前提到的树莓派资源大全里面丰富的镜像资源一样！所以先选一个你喜欢的镜像吧！Let’s Go!    ## 烧录工具  之前看到不少教程都推荐Win32 Disk Imager但是限于平台限制和“极具年代感”的UI设计，我们今天推荐另一款开源、全平台烧录工具——**BalenaEtcher**
+          进程的描述PCB 描述一个进程的结构。 组织方式 进程链表：用于遍历 进程树：体现父子关系 进程哈希表：用于pid检索 进程生命周期 僵尸僵尸进程：PCB还没消失，等到父进程wait()，父进程可以得知子进程退出原因。 内存泄漏：随时间增加内存消耗震荡发散。 停止用STOP信号暂停，保存中间结果，用CONTINUE信号继续。 1Ctrl+z` 和`bg`、`fg  睡眠深睡眠：只有当资源都满足才唤
         </div>
       </a>
 
@@ -417,8 +326,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-24 18:14" pubdate>
-              2020-06-24
+            <time datetime="2021-10-11 16:27" pubdate>
+              2021-10-11
             </time>
           </div>
         
@@ -443,7 +352,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/ARM/" class="category-chain-item">ARM</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/Basic/" class="category-chain-item">Basic</a>
   
   
 
@@ -464,7 +373,7 @@
             
               <a href="/tags/linux/">#linux</a>
             
-              <a href="/tags/raspberry-pi/">#raspberry-pi</a>
+              <a href="/tags/os/">#os</a>
             
           </div>
         
@@ -478,15 +387,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/06/23/icoding-hash-add-int/" target="_self">
-          「Icoding题解」哈希表添加
+        <a href="/2021/09/vscode-c-cpp/" target="_self">
+          VScode C/C++编译及调试环境配置
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/23/icoding-hash-add-int/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/vscode-c-cpp/" target="_self">
         <div>
-          哈希表添加 题目地址 哈希表（Hash Table，也叫散列表），是根据键（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做哈希函数，存放记录的数组称做哈希表。哈希表相关定义如下： 123456789101112131415161718192021222324252627282930
+          博客原文：VScode C&#x2F;C++编译及调试环境配置 默认已安装了VScode MinGW安装（Windows）Mingw-w64下载地址 下载该文件（需要科学上网）  国内COS服务器（作者按流量付费的，大伙省着点用）：MinGW.zip 下载后解压到一个可以记住的路径，如下图：  添加环境变量根据自己刚解压的路径配置环境变量。 如下图所示  打开cmd检查是否配置成功 1gcc -v
         </div>
       </a>
 
@@ -494,311 +403,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-23 17:17" pubdate>
-              2020-06-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/" class="category-chain-item">Algorithm</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/OJ/" class="category-chain-item">OJ</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/algorithm/">#algorithm</a>
-            
-              <a href="/tags/oj/">#oj</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/06/23/icoding-create-hash/" target="_self">
-          「Icoding题解」哈希表创建
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/23/icoding-create-hash/" target="_self">
-        <div>
-          哈希表创建 题目链接 哈希表（Hash Table，也叫散列表），是根据键（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做哈希函数，存放记录的数组称做哈希表。哈希表相关定义如下： 123456789101112131415161718192021222324252627282930
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-23 16:24" pubdate>
-              2020-06-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/" class="category-chain-item">Algorithm</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/OJ/" class="category-chain-item">OJ</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/algorithm/">#algorithm</a>
-            
-              <a href="/tags/oj/">#oj</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/06/22/awesome-es/" target="_self">
-          本科阶段嵌入式方向技能树
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/22/awesome-es/" target="_self">
-        <div>
-          项目介绍这是一个电子科技大学软件学院本科阶段计算机体系结构学习&amp;嵌入式开发的公开课&#x2F;书籍&#x2F;Blog&#x2F;资料整理的项目，如果你有贡献的想法：  可以直接提交Pull Request 如果你是嵌入式工作室成员，请联系@starFalll（&#102;&#121;&#120;&#102;&#111;&#x72;&#x6d;&#97;&#108;&#x40;&#x67;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-22 17:16" pubdate>
-              2020-06-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%94%9F%E6%B4%BB/" class="category-chain-item">生活</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E7%94%9F%E6%B4%BB/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/" class="category-chain-item">学习计划</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/embedded-system/">#embedded system</a>
-            
-              <a href="/tags/plan/">#plan</a>
-            
-              <a href="/tags/awesome/">#awesome</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/06/21/raspi-source/" target="_self">
-          树莓派(Raspberry Pi)资源大全中文版
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/21/raspi-source/" target="_self">
-        <div>
-          转载自Github：awesome-raspberry-pi-zh      树莓派（Raspberry Pi，下面简称RPi）是一系列由英国树莓派基金会（Raspberry Pi Foundation）开发的仅信用卡大小的微型计算机，截止到2017年2月，共发行了RPi 1，RPi 2，RPi 3以及RPi Zero 四款。树莓派发行的初衷，是在学校以及发展中国家推广基础计算机科学，官方主页：R
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-21 13:13" pubdate>
-              2020-06-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="category-chain-item">Linux</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/ARM/" class="category-chain-item">ARM</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/awesome/">#awesome</a>
-            
-              <a href="/tags/raspberry-pi/">#raspberry-pi</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/06/20/hd-cache/" target="_self">
-          基于PrimoCache的硬盘缓存加速
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/20/hd-cache/" target="_self">
-        <div>
-          目前随着硬盘发展的趋势，越来越多的硬盘采用了SMR存储技术，厂商依托这个技术节省了成本，但是用户却常常饱受硬盘掉速的困扰。 如下图所示👇 希捷酷鱼全线SMR 在进行大文件（10G左右）读写的时候就会有明显的感受，看着这十几万的延迟，不得不说👴要等吐了！ 由此可见SMR硬盘是有多么依赖缓存空间！！！ 下面有请SMR救星PrimoCache上场！先看看加速效果： 过于暴力的测试数据 PrimoC
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-20 18:13" pubdate>
-              2020-06-20
+            <time datetime="2021-09-17 16:12" pubdate>
+              2021-09-17
             </time>
           </div>
         
@@ -835,9 +441,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/cache/">#cache</a>
+              <a href="/tags/vscode/">#vscode</a>
             
-              <a href="/tags/smr/">#smr</a>
+              <a href="/tags/c-c/">#c/c++</a>
             
           </div>
         
@@ -851,15 +457,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/06/19/bpnn/" target="_self">
-          BP神经网络
+        <a href="/2021/09/coin/" target="_self">
+          概率生成问题
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/19/bpnn/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/coin/" target="_self">
         <div>
-          人工神经网络(Artificial Neural Network,简称 ANN)是利用仿生原理对人脑神经网络的结构和功能的简化抽象。人工神经网络是一种可以并行分散处理数据，具有非线性映射、容错能力强、自适应学习进化的特点。BP人工神经网络是在此基础上，基于误差反向传播算法而设计的多层前向神经网络。因其能够实现输入与输出间任意的非线性映射，因此在模式识别、自适应控制、风险评估等领域有着广泛的应用。
+          作者：imageslr链接：https://leetcode-cn.com/problems/implement-rand10-using-rand7/solution/cong-pao-ying-bi-kai-shi-xun-xu-jian-jin-ba-zhe-da/来源：力扣（LeetCode） 引言概率生成问题是一种比较常见的面试题，常见题型举例：  有一枚不均匀的硬币，要求产生均匀的概率
         </div>
       </a>
 
@@ -867,8 +473,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-19 12:23" pubdate>
-              2020-06-19
+            <time datetime="2021-09-05 14:42" pubdate>
+              2021-09-05
             </time>
           </div>
         
@@ -893,7 +499,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/AI/" class="category-chain-item">AI</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/Basic/" class="category-chain-item">Basic</a>
   
   
 
@@ -912,13 +518,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/ai/">#ai</a>
-            
-              <a href="/tags/nn/">#nn</a>
-            
-              <a href="/tags/pnn/">#pnn</a>
-            
               <a href="/tags/algorithm/">#algorithm</a>
+            
+              <a href="/tags/possibilities/">#possibilities</a>
             
           </div>
         
@@ -932,15 +534,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/06/19/pnn/" target="_self">
-          感知器（神经网络模型）
+        <a href="/2021/08/cuda-on-arm-memory/" target="_self">
+          CUDA on Arm - 存储单元
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/06/19/pnn/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/08/cuda-on-arm-memory/" target="_self">
         <div>
-          感知器是人工神经网络中的一种典型结构， 它的主要的特点是结构简单，对所能解决的问题 存在着收敛算法，并能从数学上严格证明，从而对神经网络研究起了重要的推动作用。 感知器，也可翻译为感知机，是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经
+          🎉感谢来自NVIDIA企业级开发者社区的何琨（Ken）老师提供的资料和细致耐心的讲解 本篇不涉及存储单元的加速优化，重点演示最基础的内存申请释放、数据拷贝传输 存储单元（这块并没有完全学完，Constant memory和Texture memory存储介绍内容来源于搜索引擎）  Register寄存器是GPU最快的memory，寄存器变量是每个线程私有的，一旦thread执行结束，寄存器变量就
         </div>
       </a>
 
@@ -948,8 +550,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-19 11:41" pubdate>
-              2020-06-19
+            <time datetime="2021-08-24 15:42" pubdate>
+              2021-08-24
             </time>
           </div>
         
@@ -969,12 +571,12 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/" class="category-chain-item">Algorithm</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Algorithm/AI/" class="category-chain-item">AI</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/CUDA/" class="category-chain-item">CUDA</a>
   
   
 
@@ -993,13 +595,430 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/ai/">#ai</a>
+              <a href="/tags/ubuntu/">#ubuntu</a>
             
-              <a href="/tags/nn/">#nn</a>
+              <a href="/tags/jetson/">#jetson</a>
             
-              <a href="/tags/pnn/">#pnn</a>
+              <a href="/tags/cuda/">#cuda</a>
             
-              <a href="/tags/algorithm/">#algorithm</a>
+              <a href="/tags/GPU/">#GPU</a>
+            
+              <a href="/tags/ARM/">#ARM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/cuda-on-arm-thread/" target="_self">
+          CUDA on Arm - 线程层次
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/08/cuda-on-arm-thread/" target="_self">
+        <div>
+          🎉感谢来自NVIDIA企业级开发者社区的何琨（Ken）老师提供的资料和细致耐心的讲解 线程层次Thread: sequential execution unit  所有线程执行相同的核函数 并行执行  Thread Block: a group of threads  执行在一个Streaming Multiprocessor [SM] 同一个Block中的线程可以协作  Thread Grid
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 23:17" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/CUDA/" class="category-chain-item">CUDA</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/jetson/">#jetson</a>
+            
+              <a href="/tags/cuda/">#cuda</a>
+            
+              <a href="/tags/GPU/">#GPU</a>
+            
+              <a href="/tags/ARM/">#ARM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/cuda-on-arm-parallelcomputing/" target="_self">
+          CUDA on Arm - 并行计算基础
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/08/cuda-on-arm-parallelcomputing/" target="_self">
+        <div>
+          🎉感谢来自NVIDIA企业级开发者社区的何琨（Ken）老师提供的资料和细致耐心的讲解 异构计算术语： Host： CPU和内存（host memory） Device：GPU和显存（device memory）  CUDA安装适用设备所有包含NVIDIA GPU的服务器，工作站，个人电脑，嵌入式设备等电子设备。 软件安装Windows：https://docs.nvidia.com/cuda/c
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 14:29" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/CUDA/" class="category-chain-item">CUDA</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/jetson/">#jetson</a>
+            
+              <a href="/tags/cuda/">#cuda</a>
+            
+              <a href="/tags/GPU/">#GPU</a>
+            
+              <a href="/tags/ARM/">#ARM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/cuda-on-arm-gpuhardware/" target="_self">
+          CUDA on Arm-GPU硬件架构
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/08/cuda-on-arm-gpuhardware/" target="_self">
+        <div>
+          🎉感谢来自NVIDIA企业级开发者社区的何琨（Ken）老师提供的资料和细致耐心的讲解 GPU简介GPU计算性能变迁 体系结构层次 更快的计算机更多的晶体管截至今日（2021-8-21）最新的Intel Alder Lake CPU构架如下图所示  摩尔定律芯片的集成密度每2年翻翻，成本下降一半。 可是……. 常规传统单核处理器遇到物理约束，时钟频率〔perf&#x2F;clock]无法保持线型增
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-21 17:40" pubdate>
+              2021-08-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/CUDA/" class="category-chain-item">CUDA</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/jetson/">#jetson</a>
+            
+              <a href="/tags/cuda/">#cuda</a>
+            
+              <a href="/tags/GPU/">#GPU</a>
+            
+              <a href="/tags/ARM/">#ARM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/cuda-on-arm-l4t-ubuntu/" target="_self">
+          CUDA on Arm - L4t ubuntu基础
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/08/cuda-on-arm-l4t-ubuntu/" target="_self">
+        <div>
+          🎉感谢来自NVIDIA企业级开发者社区的李奕澎老师提供的资料  应用需求 Linux基础X86 Ubuntu与L4T Ubuntu的区别X86 Ubuntu ：是指运行在X86架构CPU的linux ubuntu版本的操作系统。 L4T Ubuntu：L4T 是linux for tegra的缩写，Tegra是集成了ARM架构的CPU和NVIDIA的GPU的处理器芯片，所以L4T Ubuntu就
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-21 16:42" pubdate>
+              2021-08-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/CUDA/" class="category-chain-item">CUDA</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/jetson/">#jetson</a>
+            
+              <a href="/tags/cuda/">#cuda</a>
+            
+              <a href="/tags/GPU/">#GPU</a>
+            
+              <a href="/tags/ARM/">#ARM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/intel-t265-ros-jetson-with-cuda/" target="_self">
+          Intel T265 + ROS视觉里程计搭建——Jetson平台
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/08/intel-t265-ros-jetson-with-cuda/" target="_self">
+        <div>
+          OpenCV4 for CUDA安装OpenCV提供图像处理过程中的基础API，所以首先完成OpenCV4的构建。为了利用Jetson平台拥有CUDA加速的优势需要先安装OpenCV的CUDA版本。（Jetpack默认为非CUDA版本）  如果是Jetson Nano平台需要先扩大Swap分区至4G以上，避免因为内存不足终止编译。  可以使用Jtop工具扩展Swap分区。 更新安装包1234sud
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-18 09:26" pubdate>
+              2021-08-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/" class="category-chain-item">Robotics</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/ENV/" class="category-chain-item">ENV</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/jetson/">#jetson</a>
+            
+              <a href="/tags/cuda/">#cuda</a>
+            
+              <a href="/tags/realsense/">#realsense</a>
+            
+              <a href="/tags/t265/">#t265</a>
+            
+              <a href="/tags/ros/">#ros</a>
             
           </div>
         
@@ -1011,7 +1030,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

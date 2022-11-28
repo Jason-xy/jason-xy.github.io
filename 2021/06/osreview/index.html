@@ -1,0 +1,2881 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason Hsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="博客原文：计算机操作系统重点 – 全栈之路 (jason-xy.cn) 知乎原文：计算机操作系统复习整理 - 知乎 (zhihu.com) 第一章 绪论（考概念）什么是OS？ 操作系统是一组控制和管理计算机软硬件资源、合理地对各类作业进行调度以及方便用户使用的程序集合。    操作系统是位于硬件层(HAL)之上，所有其它系统软件层之下的一个系统软件，使得管理系统中的各种软件和硬件资源得以充分利用，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机操作系统重点">
+<meta property="og:url" content="https://jason-xy.github.io/2021/06/osreview/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="博客原文：计算机操作系统重点 – 全栈之路 (jason-xy.cn) 知乎原文：计算机操作系统复习整理 - 知乎 (zhihu.com) 第一章 绪论（考概念）什么是OS？ 操作系统是一组控制和管理计算机软硬件资源、合理地对各类作业进行调度以及方便用户使用的程序集合。    操作系统是位于硬件层(HAL)之上，所有其它系统软件层之下的一个系统软件，使得管理系统中的各种软件和硬件资源得以充分利用，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622100939188.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622101202648.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622101647407.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102054880.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102135105.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102254904.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102446740.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175251447.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175300019.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175309335.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175319650.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622115301881.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622120531224.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622123326740.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622124136627.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622155103227.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622163718118.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164449450.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164143377.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164232790.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164555339.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164657687.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623094536182.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623094712811.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623100830334.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623101231280.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623101752155.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623101840707.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623102452321.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623102613247.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623102926460.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623103326854.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623103822037.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623103926053.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623104852404.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623105056935.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623110156258.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623110237136.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623135845025.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094122698.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094237285.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094346119.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094639358.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624100544870.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624100631794.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624100719338.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101142394.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101255376.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101737964.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101957337.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624103105363.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624103332874.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624103433145.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624105328357.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624110028023.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624121023682.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624121046507.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624122808480.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624123943775.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624124109861.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624124203999.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624125141192.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624125305622.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624125339098.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624141938727.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144016184.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144304059.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144327738.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144418677.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144438178.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144613415.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144630693.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144715519.png">
+<meta property="og:image" content="c:\Users\Jason\AppData\Roaming\Typora\typora-user-images\image-20210624164444356.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624164539003.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624164722001.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624170615803.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624170844359.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171142278.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171409892.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171621519.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171715822.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171815129.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624172104627.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173103718.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173547334.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173727639.png">
+<meta property="article:published_time" content="2021-06-24T09:57:12.000Z">
+<meta property="article:modified_time" content="2022-11-28T16:27:20.795Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="cs">
+<meta property="article:tag" content="review">
+<meta property="article:tag" content="os">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622100939188.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计算机操作系统重点 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-friends"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">计算机操作系统重点</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Jason Hsu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-06-24 17:57" pubdate>
+          2021年6月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          162 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="技术"
+        id="heading-a95dd3e179418be1ecd2a719a22db70e" role="tab" data-toggle="collapse" href="#collapse-a95dd3e179418be1ecd2a719a22db70e"
+        aria-expanded="true"
+      >
+        技术
+        <span class="list-group-count">(51)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a95dd3e179418be1ecd2a719a22db70e"
+           role="tabpanel" aria-labelledby="heading-a95dd3e179418be1ecd2a719a22db70e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="false"
+      >
+        Algorithm
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/bpnn/" title="BP神经网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">BP神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/pnn/" title="感知器（神经网络模型）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">感知器（神经网络模型）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/recursion-tail/" title="尾递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">尾递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/coin/" title="概率生成问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率生成问题</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="OJ"
+        id="heading-d62c64b8415b88b69d6076336d525c08" role="tab" data-toggle="collapse" href="#collapse-d62c64b8415b88b69d6076336d525c08"
+        aria-expanded="false"
+      >
+        OJ
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d62c64b8415b88b69d6076336d525c08"
+           role="tabpanel" aria-labelledby="heading-d62c64b8415b88b69d6076336d525c08">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/icoding-create-hash/" title="「Icoding题解」哈希表创建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-hash-add-int/" title="「Icoding题解」哈希表添加"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表添加</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-avl/" title="「Icoding题解」平衡二叉树(AVL)的插入算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」平衡二叉树(AVL)的插入算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-28/" title="「LeetCode」—— 28.实现 strStr() —KMP算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」—— 28.实现 strStr() —KMP算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-136/" title="「LeetCode」——136.只出现一次的数字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——136.只出现一次的数字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-217/" title="「LeetCode」——217.存在重复元素"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——217.存在重复元素</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-278/" title="「LeetCode」——278. 第一个错误的版本（二分查找）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——278. 第一个错误的版本（二分查找）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-8/" title="「LeetCode」——8.字符串转换整数 (atoi)"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——8.字符串转换整数 (atoi)</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Course"
+        id="heading-3730c9866421d81473613698c0c0ac4f" role="tab" data-toggle="collapse" href="#collapse-3730c9866421d81473613698c0c0ac4f"
+        aria-expanded="true"
+      >
+        Course
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3730c9866421d81473613698c0c0ac4f"
+           role="tabpanel" aria-labelledby="heading-3730c9866421d81473613698c0c0ac4f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/05/eosreview/" title="和廖老师一起学嵌入式操作系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和廖老师一起学嵌入式操作系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/osreview/" title="计算机操作系统重点"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">计算机操作系统重点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/11/csp-review/" title="计算机组成原理复习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机组成原理复习</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CUDA"
+        id="heading-a33b7755e5f9b504d2d038eaca4ff28d" role="tab" data-toggle="collapse" href="#collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+        aria-expanded="false"
+      >
+        CUDA
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+           role="tabpanel" aria-labelledby="heading-a33b7755e5f9b504d2d038eaca4ff28d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-l4t-ubuntu/" title="CUDA on Arm - L4t ubuntu基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - L4t ubuntu基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-memory/" title="CUDA on Arm - 存储单元"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 存储单元</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-parallelcomputing/" title="CUDA on Arm - 并行计算基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 并行计算基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-thread/" title="CUDA on Arm - 线程层次"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 线程层次</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-gpuhardware/" title="CUDA on Arm-GPU硬件架构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm-GPU硬件架构</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Embedded"
+        id="heading-069e7821d3b4c0bbf437147263eb4d0e" role="tab" data-toggle="collapse" href="#collapse-069e7821d3b4c0bbf437147263eb4d0e"
+        aria-expanded="false"
+      >
+        Embedded
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-069e7821d3b4c0bbf437147263eb4d0e"
+           role="tabpanel" aria-labelledby="heading-069e7821d3b4c0bbf437147263eb4d0e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hardware"
+        id="heading-3c02a379965ab0dfcd77b1c484450433" role="tab" data-toggle="collapse" href="#collapse-3c02a379965ab0dfcd77b1c484450433"
+        aria-expanded="false"
+      >
+        Hardware
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3c02a379965ab0dfcd77b1c484450433"
+           role="tabpanel" aria-labelledby="heading-3c02a379965ab0dfcd77b1c484450433">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/ad-stm32/" title="AD学习——STM32F103C8T6实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——STM32F103C8T6实战</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/09/ad20-learn/" title="AD学习——基本简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——基本简介</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Software"
+        id="heading-719d067b229178f03bcfa1da4ac4dede" role="tab" data-toggle="collapse" href="#collapse-719d067b229178f03bcfa1da4ac4dede"
+        aria-expanded="false"
+      >
+        Software
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-719d067b229178f03bcfa1da4ac4dede"
+           role="tabpanel" aria-labelledby="heading-719d067b229178f03bcfa1da4ac4dede">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/keil-1/" title="keil上手"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">keil上手</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ARM"
+        id="heading-47f45e65244c17ec9fa8771a5c6d60e1" role="tab" data-toggle="collapse" href="#collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+        aria-expanded="false"
+      >
+        ARM
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+           role="tabpanel" aria-labelledby="heading-47f45e65244c17ec9fa8771a5c6d60e1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/raspi-vpn/" title="Ras-Pi的VPN设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ras-Pi的VPN设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vs-code-pi/" title="使用VS Code远程开发树莓派"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用VS Code远程开发树莓派</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-source/" title="树莓派(Raspberry Pi)资源大全中文版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派(Raspberry Pi)资源大全中文版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-opencv/" title="树莓派安装OpenCV-4.3.0+Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装OpenCV-4.3.0+Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/raspi-config-sd/" title="树莓派安装raspi-config扩展SD卡空间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装raspi-config扩展SD卡空间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-kde/" title="树莓派的KDE桌面安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的KDE桌面安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-swap/" title="树莓派的SWAP分区扩展"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的SWAP分区扩展</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-flash-os/" title="树莓派系统镜像烧写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派系统镜像烧写</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/06/c-compile-speedup/" title="C/C++通用构建加速方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C/C++通用构建加速方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/linuxprocessesmanagement/" title="Linux进程管理-随笔记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux进程管理-随笔记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/detail-of-void/" title="void*是怎样的存在？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">void*是怎样的存在？</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/01/pc2jetpack/" title="PC模拟Jetson（Jetpack）运行环境"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PC模拟Jetson（Jetpack）运行环境</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/ubuntu-nvidia/" title="Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/manjaro-ifly/" title="manjaro 切换国内源及中文输入法安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">manjaro 切换国内源及中文输入法安装</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Usage"
+        id="heading-c64518704ce0c0d5501a45763f464276" role="tab" data-toggle="collapse" href="#collapse-c64518704ce0c0d5501a45763f464276"
+        aria-expanded="false"
+      >
+        Usage
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c64518704ce0c0d5501a45763f464276"
+           role="tabpanel" aria-labelledby="heading-c64518704ce0c0d5501a45763f464276">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/frp/" title="frp内网穿透方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">frp内网穿透方案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/linux-wifi/" title="linux 命令行下配置 wlan 无线网卡"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux 命令行下配置 wlan 无线网卡</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Robotics"
+        id="heading-c98c19727b6a8b8fcf6b4bf5ded39488" role="tab" data-toggle="collapse" href="#collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+        aria-expanded="false"
+      >
+        Robotics
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+           role="tabpanel" aria-labelledby="heading-c98c19727b6a8b8fcf6b4bf5ded39488">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/intel-t265-ros-jetson-with-cuda/" title="Intel T265 + ROS视觉里程计搭建——Jetson平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Intel T265 + ROS视觉里程计搭建——Jetson平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="System"
+        id="heading-a45da96d0bf6575970f2d27af22be28a" role="tab" data-toggle="collapse" href="#collapse-a45da96d0bf6575970f2d27af22be28a"
+        aria-expanded="false"
+      >
+        System
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a45da96d0bf6575970f2d27af22be28a"
+           role="tabpanel" aria-labelledby="heading-a45da96d0bf6575970f2d27af22be28a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/11/wuhutakeoff-v1-0/" title="四轴飞行器设计之系统集成"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">四轴飞行器设计之系统集成</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/docker-compose/" title="Docker Compose部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker Compose部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/docker-portainer/" title="Docker部署及Portainer可视化面板搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker部署及Portainer可视化面板搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vultr-vps/" title="Vultr VPS-服务器地址（机房）选择方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vultr VPS-服务器地址（机房）选择方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cdn/" title="WordPress全站优化策略——CDN加速配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——CDN加速配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cos/" title="WordPress全站优化策略——COS配置策略"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——COS配置策略</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/wordpress-docker/" title="使用docker部署WordPress"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用docker部署WordPress</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-nextcloud/" title="使用树莓派搭建私有云盘"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用树莓派搭建私有云盘</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cosfs/" title="挂载COS为本地磁盘——COSFS工具配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">挂载COS为本地磁盘——COSFS工具配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-bt/" title="树莓派部署宝塔面板+LAMP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派部署宝塔面板+LAMP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cos-ftp/" title="腾讯云COS-FTP部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">腾讯云COS-FTP部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计算机操作系统重点</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id=""><a href="#" class="headerlink" title=""></a><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622100939188.png" srcset="/img/loading.gif" lazyload></h1><p>博客原文：<a target="_blank" rel="noopener" href="https://jason-xy.cn/2021/06/osreview/">计算机操作系统重点 – 全栈之路 (jason-xy.cn)</a></p>
+<p>知乎原文：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/383665574">计算机操作系统复习整理 - 知乎 (zhihu.com)</a></p>
+<h1 id="第一章-绪论（考概念）"><a href="#第一章-绪论（考概念）" class="headerlink" title="第一章 绪论（考概念）"></a>第一章 绪论（考概念）</h1><h2 id="什么是OS？"><a href="#什么是OS？" class="headerlink" title="什么是OS？"></a>什么是OS？</h2><ul>
+<li>操作系统是一组<strong>控制和管理</strong>计算机软硬件资源、合理地对各类作业进行<strong>调度</strong>以及<strong>方便用户</strong>使用的程序集合。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622101202648.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>操作系统是位于硬件层(HAL)之上，所有其它系统软件层之下的一个系统软件，使得管理系统中的各种软件和硬件资源得以充分利用，方便用户使用计算机系统。</li>
+<li><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622101647407.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<h3 id="操作系统的目标"><a href="#操作系统的目标" class="headerlink" title="操作系统的目标"></a>操作系统的目标</h3><p><strong>方便性：</strong></p>
+<ul>
+<li>计算机只能识别0、1</li>
+<li>用户熟悉的是各种语言</li>
+<li>命令和图形界面</li>
+</ul>
+<p><strong>有效性：</strong></p>
+<ul>
+<li>长期是最重要的目标</li>
+<li>提高系统资源利用率</li>
+<li>提高系统吞吐量</li>
+</ul>
+<p><strong>可扩充性：</strong></p>
+<ul>
+<li>便于修改和增加功能（如何设计？）</li>
+</ul>
+<p><strong>开放性：</strong></p>
+<ul>
+<li>系统能支持世界标准规范</li>
+</ul>
+<h2 id="批处理、分时、实时系统比较"><a href="#批处理、分时、实时系统比较" class="headerlink" title="批处理、分时、实时系统比较"></a>批处理、分时、实时系统比较</h2><h3 id="批处理系统"><a href="#批处理系统" class="headerlink" title="批处理系统"></a>批处理系统</h3><h4 id="单道批处理系统"><a href="#单道批处理系统" class="headerlink" title="单道批处理系统"></a>单道批处理系统</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102054880.png" srcset="/img/loading.gif" lazyload alt="image-20210622102054880"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102135105.png" srcset="/img/loading.gif" lazyload alt="image-20210622102135105"></p>
+<ul>
+<li><strong>名称由来</strong>：内存中始终仅存一道作业运行；</li>
+<li><strong>主要特征</strong>：自动性、顺序性、单道性；</li>
+<li><strong>主要优点</strong>：减少人工操作，解决了作业的自动接续；</li>
+<li><strong>主要缺点</strong>：平均周转时间长，没有交互能力。</li>
+</ul>
+<h4 id="多道批处理系统"><a href="#多道批处理系统" class="headerlink" title="多道批处理系统"></a>多道批处理系统</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102254904.png" srcset="/img/loading.gif" lazyload alt="image-20210622102254904"></p>
+<ul>
+<li><strong>定义</strong>：在内存中存放多道作业运行，运行结束或出错，自动调度内存中的另一道作业运行；</li>
+<li><strong>好处</strong>：<ul>
+<li>提高CPU的利用率；</li>
+<li>提高内存和I&#x2F;O设备利用率；</li>
+<li>增加系统吞吐率；</li>
+</ul>
+</li>
+<li><strong>特征</strong>：多道性、无序性、调度性；</li>
+<li><strong>主要优点</strong>：提高了资源利用率和吞吐能力；</li>
+<li><strong>主要缺点</strong>：平均周转时间长，没有交互能力。</li>
+</ul>
+<h4 id="分时系统"><a href="#分时系统" class="headerlink" title="分时系统"></a>分时系统</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622102446740.png" srcset="/img/loading.gif" lazyload alt="image-20210622102446740"></p>
+<ul>
+<li><strong>产生</strong>：人机交互、共享主机、便于用户上机</li>
+<li><strong>关键问题</strong>：及时接收、及时处理</li>
+<li><strong>特点</strong>：多路性、独立性、及时性、交互性</li>
+</ul>
+<h4 id="实时系统"><a href="#实时系统" class="headerlink" title="实时系统"></a>实时系统</h4><ul>
+<li><strong>定义</strong>：是计算机及时响应外部事件的请求，在规定的时间内完成对该事件的处理，并控制所有实时设备和实时任务协调一致的运行。</li>
+<li><strong>举例</strong>：工业控制、军事控制、医疗控制、航班订票、联机情报检索</li>
+<li><strong>分类</strong>：周期性非周期性、软硬实时任务</li>
+<li><strong>特征</strong>：多路性、独立性、交互性、可靠性、及时性</li>
+</ul>
+<h2 id="OS-的作用"><a href="#OS-的作用" class="headerlink" title="OS 的作用"></a>OS 的作用</h2><ul>
+<li>作为用户与计算机硬件系统之间的接口</li>
+<li>作为计算机系统资源的管理者</li>
+<li>用作扩充机器</li>
+</ul>
+<h2 id="OS-的四个基本特性⭐"><a href="#OS-的四个基本特性⭐" class="headerlink" title="OS 的四个基本特性⭐"></a>OS 的四个基本特性⭐</h2><ul>
+<li><p>并发性（最重要的特性）</p>
+<p><strong>并行</strong>是指两或多个事件在同一时刻发生<br><strong>并发</strong>是两或多个事件在同一时间间隔内发生</p>
+</li>
+<li><p>共享性   </p>
+<p>系统中资源可供内存中多个并发执行的进程共同使用<br><strong>互斥共享：</strong>一段时间只允许一个进程访问该资源<br><strong>同时访问：</strong>微观上仍是互斥的<br> 并发和共享是操作系统的两个最基本的特征，它们又是互为存在的条件</p>
+</li>
+<li><p>虚拟性</p>
+<p><strong>时分复用：</strong>虚拟处理机技术， 虚拟设备技术<br><strong>空分复用：</strong>虚拟存储<br>通过某种技术把一个物理实体变为若干个逻辑上的对应物。若n是某一物理设备所对应的虚拟的逻辑设备数，则虚拟设备的速度必然是物理设备速度的1&#x2F;n。</p>
+</li>
+<li><p>异步性</p>
+<p>停停走走<br>运行进度不可预知</p>
+</li>
+</ul>
+<h2 id="OS-的五大功能⭐"><a href="#OS-的五大功能⭐" class="headerlink" title="OS 的五大功能⭐"></a>OS 的五大功能⭐</h2><ul>
+<li>处理机管理（CPU）</li>
+<li>存储器管理</li>
+<li>设备管理</li>
+<li>文件管理</li>
+<li>方便用户使用的用户接口。</li>
+</ul>
+<h2 id="OS-的基本类型（了解即可）"><a href="#OS-的基本类型（了解即可）" class="headerlink" title="OS 的基本类型（了解即可）"></a>OS 的基本类型（了解即可）</h2><ul>
+<li>批处理系统</li>
+<li>分时系统</li>
+<li>实时系统</li>
+</ul>
+<h1 id="第二章-进程管理"><a href="#第二章-进程管理" class="headerlink" title="第二章 进程管理"></a>第二章 进程管理</h1><h2 id="进程和线程的概念、比较"><a href="#进程和线程的概念、比较" class="headerlink" title="进程和线程的概念、比较"></a>进程和线程的概念、比较</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><ul>
+<li>进程是程序的<strong>一次执行</strong></li>
+<li>进程是一个<strong>程序及其数据</strong>在处理机上顺序执行时所<strong>发生的活动</strong></li>
+<li>进程是程序在一个数据集合上运行的过程，它是<strong>系统进行资源分配和调度的一个独立单位</strong></li>
+</ul>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>轻型进程</p>
+<h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><ul>
+<li><p>调度的基本单位</p>
+<p>在引入线程的OS 中，已把线程作为调度和分派的基本单位，因而线程是能独立运行的基本单位。当线程切换时，仅需保存和设置少量寄存器内容，切换代价远低于进程。</p>
+</li>
+<li><p>并发性</p>
+<p>在引入线程的OS 中，不仅进程之间可以并发执行，而且在一个进程中的多个线程之间亦可并发执行，甚至还允许在一个进程中的所有线程都能并发执行。同样，不同进程中的线程也能并发执行。</p>
+</li>
+<li><p>拥有资源</p>
+<p>线程本身并不拥有系统资源，而是仅有一点必不可少的、能保证独立运行的资源。</p>
+<p>属于同一进程的所有线程都具有相同的地址空间。</p>
+</li>
+<li><p>独立性</p>
+<p>在同一进程中的不同线程之间的独立性要比不同进程之间的独立性低得多。</p>
+</li>
+<li><p>系统开销</p>
+<p>在一些OS 中，线程的切换、同步和通信都无需操作系统内核的干预。</p>
+</li>
+<li><p>支持多处理机系统</p>
+<p>对于多线程进程，就可以将一个进程中的多个线程分配到多个处理机上，使它们并行执行，这无疑将加速进程的完成。</p>
+</li>
+</ul>
+<h2 id="进程的基本状态及状态转换的原因"><a href="#进程的基本状态及状态转换的原因" class="headerlink" title="进程的基本状态及状态转换的原因"></a>进程的基本状态及状态转换的原因</h2><h3 id="三种状态"><a href="#三种状态" class="headerlink" title="三种状态"></a>三种状态</h3><h4 id="就绪状态"><a href="#就绪状态" class="headerlink" title="就绪状态"></a>就绪状态</h4><blockquote>
+<p>当进程已分配到除CPU以外的所有必要资源后，只要再获得CPU，便可立即执行。（万事俱备，只欠CPU）</p>
+</blockquote>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175251447.png" srcset="/img/loading.gif" lazyload alt="image-20210624175251447"></p>
+<h4 id="执行状态"><a href="#执行状态" class="headerlink" title="执行状态"></a>执行状态</h4><blockquote>
+<p>进程已获得CPU，其程序正在执行。（获得CPU）</p>
+</blockquote>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175300019.png" srcset="/img/loading.gif" lazyload alt="image-20210624175300019"></p>
+<h4 id="阻塞状态"><a href="#阻塞状态" class="headerlink" title="阻塞状态"></a>阻塞状态</h4><blockquote>
+<p>正在执行的进程由于发生某事件而暂时无法继续执行时，便放弃处理机而处于暂停状态，把这种暂停状态称为阻塞状态，有时也称为等待状态。（无法继续执行，放弃处理机处于暂停状态）</p>
+</blockquote>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175309335.png" srcset="/img/loading.gif" lazyload alt="image-20210624175309335"></p>
+<h3 id="状态转换原因"><a href="#状态转换原因" class="headerlink" title="状态转换原因"></a>状态转换原因</h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624175319650.png" srcset="/img/loading.gif" lazyload alt="image-20210624175319650"></p>
+<table>
+<thead>
+<tr>
+<th><strong>起始状态</strong></th>
+<th><strong>终止状态</strong></th>
+<th><strong>转换原因</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空</td>
+<td>New</td>
+<td><strong>新创建</strong>的进程首先处于新状态</td>
+</tr>
+<tr>
+<td>New</td>
+<td>Ready</td>
+<td>当<strong>系统允许增加就绪进程</strong>时，操作系统接纳新建状态进程，将它变为就绪状态，<strong>插入就绪队列</strong>中</td>
+</tr>
+<tr>
+<td>Ready</td>
+<td>Running</td>
+<td>当<strong>处理机空闲</strong>时，将<strong>从就绪队列中选择一个进程执行</strong>，该选择过程称为进程调度，或将处理机分派给一个进程，该进程状态从就绪转变为执行</td>
+</tr>
+<tr>
+<td>Running</td>
+<td>Exit</td>
+<td>执行状态的进程<strong>执行完毕，或出现诸如访问地址越界、非法指令等错误</strong>，而被异常结束，则进程从执行状态转换为终止状态</td>
+</tr>
+<tr>
+<td>Running</td>
+<td>Ready</td>
+<td>分时系统中，<strong>时间片用完，或优先级高的进程到来</strong>，将中断较低优先级进程的执行。进程从执行状态转变为就绪状态，等待下一次调度</td>
+</tr>
+<tr>
+<td>Running</td>
+<td>Blocked</td>
+<td>执行进程<strong>需要等待某事件发生</strong>。通常，会因为进程需要的系统调用不能立即完成，如读文件、共享虚拟内存、等待I&#x2F;O操作、等待另一进程与之通信等事件而阻塞</td>
+</tr>
+<tr>
+<td>Blocked</td>
+<td>Ready</td>
+<td>当<strong>阻塞进程等待的事件发生</strong>，就转换为就绪状态。进入就绪队列排队，等待被调度执行</td>
+</tr>
+</tbody></table>
+<h2 id="PCB-的作用"><a href="#PCB-的作用" class="headerlink" title="PCB 的作用"></a>PCB 的作用</h2><ul>
+<li>是进程存在的唯一标志</li>
+<li>PCB (Process Control Block) 常驻内存</li>
+</ul>
+<h2 id="PCB-内的信息"><a href="#PCB-内的信息" class="headerlink" title="PCB 内的信息"></a>PCB 内的信息</h2><ul>
+<li>进程标识符</li>
+<li>处理机状态</li>
+<li>进程调度信息</li>
+<li>进程控制信息</li>
+</ul>
+<h2 id="进程控制的原语操作"><a href="#进程控制的原语操作" class="headerlink" title="进程控制的原语操作"></a>进程控制的原语操作</h2><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622115301881.png" srcset="/img/loading.gif" lazyload alt="image-20210622115301881"></p>
+<h3 id="Create"><a href="#Create" class="headerlink" title="Create()"></a><code>Create()</code></h3><ol>
+<li>申请空白 PCB</li>
+<li>为新进程分配资源</li>
+<li>初始化进程控制块<ol>
+<li>初始化标识信息</li>
+<li>初始化处理机状态信息</li>
+<li>初始化处理机控制信息</li>
+</ol>
+</li>
+<li>将新进程插入就绪队列</li>
+</ol>
+<h3 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h3><ol>
+<li>根据进程ID，检索进程PCB，读取进程信息</li>
+<li>若被终止进程处于执行状态，则立即终止进程，并置调度指示符为真，用于指示该进程被终止后重新进行调度</li>
+<li>终止子孙进程</li>
+<li>归还资源</li>
+<li>移出已终止进程</li>
+</ol>
+<h3 id="block"><a href="#block" class="headerlink" title="block()"></a><code>block()</code></h3><ol>
+<li>进程通过调用阻塞原语 <code>block()</code> 阻塞自己</li>
+<li>更改进程状态，并插入阻塞队列</li>
+<li>处理机重新调度，分配给另一就绪进程</li>
+</ol>
+<h3 id="wakeup"><a href="#wakeup" class="headerlink" title="wakeup()"></a><code>wakeup()</code></h3><ol>
+<li>将进程移出阻塞队列，并更改PCB中现行状态</li>
+<li>将PCB插入就绪队列</li>
+</ol>
+<h3 id="suspend"><a href="#suspend" class="headerlink" title="suspend()"></a><code>suspend()</code></h3><ol>
+<li>首先检查被挂起进程的状态，若处于活动就绪状态，便将其改为静止就绪</li>
+<li>对于活动阻塞状态的进程，则将之改为静止阻塞状态</li>
+</ol>
+<h3 id="active"><a href="#active" class="headerlink" title="active()"></a><code>active()</code></h3><ol>
+<li>将进程从外存调入内存，检查该进程的现行状态</li>
+<li>若是静止就绪，便将之改为活动就绪；若为静止阻塞，便将之改为活动阻塞</li>
+</ol>
+<h3 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h3><ol>
+<li>保存进程上下文环境</li>
+<li>更新当前运行进程的控制块内容，将其状态改为就绪或阻塞状态</li>
+<li>将进程控制块移到相应队列</li>
+<li>改变需投入运行进程的控制块内容，将其状态变为运行状态</li>
+<li>恢复需投入运行进程的上下文环境</li>
+</ol>
+<h2 id="进程互斥、临界区、进程同步的基本概念、同步准则"><a href="#进程互斥、临界区、进程同步的基本概念、同步准则" class="headerlink" title="进程互斥、临界区、进程同步的基本概念、同步准则"></a>进程互斥、临界区、进程同步的基本概念、同步准则</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="进程互斥"><a href="#进程互斥" class="headerlink" title="进程互斥"></a>进程互斥</h4><p>任何时刻，只允许一个进程进入临界区，以此实现进程对临界资源的互斥访问。</p>
+<h4 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h4><p>访问临界资源的那段代码称为临界区。</p>
+<h4 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h4><p>使并发执行的主进程之间能有效地共享资源和相互合作，从而使程序的执行具有可再现性。</p>
+<h3 id="同步准则"><a href="#同步准则" class="headerlink" title="同步准则"></a>同步准则</h3><ul>
+<li>空闲让进</li>
+<li>忙则等待</li>
+<li>有限等待</li>
+<li>让权等待</li>
+</ul>
+<h2 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h2><p>信号量（Semaphores）机制:是一种卓有成效的进程同步工具</p>
+<ul>
+<li>整型信号量</li>
+<li>记录型信号量</li>
+<li>​    AND 型信号量</li>
+<li>信号量集</li>
+</ul>
+<h2 id="信号量应用实现"><a href="#信号量应用实现" class="headerlink" title="信号量应用实现"></a>信号量应用实现</h2><ul>
+<li>利用信号量实现进程互斥</li>
+<li>利用信号量实现前趋关系</li>
+</ul>
+<h2 id="经典进程同步问题⭐"><a href="#经典进程同步问题⭐" class="headerlink" title="经典进程同步问题⭐"></a>经典进程同步问题⭐</h2><h3 id="生产者消费者问题"><a href="#生产者消费者问题" class="headerlink" title="生产者消费者问题"></a>生产者消费者问题</h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622120531224.png" srcset="/img/loading.gif" lazyload alt="image-20210622120531224"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622123326740.png" srcset="/img/loading.gif" lazyload alt="image-20210622123326740"></p>
+<ul>
+<li>互斥信号量mutex：实现诸进程对缓冲池的互斥使用</li>
+<li>资源信号量empty：表示缓冲池中空缓冲区的数量</li>
+<li>资源信号量full：表示满缓冲区的数量</li>
+<li>只要缓冲池未满，生产者便可将消息送入缓冲池</li>
+<li>只要缓冲池未空，消费者便可从缓冲池中取走一个消息</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> in=<span class="hljs-number">0</span>,  out=<span class="hljs-number">0</span>;<br>item buffer[n];<br>semapthore mutex=<span class="hljs-number">1</span>, empty=n, full=<span class="hljs-number">0</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">proceducer</span><span class="hljs-params">()</span> &#123;<br>      <span class="hljs-keyword">do</span>&#123;<br>            producer an item nextp;<br>            …….<br>            wait(empty);<br>            wait(mutex);<br>            buffer[in]=nextp;<br>            in=(in+<span class="hljs-number">1</span>) %n;<br>            signal(mutex);<br>            signal(full);<br>       &#125; <span class="hljs-keyword">while</span>(TRUE);<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">consumer</span><span class="hljs-params">()</span> &#123;<br>      <span class="hljs-keyword">do</span>&#123;<br>            wait(full);<br>            wait(mutex);<br>            nextc=buffer[out];<br>            out=(out+<span class="hljs-number">1</span>) %n;<br>            signal(mutex);<br>            signal(empty);<br>            consumer the item in nextc;<br>            ………<br>       &#125; <span class="hljs-keyword">while</span>(TRUE);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622124136627.png" srcset="/img/loading.gif" lazyload alt="image-20210622124136627"></p>
+<h3 id="哲学家进餐问题"><a href="#哲学家进餐问题" class="headerlink" title="哲学家进餐问题"></a>哲学家进餐问题</h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622155103227.png" srcset="/img/loading.gif" lazyload alt="image-20210622155103227"></p>
+<p>特殊情况：死锁 。<br>解决办法：<br>至多只允许四位哲学家同时去哪左边的筷子。<br>仅当哲学家的左、右两只筷子同时可以时才允许他拿起筷子。<br>规定奇数号哲学家先拿他左边的筷子，然后再拿右边的；而偶数号哲学家则相反。</p>
+<ul>
+<li>记录型信号量</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c">semaphore  chopstick［<span class="hljs-number">5</span>］ =[<span class="hljs-number">1</span>，<span class="hljs-number">1</span>，<span class="hljs-number">1</span>，<span class="hljs-number">1</span>，<span class="hljs-number">1</span>];<br><br><span class="hljs-keyword">do</span>&#123;<br>    wait(chopstick[i]);<br>    wait(chopstick[(i+<span class="hljs-number">1</span>) %<span class="hljs-number">5</span>]);<br>    …<br>   <span class="hljs-comment">//eat</span><br>    …<br>   signal(chopstick[i]);<br>   signal(chopstick[(i+<span class="hljs-number">1</span>) % <span class="hljs-number">5</span>]);<br>    …<br>   <span class="hljs-comment">//think;</span><br>    …<br>&#125; <span class="hljs-keyword">while</span> (TRUE)<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>AND 型信号量</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">Var chopstick: <span class="hljs-built_in">array</span>[<span class="hljs-number">0</span>, …, <span class="hljs-number">4</span>] of semaphore:=(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>processi<br>Repeat<br>   think;<br>   Sswait(chopstick[(i+<span class="hljs-number">1</span>)mod <span class="hljs-number">5</span>],chopstick[i]);<br>   eat<br>   <span class="hljs-title function_">Ssignal</span><span class="hljs-params">(chopstick[(i+<span class="hljs-number">1</span>)mod <span class="hljs-number">5</span>],chopstick[i])</span>;<br>Until <span class="hljs-literal">false</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="读者写者问题"><a href="#读者写者问题" class="headerlink" title="读者写者问题"></a>读者写者问题</h3><ul>
+<li>信号量集</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> RN;<br>semaphore L=RN, mx=<span class="hljs-number">1</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">Reader</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">do</span>&#123;<br>           Swait(L, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>           Swait(mx, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);<br>           …….<br>           perform read operation;<br>            ……<br>            Ssignal(L, <span class="hljs-number">1</span>)<br>     &#125;<span class="hljs-keyword">while</span> (TRUE);<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">Writer</span><span class="hljs-params">()</span>&#123;<br>      <span class="hljs-keyword">do</span>&#123;<br>           Swait(mx, <span class="hljs-number">1</span>,<span class="hljs-number">1</span>; L, RN, <span class="hljs-number">0</span>);<br><br>           perform write operation;<br><br>           Ssignal(mx, <span class="hljs-number">1</span>);<br>      &#125; <span class="hljs-keyword">while</span>(TRUE);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="进程间通信的原理和实现方法"><a href="#进程间通信的原理和实现方法" class="headerlink" title="进程间通信的原理和实现方法"></a>进程间通信的原理和实现方法</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>进程之间的信息交换</p>
+<ul>
+<li>共享存储器系统</li>
+<li>消息传递系统</li>
+<li>管道（Pipe）通信</li>
+</ul>
+<h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><ul>
+<li>直接通信方式<ul>
+<li><code>Send(Receiver，message);</code></li>
+<li><code>Receive(Sender，message);</code></li>
+</ul>
+</li>
+<li>间接通信方式<ul>
+<li><code>Send(mailbox, message);</code></li>
+<li><code>Receive(mailbox, message);</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="第三章-处理机调度"><a href="#第三章-处理机调度" class="headerlink" title="第三章 处理机调度"></a>第三章 处理机调度</h1><h2 id="调度的层次"><a href="#调度的层次" class="headerlink" title="调度的层次"></a>调度的层次</h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>高级</strong></th>
+<th><strong>中级</strong></th>
+<th><strong>低级</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>调度对象</strong></td>
+<td>作业</td>
+<td>挂起的进程</td>
+<td>就绪进程</td>
+</tr>
+<tr>
+<td><strong>功能</strong></td>
+<td>将外存作业调入内存，创建PCB等，插入就绪队列</td>
+<td>把外存上那些已经具备运行条件的就绪进程重新载入内存。从静止就绪到活动就绪</td>
+<td>决定就绪队列中的那个进程应获得处理机，并将处理机分配给选中的进程</td>
+</tr>
+<tr>
+<td><strong>实现</strong></td>
+<td>作业管理程序</td>
+<td>内存管理中的对换进程</td>
+<td>分派程序（dispatcher)</td>
+</tr>
+<tr>
+<td><strong>频度</strong></td>
+<td>最低，分钟级</td>
+<td>中级</td>
+<td>最频繁，毫秒级</td>
+</tr>
+</tbody></table>
+<h2 id="调度算法的准则"><a href="#调度算法的准则" class="headerlink" title="调度算法的准则"></a>调度算法的准则</h2><p>不同的设计需求决定了不同的目标：</p>
+<p>共同目标：</p>
+<ul>
+<li>资源利用率</li>
+<li>公平性</li>
+<li>平衡性</li>
+<li>策略强制执行</li>
+</ul>
+<h3 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h3><ul>
+<li>作业在外存的等待时间</li>
+<li>进程在就绪队列的等待时间</li>
+<li>进程占用CPU的时间</li>
+<li>进程阻塞时间</li>
+</ul>
+<h3 id="带权周转时间"><a href="#带权周转时间" class="headerlink" title="带权周转时间"></a>带权周转时间</h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622163718118.png" srcset="/img/loading.gif" lazyload alt="image-20210622163718118"></p>
+<h3 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h3><h2 id="调度算法⭐"><a href="#调度算法⭐" class="headerlink" title="调度算法⭐"></a>调度算法⭐</h2><h3 id="先来先服务"><a href="#先来先服务" class="headerlink" title="先来先服务"></a>先来先服务</h3><p><strong>周转时间</strong></p>
+<ul>
+<li>作业在外存的等待时间</li>
+<li>进程在就绪队列的等待时间</li>
+<li>进程占用CPU的时间</li>
+<li>进程阻塞时间</li>
+</ul>
+<p><strong>缺陷：</strong>对待短作业（进程）不公平，如果他们排在队列后面，则其等待时间远大于其执行时间。</p>
+<h3 id="时间片轮转"><a href="#时间片轮转" class="headerlink" title="时间片轮转"></a>时间片轮转</h3><p>原理：</p>
+<ul>
+<li>FCFS策略+时钟中断+时间片原则</li>
+</ul>
+<p>进程切换时机：</p>
+<ul>
+<li>时间片内进程结束，进程结束事件激活进程调度，新进程可运行一个时间片。</li>
+<li>时间片用完，时钟中断激活调度，旧进程到就绪队列尾，队头进程投入运行一个时间片。</li>
+</ul>
+<p>时间片大小的确定：</p>
+<ul>
+<li><p>太小：利于短作业，但增大调度和上下文切换频率，增大系统开销。</p>
+</li>
+<li><p>太长：退化为FCFS算法。</p>
+</li>
+<li><p>合适：略大于一次典型的交互所需的时间，使大多数交互式进程能在一个时间片内完成。 </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164449450.png" srcset="/img/loading.gif" lazyload alt="image-20210622164449450"></p>
+</li>
+</ul>
+<h3 id="基于优先权"><a href="#基于优先权" class="headerlink" title="基于优先权"></a>基于优先权</h3><p>赋予作业动态优先级，优先级随作业等待时间延长而增加，从而使长作业的优先级在等待期间不断增加。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164143377.png" srcset="/img/loading.gif" lazyload alt="image-20210622164143377"></p>
+<h3 id="高响应比优先"><a href="#高响应比优先" class="headerlink" title="高响应比优先"></a>高响应比优先</h3><p>等待时间+要求服务时间&#x3D;响应时间<br>故优先级相当于响应比Rp。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164232790.png" srcset="/img/loading.gif" lazyload alt="image-20210622164232790"></p>
+<ul>
+<li>如果作业的等待时间相同，则要求服务的时间愈短，其优先权愈高，因而该算法有利于短作业。 </li>
+<li>当要求服务的时间相同时，作业的优先权决定于其等待时间，等待时间愈长，其优先权愈高，因而它实现的是先来先服务。 </li>
+<li>对于长作业，作业的优先级可以随等待时间的增加而提高， 从而也可获得处理机。 </li>
+<li>简言之，该算法既照顾了短作业，又考虑了作业到达的先后次序，不会使长作业长期得不到服务。</li>
+</ul>
+<h3 id="多级反馈队列"><a href="#多级反馈队列" class="headerlink" title="多级反馈队列"></a>多级反馈队列</h3><p>长短不同作业的矛盾。</p>
+<p>调度机制</p>
+<ul>
+<li>设置多个就绪队列，并为各个队列赋予不同的优先级。</li>
+<li>优先级愈高的队列的进程的执行时间片就愈小。</li>
+<li>新进程首先进入最高优先级的队列。每个队列采用FCFS算法。队列中的进程运行一个时间片后未结束则降级排到下一个队列的末尾。最低优先权队列中的进程则按RR方式运行。</li>
+<li>按队列优先级调度。只有比队列的优先级高的队列均空时，才运行该队列中的进程。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164555339.png" srcset="/img/loading.gif" lazyload alt="image-20210622164555339"></p>
+<p>特点：长、短作业兼顾，有较好的响应时间</p>
+<p>（1）短作业一次完成，响应时间性能好；</p>
+<p>（2）中型作业周转时间不长；</p>
+<p>（3）大型作业不会长期不处理。</p>
+<h3 id="实时调度（了解）"><a href="#实时调度（了解）" class="headerlink" title="实时调度（了解）"></a>实时调度（了解）</h3><p>实时调度算法分类</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/22/image-20210622164657687.png" srcset="/img/loading.gif" lazyload alt="image-20210622164657687"></p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><h3 id="概念及原因"><a href="#概念及原因" class="headerlink" title="概念及原因"></a>概念及原因</h3><p><strong>死锁（Deadlock）</strong>，是指多个进程在运行过程中因争夺资源而造成的一种僵局（Deadly- Embrace），当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。</p>
+<p>如果一组进程中的每一个进程都在等待仅由该组进程中的其他进程才能引发的事件，那么该组进程是死锁的。</p>
+<p><strong>产生死锁的原因可归结为如下两点：</strong></p>
+<p> （1）竞争资源。</p>
+<p> （2）进程间推进顺序非法。</p>
+<h3 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h3><p>（1）<strong>互斥条件：</strong>指进程对所分配到的资源进行排它性使用 。</p>
+<p>（2）<strong>请求和保持条件：</strong>指进程已经保持了至少一个资源，但又提出了新的资源请求 。 </p>
+<p>（3）<strong>不剥夺条件：</strong>指进程已获得的资源，在未使用完之前，不能被剥夺，只能在使用完时由自己释放。 </p>
+<p>（4）<strong>环路等待条件：</strong>指在发生死锁时，必然存在一个进程——资源的环形链  。</p>
+<h3 id="预防"><a href="#预防" class="headerlink" title="预防"></a>预防</h3><p>是通过设置某些限制条件，去破坏产生死锁的四个必要条件中的一个或几个条件，来预防发生死锁。至于<strong>必要条件1</strong>，因为它是由设备的固有属性所决定的，不仅不能改变，还应加以保证。</p>
+<h4 id="破坏“请求和保持”条件"><a href="#破坏“请求和保持”条件" class="headerlink" title="破坏“请求和保持”条件"></a>破坏“请求和保持”条件</h4><p>系统规定所有进程在开始运行之前，都必须一次性地申请其在整个运行过程所需的全部资源。</p>
+<p>从而进程在整个运行期间，便不会再提出资源要求，从而摒弃了请求和保持条件，由此可以避免发生死锁。</p>
+<p><strong>优点：</strong>简单、易于实现且很安全。<br><strong>缺点：</strong>资源被严重浪费，使进程延迟运行。 </p>
+<h4 id="摒弃“不剥夺”条件"><a href="#摒弃“不剥夺”条件" class="headerlink" title="摒弃“不剥夺”条件"></a>摒弃“不剥夺”条件</h4><p>当一个已经保持了某些资源的进程，再提出新的资源请求而不能立即得到满足时，必须释放它已经保持了的所有资源。待以后需要时再重新申请。从而摒弃了“不剥夺”条件。</p>
+<p><strong>缺点：</strong>实现起来比较复杂且要付出很大代价。</p>
+<ul>
+<li>一个资源在使用一段时间后，它的被迫释放可能会造成前段工作的失效。</li>
+<li>会使进程前后两次运行的信息不连续。 </li>
+<li>因反复地申请和释放资源，致使进程执行被无限推迟，延长进程周转时间、增加系统开销、降低吞吐量 。</li>
+</ul>
+<h4 id="摒弃“环路等待”条件"><a href="#摒弃“环路等待”条件" class="headerlink" title="摒弃“环路等待”条件"></a>摒弃“环路等待”条件</h4><p>这种方法中规定，系统将所有资源按类型进行线性排队，并赋予不同的序号。 所有进程对资源的请求必须严格按照资源序号递增的次序提出，这样，在所形成的资源分配图中，不可能再出现环路，因而摒弃了“环路等待”条件。 </p>
+<p><strong>存在严重问题</strong></p>
+<p>第一，为系统中各类资源分配的序号必须相对稳定，这就限制了新设备类型的增加；</p>
+<p>第二，会经常发生作业使用的顺序与系统规定顺序不同的情况，造成资源浪费；</p>
+<p>第三，增加了程序设计难度。</p>
+<h3 id="避免"><a href="#避免" class="headerlink" title="避免"></a>避免</h3><p>是在资源的动态分配过程中，用某种方法去防止系统进入不安全状态，从而避免发生死锁。 </p>
+<h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><p>通过系统所设置的检测机构，及时地检测出死锁的发生，并精确地确定与死锁有关的进程和资源。</p>
+<h3 id="解除"><a href="#解除" class="headerlink" title="解除"></a>解除</h3><p>当检测到系统中已发生死锁时，须将进程从死锁状态中解脱出来。常用的实施方法是撤消或挂起一些进程。</p>
+<h3 id="安全状态"><a href="#安全状态" class="headerlink" title="安全状态"></a>安全状态</h3><p>安全状态</p>
+<ul>
+<li>所谓安全状态，是指系统能按某种进程顺序，如&lt;P1，P2，…，Pn&gt;，依次为n个进程分配其所需资源，直至其最大需求，使每个进程都可顺利地完成，称系统处于安全状态。</li>
+<li>称〈P1，P2，…，Pn〉序列为安全序列。否则，如果系统无法找到这样一个安全序列，则称系统处于不安全状态。</li>
+</ul>
+<h2 id="银行家问题⭐"><a href="#银行家问题⭐" class="headerlink" title="银行家问题⭐"></a>银行家问题⭐</h2><h3 id="银行家算法中的数据结构"><a href="#银行家算法中的数据结构" class="headerlink" title="银行家算法中的数据结构"></a>银行家算法中的数据结构</h3><ul>
+<li><strong>可利用资源向量Available。</strong>这是一个含有m个元素的数组，其中的每一个元素代表一类可利用的资源数目。其数值随该类资源的分配和回收而动态地改变。 Available[j]&#x3D;k,表示系统中现有Rj类资源k个。</li>
+<li><strong>最大需求矩阵Max。</strong>这是一个n × m的矩阵，它定义了n个进程中每一个进程对m类资源的最大需求。Max[i,j]&#x3D;K，表示进程i需要Rj类资源的最大数目为K。   </li>
+<li><strong>分配矩阵Allocation。</strong>这是一个n×m的矩阵，它定义了系统中每一类资源当前已分配给每一进程的资源数。Allocation［i,j]&#x3D;K，表示进程i当前已分得Rj类资源的数目为K。</li>
+<li><strong>需求矩阵Need。</strong>这也是一个n×m的矩阵，用以表示每一个进程尚需的各类资源数。Need[i,j]&#x3D;K，表示进程Pi还需要Rj类资源K个，方能完成其任务。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623094536182.png" srcset="/img/loading.gif" lazyload alt="image-20210623094536182"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623094712811.png" srcset="/img/loading.gif" lazyload alt="image-20210623094712811"></p>
+<h1 id="第四章-存储器管理"><a href="#第四章-存储器管理" class="headerlink" title="第四章 存储器管理"></a>第四章 存储器管理</h1><h2 id="存储器结构层次"><a href="#存储器结构层次" class="headerlink" title="存储器结构层次"></a>存储器结构层次</h2><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623100830334.png" srcset="/img/loading.gif" lazyload alt="image-20210623100830334"></p>
+<ul>
+<li>寄存器、高速缓存、主存储器和磁盘缓存均属于操作系统存储管理的管辖范畴，掉电后它们存储的信息不再存在。</li>
+<li>磁盘和可移动存储介质属于设备管理和文件系统的管辖范畴，它们存储的信息将被长期保存。</li>
+</ul>
+<h2 id="程序的装入"><a href="#程序的装入" class="headerlink" title="程序的装入"></a>程序的装入</h2><p><strong>绝对装入方式(Absolute Loading Mode) ：</strong>编译时，已知程序在内存的具体位置，则编译程序可产生实际存储地址（绝对地址）的目标代码。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623101231280.png" srcset="/img/loading.gif" lazyload alt="image-20210623101231280"></p>
+<p><strong>可重定位装入方式(Relocation Loading Mode)</strong> </p>
+<p>重定位（地址映射）：</p>
+<ul>
+<li>经编译得到的目标模块中为相对地址（通常从0开始，也称逻辑地址），即地址都是相对于0开始的。</li>
+<li>装入模块中的逻辑地址与实际装入内存的物理地址不同。</li>
+<li>装入内存时，相对地址（数据和指令的地址）要作出相应的修改以得到正确的物理地址，这个修改的过程称为重定位。</li>
+</ul>
+<p>静态重定位：</p>
+<ul>
+<li>地址变换是在装入内存时一次完成的，且以后不能移动。</li>
+<li>一般情况下,物理地址&#x3D;相对地址+内存中的起始地址。</li>
+<li>适用于多道程序环境，可以将装入模块装入到内存中任何允许的位置。</li>
+<li>优点：不需硬件支持，可以装入有限多道程序。</li>
+<li>缺点：一个程序通常需要占用连续的内存空间，程序装入内存后不能移动，不易实现共享。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623101752155.png" srcset="/img/loading.gif" lazyload alt="image-20210623101752155"></p>
+<p>动态运行时装入方式(Denamle Run-time Loading) </p>
+<ul>
+<li>装入程序将装入模块装入内存后，并不立即把装入模块中的相对地址转换为绝对地址，而是把这种地址转换推迟到程序执行时进行。在硬件地址变换机构的支持下，随着对每条指令或数据的访问自动进行地址变换，故称为动态重定位。</li>
+<li>最简单的办法是利用一个重定位寄存器(RR)。该寄存器的值是由进程调度程序根据作业分配到的存储空间起始地址来设定的。</li>
+<li>在具有这种地址变换机构的计算机系统中，当执行作业时，不是根据CPU给出的有效地址去访问主存，而是将有效地址与重定位寄存器中的内容相加后得到的地址作为访问主存的地址。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623101840707.png" srcset="/img/loading.gif" lazyload alt="image-20210623101840707"></p>
+<p>访问地址时才确定物理地址，因此采用动态重定位技术后，可在运行中动态分配或者释放存储空间。</p>
+<p>主要优点：</p>
+<ul>
+<li>主存的使用更加灵活有效。非连续分配和部分装入。</li>
+<li>几个作业共享一程序段的单个副本比较容易。</li>
+<li>有可能向用户提供一个比主存的存储空间大得多的地址空间。因而无需用户来考虑覆盖结构，而由系统来负责全部的存储管理。</li>
+</ul>
+<p>主要缺点：</p>
+<ul>
+<li>需要附加硬件支持。</li>
+<li>实现存储器管理的软件比较复杂。</li>
+</ul>
+<h2 id="程序的链接"><a href="#程序的链接" class="headerlink" title="程序的链接"></a>程序的链接</h2><p><strong>静态链接： (Static Linking)</strong> </p>
+<p>在程序运行之前，先将各目标模块及它们所需的库函数，链接成一个完整的装入模块（又称执行模块），以后不再拆开。 </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623102452321.png" srcset="/img/loading.gif" lazyload alt="image-20210623102452321"></p>
+<p>存在问题：</p>
+<ul>
+<li>不便于对目标模块的修改和更新（若要更新其中一个模块，需要打开装入模块）。</li>
+<li>无法实现对目标模块的共享。</li>
+</ul>
+<p><strong>装入时动态链接</strong></p>
+<p>用户源程序是主目标模块，装入内存时再链接需要的其他模块。即在装入目标模块时，若发现一个外部模块调用，则由装入程序找出相应的外部目标模块，并将其装入内存。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623102613247.png" srcset="/img/loading.gif" lazyload alt="image-20210623102613247"></p>
+<p>优点：</p>
+<ul>
+<li>便于软件版本的修改和更新。只需修改各个目标模块，不必将装入模块拆开，非常方便。</li>
+<li>便于实现目标模块共享。即可以将一个目标模块链接到几个应用模块中，从而实现多个应用程序对该模块的共享。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>进程（程序）在整个执行期间，装入模块是不改变的。</li>
+<li>每次运行时的装入所有涉及的模块，但许多模块并不是每次运行都需要的，占用内存。</li>
+</ul>
+<p><strong>运行时动态链接</strong></p>
+<p>采用运行时动态链接可将某些目标模块的链接推迟到执行时才进行，即在执行过程中，若发现一个被调用模块尚未装入内存时，由操作系统去找到该模块，将它装入内存，并链接到调用模块上。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623102926460.png" srcset="/img/loading.gif" lazyload alt="image-20210623102926460"></p>
+<p>优点：</p>
+<ul>
+<li>凡在执行过程中未被用到的目标模块，都不会被调入内存和被链接到装入模块上，这样不仅可加快程序的装入过程，而且可节省大量的内存空间。</li>
+<li>运行时动态链接是目前最常使用的链接方式。</li>
+</ul>
+<h2 id="连续分配方式"><a href="#连续分配方式" class="headerlink" title="连续分配方式"></a>连续分配方式</h2><p>连续分配方式，是指为一个用户程序分配一个连续的内存空间。 </p>
+<h3 id="单一连续分配"><a href="#单一连续分配" class="headerlink" title="单一连续分配"></a>单一连续分配</h3><ul>
+<li>系统区</li>
+<li>用户区</li>
+<li>存贮保护<ul>
+<li>一般不设置保护也可，因单任务。</li>
+</ul>
+</li>
+</ul>
+<h3 id="分区式分配"><a href="#分区式分配" class="headerlink" title="分区式分配"></a>分区式分配</h3><h4 id="固定分区"><a href="#固定分区" class="headerlink" title="固定分区"></a>固定分区</h4><p>特点：有n个分区，则可同时装入n个作业&#x2F;任务。</p>
+<p>一、分区大小：</p>
+<p>​	相等:</p>
+<p>​	不相等：不相等利用率更高。</p>
+<p>二、内存分配：</p>
+<p>数据结构  </p>
+<p>​	将分区按大小排序，并将其地址、分配标识作记录</p>
+<p>例：dos的MCB</p>
+<p>三、特点：</p>
+<p>简单，有碎片（内零头）</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623103326854.png" srcset="/img/loading.gif" lazyload alt="image-20210623103326854"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623103822037.png" srcset="/img/loading.gif" lazyload alt="image-20210623103822037"></p>
+<h4 id="可变式分区（比固定式分区有改善）"><a href="#可变式分区（比固定式分区有改善）" class="headerlink" title="可变式分区（比固定式分区有改善）"></a>可变式分区（比固定式分区有改善）</h4><p><strong>一、数据结构</strong></p>
+<p>​	1．空闲分区表</p>
+<p>​	2．空闲分区链</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623103926053.png" srcset="/img/loading.gif" lazyload alt="image-20210623103926053"></p>
+<p><strong>二、顺序分配算法</strong></p>
+<p>要求：空闲分区按照地址或者大小组织为链表。</p>
+<p><strong>1．首次适应算法FF。</strong></p>
+<p>方法：每次链首开始，直到找到满足大小的空闲分区，分割该分区。</p>
+<p>特点：有外零头，低址内存使用频繁，查找慢。高地址区保留大分区。 </p>
+<p><strong>2．循环首次适应算法。</strong></p>
+<p>方法：从上次找到的空闲分区的下一个开始查找，直到找到满足大小的空闲分区，分割该分区。</p>
+<p>特点：空闲分区分布均匀，提高了查找速度；缺乏大的空闲分区。</p>
+<p><strong>3．最佳适应算法</strong></p>
+<p>要求：分区按大小递增排序；分区释放时需插入到适当位置。</p>
+<p>方法：从小分区开始，找大小满足要求，但空余最小的分区。</p>
+<p>特点：单次分配看似最优，但存在许多难以利用的碎片。总体未必最优。</p>
+<p><strong>4．最坏适应算法</strong></p>
+<p>方法：总是选择最大的分区来分割分配。</p>
+<p>特点: 缺乏大的空闲分区。对中小作业有利。查找效率高。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623104852404.png" srcset="/img/loading.gif" lazyload alt="image-20210623104852404"></p>
+<p><strong>三、分区分配</strong></p>
+<p>1．分配：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623105056935.png" srcset="/img/loading.gif" lazyload alt="image-20210623105056935"></p>
+<p>2．回收：</p>
+<p>（1）上邻空闲区：合并，改大小。</p>
+<p>（2）下邻空闲区：合并，改大小，首址。</p>
+<p>（3）上、下邻空闲区：合并，改大小。</p>
+<p>（4）不邻接，则建立一新表项。</p>
+<h3 id="可重定位分区分配"><a href="#可重定位分区分配" class="headerlink" title="可重定位分区分配"></a>可重定位分区分配</h3><p><strong>动态重定位的引入</strong></p>
+<ul>
+<li>内零头：分配给作业但作业并不需要的部分。</li>
+<li>外零头：太小无法分配给任何作业的块。</li>
+<li>连续式分配中，总量大于作业大小的多个小分区不能容纳作业。</li>
+<li>紧凑<ul>
+<li>通过作业移动将原来分散的小分区拼接成一个大分区。</li>
+<li>作业的移动需重定位。是动态（因作业已经装入）</li>
+</ul>
+</li>
+</ul>
+<p><strong>动态重定位实现</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623110156258.png" srcset="/img/loading.gif" lazyload alt="image-20210623110156258"></p>
+<p><strong>动态分区分配算法</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623110237136.png" srcset="/img/loading.gif" lazyload alt="image-20210623110237136"></p>
+<h2 id="离散分配方式"><a href="#离散分配方式" class="headerlink" title="离散分配方式"></a>离散分配方式</h2><p><strong>离散分配方式的引入</strong></p>
+<ul>
+<li>连续分配方式会产生内&#x2F;外零头</li>
+<li>为解决零头问题又要进行紧凑等高开销活动</li>
+</ul>
+<p><strong>什么是离散分配</strong></p>
+<ul>
+<li>程序在内存中不一定连续存放</li>
+</ul>
+<p><strong>根据离散时的基本单位不同，可分为三种：</strong></p>
+<ul>
+<li>分页存储管理</li>
+<li>分段存储管理</li>
+<li>段页式存储管理</li>
+</ul>
+<h3 id="分页存储管理"><a href="#分页存储管理" class="headerlink" title="分页存储管理"></a>分页存储管理</h3><h4 id="页面和物理块"><a href="#页面和物理块" class="headerlink" title="页面和物理块"></a>页面和物理块</h4><ul>
+<li>将一个进程的逻辑地址空间分成若干个大小相等的片，称为页面或页。</li>
+<li>相应地，也把内存空间分成与页面相同大小的若干个存储块，称为（物理）块或页框。</li>
+<li>在为进程分配内存时，以块为单位将进程中的若干个页分别装入到多个可以不相邻接的物理块中。</li>
+<li>由于进程的最后一页经常装不满一块而形成了不可利用的碎片，称之为“页内碎片”或称为“内零头”。</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>系统一旦启动，则页和页框大小固定不变，且两者相等。</li>
+<li>从0开始编制页号，页内地址是相对于0编址。</li>
+<li>在进程调度时，必须把它的所有页一次装入到主存的页框内；如果当时页框数不足，则该进程必须等待，系统再调度另外的进程。（纯分页方式）</li>
+</ul>
+<h4 id="实现分页存储管理的数据结构"><a href="#实现分页存储管理的数据结构" class="headerlink" title="实现分页存储管理的数据结构"></a>实现分页存储管理的数据结构</h4><ol>
+<li><strong>页表：</strong>每个进程对应 1 个页表，描述该进程的各页面在内存中对应的物理块号。</li>
+</ol>
+<ul>
+<li>页表中包括页号、物理块号（还可有存取控制字段，对存储块中的内容进行保护）。</li>
+<li>注意：全部页表集中存放在主存的系统专用区中，只有系统有权访问页表，保证安全。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623135845025.png" srcset="/img/loading.gif" lazyload alt="image-20210623135845025"></p>
+<ol start="2">
+<li><p><strong>作业表</strong>：整个系统1张，记录作业的页表情况，包含进程号、页表长度、页表始址等信息。</p>
+</li>
+<li><p><strong>空闲块表：</strong>整个系统1张，记录主存当前空闲块。</p>
+</li>
+</ol>
+<h4 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094122698.png" srcset="/img/loading.gif" lazyload alt="image-20210624094122698"></p>
+<h4 id="快表"><a href="#快表" class="headerlink" title="快表"></a>快表</h4><ul>
+<li><p>分页系统：处理机每次存取指令或数据至少需要访问两次物理内存： 第一次访问页表，第二次存取指令或数据</p>
+</li>
+<li><p>为了提高地址变换速度，为进程页表设置一个专用的高速缓冲存储器，称为快表、TLB(Translation Lookaside Buffer)，或联想存储器（Associative Memory）</p>
+</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094237285.png" srcset="/img/loading.gif" lazyload alt="image-20210624094237285"></p>
+<p><strong>内存的有效访问时间</strong></p>
+<p>有快表时：命中率，指使用快表并在其中成功找到所需页面的表项的概率。</p>
+<p>EAT &#x3D; a x λ + ( t + λ )(1-a) + t &#x3D; 2t + λ – t x a</p>
+<p>λ为查找快表所需的时间，a为命中率，t表示一次内存访问需要的时间。</p>
+<h4 id="两级或多级页表"><a href="#两级或多级页表" class="headerlink" title="两级或多级页表"></a>两级或多级页表</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094346119.png" srcset="/img/loading.gif" lazyload alt="image-20210624094346119"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094639358.png" srcset="/img/loading.gif" lazyload alt="image-20210624094639358"></p>
+<h4 id="对分页存储管理的评价"><a href="#对分页存储管理的评价" class="headerlink" title="对分页存储管理的评价"></a>对分页存储管理的评价</h4><ul>
+<li>彻底消除了外零头,仅存在很少的内零头, 提高了内存利用率。</li>
+<li>分页操作由系统自动进行,一个页面不能实现某种逻辑功能。用户看到的逻辑地址是一维的，无法调试执行其中的某个子程序或子函数。</li>
+<li>采用分页技术不易于实现存储共享，也不便于程序的动态链接。</li>
+</ul>
+<h3 id="分段存储管理方式"><a href="#分段存储管理方式" class="headerlink" title="分段存储管理方式"></a>分段存储管理方式</h3><ul>
+<li>作业地址空间按逻辑信息的完整性被划分为若干个段。</li>
+<li>每段有段名（或段号），每段从0开始编址。</li>
+<li>段内的地址空间是连续的。</li>
+<li>许多编译程序支持分段方式，自动根据源程序的情况产生若干个段。</li>
+</ul>
+<h4 id="段表"><a href="#段表" class="headerlink" title="段表"></a>段表</h4><ul>
+<li>为每个分段分配一个连续的分区，而进程中的各个段可以离散地移入内存中不同的分区中。</li>
+<li>应像分页系统那样，在系统中为每个进程建立一张段映射表，简称“段表”。每个段在表中占有一个表项，其中记录了该段在内存中的起始地址(又称为“基址”)和段的长度。</li>
+<li>通常将段表放在内存中，执行中的进程可通过查找段表找到每个段所对应的内存区。</li>
+<li>作用：实现从逻辑段到物理内存区的映射。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624100544870.png" srcset="/img/loading.gif" lazyload alt="image-20210624100544870"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624100631794.png" srcset="/img/loading.gif" lazyload alt="image-20210624100631794"></p>
+<h4 id="地址变换机构-1"><a href="#地址变换机构-1" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624100719338.png" srcset="/img/loading.gif" lazyload alt="image-20210624100719338"></p>
+<h4 id="信息共享"><a href="#信息共享" class="headerlink" title="信息共享"></a>信息共享</h4><p><strong>可重入代码（Reentrant Code, 纯代码）</strong></p>
+<p>是一种允许多个进程同时访问的代码（可共享），且是一种不允许任何进程对其进行修改的代码。</p>
+<p><strong>分页共享</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101142394.png" srcset="/img/loading.gif" lazyload alt="image-20210624101142394"></p>
+<p><strong>分段共享</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101255376.png" srcset="/img/loading.gif" lazyload alt="image-20210624101255376"></p>
+<h3 id="段页式存储管理方式"><a href="#段页式存储管理方式" class="headerlink" title="段页式存储管理方式"></a>段页式存储管理方式</h3><p>先将用户程序分段，每段内再划分成若干页，每段有段名（段号），每段内部的页有一连续的页号。</p>
+<p><strong>逻辑地址结构</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101737964.png" srcset="/img/loading.gif" lazyload alt="image-20210624101737964"></p>
+<h4 id="地址变换机构-2"><a href="#地址变换机构-2" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624101957337.png" srcset="/img/loading.gif" lazyload alt="image-20210624101957337"></p>
+<ul>
+<li>首先，从段表寄存器从获得进程段表的起始地址，根据该地址，查找进程的段表。</li>
+<li>然后，根据逻辑地址指定的段号检索段表，找到对应段的页表起始地址。</li>
+<li>再根据逻辑地址中指定的页号检索该页表，找到对应页所在的物理块号。</li>
+<li>最后，用物理块号加上逻辑地址中指定的页内偏移量，形成物理地址。</li>
+</ul>
+<p>在段页式存储管理方式中，每访问一次数据，需访问三次内存。</p>
+<ul>
+<li>第一次访问内存中的段表</li>
+<li>第二次访问内存中的页表</li>
+<li>第三次访问相应数据。</li>
+</ul>
+<p>解决方法：</p>
+<p>   可以设置快表，表项应包括段号、页号、物理块号。</p>
+<h2 id="虚拟存储管理"><a href="#虚拟存储管理" class="headerlink" title="虚拟存储管理"></a>虚拟存储管理</h2><h3 id="常规存储管理方式的特征"><a href="#常规存储管理方式的特征" class="headerlink" title="常规存储管理方式的特征"></a>常规存储管理方式的特征</h3><p>“<strong>一次性</strong>”: 要求将一个作业全部装入内存才能运行。</p>
+<p> 1）大作业无法运行。</p>
+<p> 2）限制作业并发执行的程度。</p>
+<p>“<strong>驻留性</strong>”: 作业装入后一直驻留内存直到作业完成。</p>
+<p>内存中存在一些已无用的、或暂时不用的程序或数据，浪费内存空间。</p>
+<h3 id="内存扩充方法"><a href="#内存扩充方法" class="headerlink" title="内存扩充方法"></a>内存扩充方法</h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624103105363.png" srcset="/img/loading.gif" lazyload alt="image-20210624103105363"></p>
+<h3 id="局部性原理"><a href="#局部性原理" class="headerlink" title="局部性原理"></a>局部性原理</h3><p>时间局限性</p>
+<ul>
+<li>如果程序中的某条指令一旦执行， 则不久以后该指令可能再次执行；如果某数据被访问过， 则不久以后该数据可能再次被访问。</li>
+<li>产生时间局限性的典型原因，是由于在程序中存在着大量的循环操作。</li>
+</ul>
+<p>空间局限性</p>
+<ul>
+<li>一旦程序访问了某个存储单元，在不久之后，其附近的存储单元也将被访问。</li>
+<li>程序在一段时间内所访问的地址，可能集中在一定的范围之内，其典型情况便是程序的顺序执行。</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624103332874.png" srcset="/img/loading.gif" lazyload alt="image-20210624103332874"></p>
+<h3 id="实现虚拟存储的一般过程"><a href="#实现虚拟存储的一般过程" class="headerlink" title="实现虚拟存储的一般过程"></a>实现虚拟存储的一般过程</h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624103433145.png" srcset="/img/loading.gif" lazyload alt="image-20210624103433145"></p>
+<h3 id="虚拟存储器的特征"><a href="#虚拟存储器的特征" class="headerlink" title="虚拟存储器的特征"></a>虚拟存储器的特征</h3><p> 1．多次性</p>
+<p>​    多次性是指一个作业被分成多次调入内存运行。 </p>
+<p> 2．对换性</p>
+<p>​    对换性是指作业的运行过程中进行换进、换出，换进和换出能有效地提高内存利用率。 </p>
+<p> 3．虚拟性</p>
+<p>  虚拟性是指能够从逻辑上扩充内存容量，使用户所看到的内存容量远大于实际内存容量。</p>
+<h3 id="虚拟存储管理的实现方法"><a href="#虚拟存储管理的实现方法" class="headerlink" title="虚拟存储管理的实现方法"></a>虚拟存储管理的实现方法</h3><p><strong>请求分页存储管理方式</strong> </p>
+<p>这是在分页系统的基础上，增加了请求调页功能和页面置换功能所形成的页式虚拟存储系统。</p>
+<p>允许只装入部分页面的程序（及数据），便启动运行。</p>
+<p>以后，再通过调页功能及页面置换功能，陆续地把即将要运行的页面调入内存，同时把暂不运行的页面换出到外存上。</p>
+<p>置换时以页面为单位。</p>
+<p><strong>硬件支持：</strong></p>
+<p>①请求分页的页表机制上增加若干项，作为请求分页的数据结构。</p>
+<p>②缺页中断机构:当要访问的页面尚未调入内存时，便产生缺页中断，请求调页。</p>
+<p>③地址变换机构：虚地址到物理地址转换。</p>
+<p><strong>软件支持：</strong></p>
+<p>①实现请求调页的软件</p>
+<p>②实现页面置换的软件</p>
+<hr>
+<p><strong>请求分段系统</strong> </p>
+<p>它允许只装入若干段的用户程序和数据，即可启动运行。以后再通过调段功能和段的置换功能，将暂不运行的段调出，同时调入即将运行的段。</p>
+<p>为了实现请求分段，系统同样需要必要的硬件支持。一般需要下列支持：  </p>
+<p>（1）请求分段的段表机制，这是在纯分段的段表机制基础上增加若干项而形成的。</p>
+<p>（2）缺段中断机构 </p>
+<p>（3）地址变换机构。</p>
+<p>实现请求调段和段的置换功能也须得到相应的软件支持。</p>
+<hr>
+<p><strong>段页式虚拟存储系统</strong></p>
+<p>许多虚拟存储管理系统是建立在段页式系统的基础上的，通过增加了请求调页、页面置换两大功能所形成的段页式虚拟存储系统。</p>
+<h3 id="请求分页存储管理方式"><a href="#请求分页存储管理方式" class="headerlink" title="请求分页存储管理方式"></a>请求分页存储管理方式</h3><h4 id="页表机制"><a href="#页表机制" class="headerlink" title="页表机制"></a><strong>页表机制</strong></h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624105328357.png" srcset="/img/loading.gif" lazyload alt="image-20210624105328357"></p>
+<p><strong>状态位：</strong>也称存在位，标志该页是否驻留内存。</p>
+<p><strong>访问位：</strong>记录一段时间内该页被访问的情况，如一段时间内该页被访问的次数或者多长时间未被访问。</p>
+<p><strong>修改位：</strong>标记该页是否被修改过。注：为减少置换开销，通常选择未被修改过的页面置换。</p>
+<p><strong>外存地址：</strong>用于记录该页在外存上的存储地址。</p>
+<h4 id="缺页中断机构"><a href="#缺页中断机构" class="headerlink" title="缺页中断机构"></a>缺页中断机构</h4><ul>
+<li>在请求分页系统中，每当所要访问的页面不在内存时，便产生一缺页中断，请求OS将所缺之页调入内存。</li>
+<li>地址转换时，检查页面的页表项中的存在位，如果为0，则产生一个缺页中断。</li>
+</ul>
+<p><strong>缺页中断处理过程</strong></p>
+<p>（1）操作系统接收到进程产生的缺页中断信号，启动中断处理例程，保留处理机现场；</p>
+<p>（2）操作系统通知处理机从外存读取指定的页面；</p>
+<p>（3）处理机激活I&#x2F;O设备；</p>
+<p>（4） 检查内存有无足够的空闲空间装入该页面？若有，转（6），否则，执行（5）；</p>
+<p>（5） 利用页面置换算法，选择内存中的某个页面，换出内存；</p>
+<p>（6） 将指定页面从外存装入内存；</p>
+<p>（7） 更新该进程的页表；</p>
+<p>（8） 更新快表；</p>
+<p>（9）计算物理地址。</p>
+<h4 id="地址变换机构-3"><a href="#地址变换机构-3" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624110028023.png" srcset="/img/loading.gif" lazyload alt="image-20210624110028023"></p>
+<h3 id="内存分配策略和分配算法"><a href="#内存分配策略和分配算法" class="headerlink" title="内存分配策略和分配算法"></a>内存分配策略和分配算法</h3><h4 id="物理块的分配策略"><a href="#物理块的分配策略" class="headerlink" title="物理块的分配策略"></a><strong>物理块的分配策略</strong></h4><h5 id="固定分配局部置换"><a href="#固定分配局部置换" class="headerlink" title="固定分配局部置换"></a>固定分配局部置换</h5><ul>
+<li>为每个进程分配一定数目的物理块，在整个运行期间都不再改变。 </li>
+<li>实现这种策略的困难在于：应为每个进程分配多少个物理块难以确定。<ul>
+<li>若太少，会频繁地出现缺页中断，降低了系统的吞吐量。</li>
+<li>若太多，又必然使内存中驻留的进程数目减少，进而可能造成CPU空闲或其它资源空闲的情况，而且在实现进程对换时，会花费更多的时间。</li>
+</ul>
+</li>
+</ul>
+<h5 id="可变分配全局置换-（常用方式）"><a href="#可变分配全局置换-（常用方式）" class="headerlink" title="可变分配全局置换 （常用方式）"></a>可变分配全局置换 （常用方式）</h5><p>在采用这种策略时，先为系统中的每个进程分配一定数目的物理块，而OS自身也保持一个空闲物理块队列。当某进程发现缺页时，由系统从空闲物理块队列中，取出一个物理块分配给该进程，并将欲调入的（缺）页装入其中。这样，凡产生缺页（中断）的进程，都将获得新的物理块；仅当空闲物理块队列中的物理块用完时， OS才能从内存中选择一页调出，该页可能是系统中任一进程的页，这样，自然又会使那个进程的物理块减少，进而使其缺页率增加。</p>
+<h5 id="可变分配局部置换"><a href="#可变分配局部置换" class="headerlink" title="可变分配局部置换"></a>可变分配局部置换</h5><p>   吗为每个进程分配一定数目的物理块，但当某进程发现缺页时，只允许从该进程在内存的页面中选出一页换出，这样就不会影响其它进程的运行。 </p>
+<p>在进程运行过程中统计进程的缺页率，如果缺页率高，则为其增加一定的内存页，否则适当减少其内存的页面数。</p>
+<p>实现复杂：对进程的缺页情况的统计需要额外的开销。</p>
+<h4 id="物理块分配算法"><a href="#物理块分配算法" class="headerlink" title="物理块分配算法"></a><strong>物理块分配算法</strong></h4><p><strong>平均分配算法</strong></p>
+<p>将系统中所有可供分配的物理块，平均分配给各个进程。 </p>
+<p><strong>按比例分配算法</strong></p>
+<p>根据进程的大小按比例分配物理块的算法。如果系统中共有n个进程，每个进程的页面数为Si，则系统中各进程页面数的总和为：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624121023682.png" srcset="/img/loading.gif" lazyload alt="image-20210624121023682"></p>
+<p>又假定系统中可用的物理块总数为m，则每个进程所能分到的物理块数为bi，将有：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624121046507.png" srcset="/img/loading.gif" lazyload alt="image-20210624121046507"></p>
+<p>bi应该取整，它必须大于最小物理块数。</p>
+<p><strong>考虑优先权的分配算法</strong> </p>
+<p>通常采取的方法是把内存中可供分配的所有物理块分成两部分：</p>
+<ul>
+<li>一部分按比例地分配给各进程。</li>
+<li>另一部分则根据各进程的优先权，适当地增加其相应份额后，分配给各进程。</li>
+</ul>
+<h3 id="调页策略"><a href="#调页策略" class="headerlink" title="调页策略"></a>调页策略</h3><h4 id="预调页方式"><a href="#预调页方式" class="headerlink" title="预调页方式"></a>预调页方式</h4><p>可采用一种以预测为基础的预调页策略，将那些<strong>预计在不久之后便会被访问</strong>的页面，预先调入内存。</p>
+<p><strong>处理过程：</strong></p>
+<p>当进程创建时，预先为进程装入多个页面。</p>
+<p>缺页中断时，系统为进程装入指定的页面以及与之相临的多个页面。</p>
+<p>若局部性很差，预先装入的很多页面不会很快被引用，并会占用大量的内存空间，<strong>反而降低</strong>系统的效率。目前预调页的成功率仅约50％。</p>
+<h4 id="请求调页"><a href="#请求调页" class="headerlink" title="请求调页"></a>请求调页</h4><ul>
+<li>仅当进程执行过程中，通过检查页表发现相应页面不在内存时，才装入该页面。</li>
+<li>采用请求调页方式，一次装入请求的一个页面，磁盘I&#x2F;O的启动频率较高，系统的开销较大。</li>
+<li>当进程刚开始执行时，由于预先未装入进程的页面，故需要频繁地申请装入页面。执行一段时间以后，进程的缺页率将下降。</li>
+</ul>
+<h4 id="从何处调入页面"><a href="#从何处调入页面" class="headerlink" title="从何处调入页面"></a>从何处调入页面</h4><p>在请求分页系统中的外存分为两部分：</p>
+<ul>
+<li>用于存放文件的文件区</li>
+<li>用于存放对换页面的对换区</li>
+</ul>
+<p><strong>（1）系统拥有足够的对换区空间</strong></p>
+<ul>
+<li>进程运行前需将全部有关文件从文件区拷贝到对换区。 </li>
+<li>这时可以全部从对换区调入所需页面，以提高调页的速度。</li>
+</ul>
+<p><strong>（2）系统缺少足够的对换区空间</strong></p>
+<ul>
+<li>这时凡是不会被修改的文件，都直接从文件区调入。</li>
+<li>而当换出这些页面时，若未被修改则直接丢弃，以后再调入时，仍从文件区调入。</li>
+<li>但对于那些可能被修改的部分，在将它们换出时，便须调到对换区，以后需要时，再从对换区调入。</li>
+</ul>
+<p><strong>（3）UNIX方式</strong></p>
+<ul>
+<li>由于与进程有关的文件都放在文件区，应从文件区调入。</li>
+<li>凡是未运行过的页面，都应从文件区调入。</li>
+<li>而对于曾经运行过但又被换出的页面，由于是被放在对换区，因此在下次调入时，应从对换区调入。 </li>
+<li>允许页面共享</li>
+</ul>
+<h4 id="页面调入过程"><a href="#页面调入过程" class="headerlink" title="页面调入过程"></a>页面调入过程</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624122808480.png" srcset="/img/loading.gif" lazyload alt="image-20210624122808480"></p>
+<h4 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h4><ul>
+<li>最佳(优)置换算法</li>
+<li>先进先出（FIFO）页面置换算法</li>
+<li>最近最久未使用（LRU）置换算法</li>
+<li>Clock置换算法</li>
+<li>改进型Clock置换算法</li>
+<li>其它置换算法</li>
+</ul>
+<h5 id="最佳-优-置换算法"><a href="#最佳-优-置换算法" class="headerlink" title="最佳(优)置换算法"></a>最佳(优)置换算法</h5><blockquote>
+<p>所选择的被淘汰页面，将是以后永不使用的，或是在最长(未来)时间内不再被访问的页面。</p>
+</blockquote>
+<p>假定系统为某进程分配了三个物理块， 并考虑有以下的页面访问序列：</p>
+<p>7，0，1，2，0，3，0，4，2，3，0，3，2，1，2，0，1，7，0，1</p>
+<p>进程运行时， 先将7，0，1三个页面装入内存。 </p>
+<p>以后，当进程要访问页面2时， 将会产生缺页中断。此时OS根据最佳置换算法， 将选择页面7予以淘汰。 </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624123943775.png" srcset="/img/loading.gif" lazyload alt="image-20210624123943775"></p>
+<p><strong>先进先出（FIFO）页面置换算法</strong></p>
+<blockquote>
+<p>该算法总是淘汰最先进入内存的页面，即选择在内存中驻留时间最久的页面予以淘汰 </p>
+</blockquote>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624124109861.png" srcset="/img/loading.gif" lazyload alt="image-20210624124109861"></p>
+<p><strong>最近最久未使用（LRU）置换算法</strong></p>
+<blockquote>
+<p>LRU置换算法是选择最近最久未使用的页面予以淘汰。该算法赋予每个页面一个访问字段，用来记录一个页面自上次被访问以来所经历的时间t，当须淘汰一个页面时，选择现有页面中其t值最大的，即最近最久未使用的页面予以淘汰。</p>
+</blockquote>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624124203999.png" srcset="/img/loading.gif" lazyload alt="image-20210624124203999"></p>
+<h4 id="Clock置换算法"><a href="#Clock置换算法" class="headerlink" title="Clock置换算法"></a>Clock置换算法</h4><ul>
+<li>当采用简单c1ock算法时，为每页设置一位访问位，再将内存中的所有页面都通过链接指针链接成一个循环队列。</li>
+<li>当某页被访问时，其访问位被置1。</li>
+<li>置换程序从上次停止位置开始检查页面的访问位。<ul>
+<li>如果是0，就选择该页换出。</li>
+<li>若为1，则重新将它置0，暂不换出，而给该页第二次驻留内存的机会。</li>
+</ul>
+</li>
+<li>由于该算法是循环地检查各页面的使用情况，故称为c1ock算法。</li>
+<li>置换时是将未使用过的页面换出去，故又把该算法称为最近未用算法NRU。</li>
+</ul>
+<p><strong>Clock算法的流程</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624125141192.png" srcset="/img/loading.gif" lazyload alt="image-20210624125141192"></p>
+<p><strong>实例</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624125305622.png" srcset="/img/loading.gif" lazyload alt="image-20210624125305622"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624125339098.png" srcset="/img/loading.gif" lazyload alt="image-20210624125339098"></p>
+<h4 id="改进型Clock置换算法"><a href="#改进型Clock置换算法" class="headerlink" title="改进型Clock置换算法"></a>改进型Clock置换算法</h4><p>由访问位A和修改位M可以组合成下面四种类型的页面：</p>
+<ul>
+<li>​    1类（A&#x3D;0，M&#x3D;0：表示该页最近既未彼访问，又未被修改，是最佳淘汰页。</li>
+<li>​    2类（A&#x3D;0，M&#x3D;1）：表示该页最近未被访问，但已被修改，并不是很好的淘汰页。</li>
+<li>​    3类（A&#x3D;1，M&#x3D;0）：最近已被访问，但未被修改：该页有可能再被访问。</li>
+<li>​    4类（A&#x3D;1，M&#x3D;1）：最近已被访问且被修改，该页可能再被访问。</li>
+</ul>
+<h1 id="第五章-设备管理"><a href="#第五章-设备管理" class="headerlink" title="第五章 设备管理"></a>第五章 设备管理</h1><ul>
+<li>设备管理的对象：主要是I&#x2F;O设备。</li>
+<li>设备管理的基本任务：完成用户提出的I&#x2F;O请求，提高I&#x2F;O速率以及改善I&#x2F;O设备的利用率。  </li>
+<li>设备管理的主要功能有：缓冲区管理、设备分配、设备处理、虚拟设备及实现设备独立性等。</li>
+</ul>
+<p><strong>I&#x2F;O 系统的基本功能</strong></p>
+<ol>
+<li><p>设备分配 </p>
+</li>
+<li><p>设备映射</p>
+</li>
+<li><p>设备驱动</p>
+</li>
+<li><p>I&#x2F;O缓冲区的管理</p>
+</li>
+</ol>
+<h3 id="通用设备管理分层模型"><a href="#通用设备管理分层模型" class="headerlink" title="通用设备管理分层模型"></a><strong>通用设备管理分层模型</strong></h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624141938727.png" srcset="/img/loading.gif" lazyload alt="image-20210624141938727"></p>
+<h3 id="设备控制器的组成"><a href="#设备控制器的组成" class="headerlink" title="设备控制器的组成"></a><strong>设备控制器的组成</strong></h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144016184.png" srcset="/img/loading.gif" lazyload alt="image-20210624144016184"></p>
+<h3 id="I-x2F-O-通道"><a href="#I-x2F-O-通道" class="headerlink" title="I&#x2F;O 通道"></a><strong>I&#x2F;O</strong> <strong>通道</strong></h3><p>I&#x2F;O通道设备的引入 目的是使一些原来由CPU处理的I&#x2F;O任务转由通道来承担，从而把CPU从繁杂的I&#x2F;O任务中解脱出来。</p>
+<p> 采用通道有以下特点：</p>
+<ul>
+<li>① DMA（直接存储器存取）方式显著地减少了CPU的干预。</li>
+<li>②只需向I&#x2F;O通道发送一条I&#x2F;O指令，即可完成一组相关的读（或写）操作及有关控制。</li>
+<li>③可实现CPU、通道和I&#x2F;O设备三者的并行操作，从而更有效地提高整个系统的资源利用率。</li>
+</ul>
+<h3 id="中断简介"><a href="#中断简介" class="headerlink" title="中断简介"></a><strong>中断简介</strong></h3><p><strong>中断源：</strong>引起中断发生的事件</p>
+<p><strong>中断请求：</strong>中断源向CPU发出的请求中断处理信号</p>
+<p><strong>中断响应：</strong>CPU收到中断请求后转到相应的事件处理程序的过程</p>
+<p><strong>关中断&#x2F;开中断：</strong>CPU内部的PSW的中断允许位被清除&#x2F;被设置，不允许&#x2F;允许CPU响应中断。用于保证某段程序执行的原子性</p>
+<p><strong>中断屏蔽：</strong>在中断请求产生后，系统有选择地封锁一部分中断而允许另一部分仍能得到响应。有些具有最高优先级的中断不允许被屏蔽</p>
+<p><strong>中断处理层的主要工作有：</strong></p>
+<ul>
+<li>进行进程上下文的切换</li>
+<li>对处理中断信号源进行测试</li>
+<li>读取设备状态和修改进程状态等</li>
+</ul>
+<p><strong>中断线程保护</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144304059.png" srcset="/img/loading.gif" lazyload alt="image-20210624144304059"></p>
+<p><strong>中断处理流程</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144327738.png" srcset="/img/loading.gif" lazyload alt="image-20210624144327738"></p>
+<h3 id="对I-x2F-O设备的控制方式"><a href="#对I-x2F-O设备的控制方式" class="headerlink" title="对I&#x2F;O设备的控制方式"></a>对I&#x2F;O设备的控制方式</h3><h4 id="轮询的可编程I-x2F-O方式"><a href="#轮询的可编程I-x2F-O方式" class="headerlink" title="轮询的可编程I&#x2F;O方式"></a><strong>轮询的可编程I&#x2F;O方式</strong></h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144418677.png" srcset="/img/loading.gif" lazyload alt="image-20210624144418677"></p>
+<h4 id="中断的可编程I-x2F-O方式"><a href="#中断的可编程I-x2F-O方式" class="headerlink" title="中断的可编程I&#x2F;O方式"></a>中断的可编程I&#x2F;O方式</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144438178.png" srcset="/img/loading.gif" lazyload alt="image-20210624144438178"></p>
+<h4 id="直接存储器访问方式"><a href="#直接存储器访问方式" class="headerlink" title="直接存储器访问方式"></a><strong>直接存储器访问方式</strong></h4><p><strong>DMA控制方式的特点：</strong></p>
+<p>①数据传输的基本单位是数据块，即在CPU与I&#x2F;O设备之间，每次传送至少一个数据块；</p>
+<p>②所传送的数据是从设备直接送入内存的，或者相反；</p>
+<p>③仅在传送一个或多个数据块的开始和结束时，才需CPU干预，整块数据的传送是在控制器的控制下完成的。</p>
+<p><strong>DMA控制器的组成</strong> </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144613415.png" srcset="/img/loading.gif" lazyload alt="image-20210624144613415"></p>
+<p><strong>DMA工作过程</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144630693.png" srcset="/img/loading.gif" lazyload alt="image-20210624144630693"></p>
+<h4 id="I-x2F-O通道控制方式"><a href="#I-x2F-O通道控制方式" class="headerlink" title="I&#x2F;O通道控制方式"></a>I&#x2F;O通道控制方式</h4><p><strong>I&#x2F;O通道控制方式的引入</strong> </p>
+<p>I&#x2F;O通道方式是DMA方式的发展，它可进一步减少CPU的干预，即把对一个数据块的读（或写）为单位的干预，减少为对一组数据块的读（或写）及有关的控制和管理为单位的干预。</p>
+<p>可实现CPU、通道和I&#x2F;O设备三者的并行操作，从而更有效地提高整个系统的资源利用率。 </p>
+<h2 id="I-x2F-O控制方式"><a href="#I-x2F-O控制方式" class="headerlink" title="I&#x2F;O控制方式"></a>I&#x2F;O控制方式</h2><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144715519.png" srcset="/img/loading.gif" lazyload alt="image-20210624144715519"></p>
+<h2 id="磁盘存储管理"><a href="#磁盘存储管理" class="headerlink" title="磁盘存储管理"></a>磁盘存储管理</h2><p><strong>提高磁盘I&#x2F;O速度的主要途径：</strong></p>
+<p>（1）选择性能好的磁盘</p>
+<p>（2）采用好的磁盘调度算法</p>
+<p>（3）设置磁盘高速缓存（Disk Cache）</p>
+<p>（4）其它方法</p>
+<p>（5）采用高度可靠、快速的容量磁盘系统–磁盘冗余阵列</p>
+<p><strong>数据的组织和格式</strong></p>
+<ul>
+<li>存储面(surface)</li>
+<li>磁道(track)</li>
+<li>柱面</li>
+<li>扇区(sectors)</li>
+</ul>
+<p><img src="C:\Users\Jason\AppData\Roaming\Typora\typora-user-images\image-20210624164444356.png" srcset="/img/loading.gif" lazyload alt="image-20210624164444356"></p>
+<h3 id="磁盘访问时间分成以下三部分："><a href="#磁盘访问时间分成以下三部分：" class="headerlink" title="磁盘访问时间分成以下三部分："></a>磁盘访问时间分成以下三部分：</h3><h4 id="寻道时间Ts-："><a href="#寻道时间Ts-：" class="headerlink" title="寻道时间Ts ："></a>寻道时间Ts ：</h4><p>这是指把磁臂（磁头）移动到指定磁道上所经历的时间。 </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624164539003.png" srcset="/img/loading.gif" lazyload alt="image-20210624164539003"></p>
+<p>s：启动磁臂的时间</p>
+<p>n：磁头移动n条磁道</p>
+<p>m：移动每一条磁道所花费的时间</p>
+<h4 id="旋转延迟时间Tτ："><a href="#旋转延迟时间Tτ：" class="headerlink" title="旋转延迟时间Tτ："></a>旋转延迟时间Tτ：</h4><p>这是指定扇区移动到磁头下面所经历的时间。</p>
+<p>例如：</p>
+<p>软盘旋转速度为 300 r&#x2F;min或600 r&#x2F;min，这样，平均Tτ 为50～100 ms。</p>
+<p>硬盘旋转速度为15 000 r&#x2F;min，每转需时4 ms，平均旋转延迟时间Tτ为2 ms。</p>
+<h4 id="传输时间Tt："><a href="#传输时间Tt：" class="headerlink" title="传输时间Tt："></a>传输时间Tt：</h4><p>这是指把数据从磁盘读出或向磁盘写入数据所经历的时间。 </p>
+<p>Tt 的大小与每次所读&#x2F;写的字节数b 和旋转速度有关:</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624164722001.png" srcset="/img/loading.gif" lazyload alt="image-20210624164722001"></p>
+<p>r为磁盘每秒钟的转数；N为一条磁道上的字节数</p>
+<h3 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h3><h4 id="先来先服务FCFS"><a href="#先来先服务FCFS" class="headerlink" title="先来先服务FCFS"></a>先来先服务FCFS</h4><ul>
+<li>根据进程请求访问磁盘的先后次序进行调度。此算法的优点是公平、简单，且每个进程的请求都能依次地得到处理，不会出现某一进程的请求长期得不到满足的情况。</li>
+</ul>
+<h4 id="最短寻道时间优先SSTF"><a href="#最短寻道时间优先SSTF" class="headerlink" title="最短寻道时间优先SSTF"></a>最短寻道时间优先SSTF</h4><ul>
+<li>该算法选择这样的进程，其要求访问的磁道，与当前磁头所在的磁道距离最近，以使每次的寻道时间最短，  </li>
+<li>SSTF算法虽然能获得较好的寻道性能，但却可能导致某个进程发生“饥饿”现象。</li>
+</ul>
+<h4 id="扫描（SCAN）算法"><a href="#扫描（SCAN）算法" class="headerlink" title="扫描（SCAN）算法"></a>扫描（SCAN）算法</h4><ul>
+<li>SSTF算法虽然能获得较好的寻道性能，但却可能导致某个进程发生“饥饿”(Starvation)现象。</li>
+<li>该算法优先考虑的是磁头当前的移动方向。例如，磁头自里向外移动, 并同时自里向外地访问，直至再无更外的磁道需要访问时，才将磁臂换向自外向里移动。（又常称之为电梯调度算法 ）</li>
+</ul>
+<h4 id="循环扫描（CSCAN）算法"><a href="#循环扫描（CSCAN）算法" class="headerlink" title="循环扫描（CSCAN）算法"></a>循环扫描（CSCAN）算法</h4><p>CSCAN算法规定磁头单向移动，例如，只是自里向外移动，当磁头移到最外的磁道并访问后，磁头立即返回到最里的欲访问磁道，亦即将最小磁道号紧接着最大磁道号构成循环，进行循环扫描。 </p>
+<h1 id="第六章-文件管理"><a href="#第六章-文件管理" class="headerlink" title="第六章 文件管理"></a>第六章 文件管理</h1><h2 id="文件的概念"><a href="#文件的概念" class="headerlink" title="文件的概念"></a>文件的概念</h2><p>文件是存储和管理数据的容器</p>
+<p>若文件中的数据有格式，可能是如下的结构：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624170615803.png" srcset="/img/loading.gif" lazyload alt="image-20210624170615803"></p>
+<p>文件是指由创建者所定义的、 具有文件名的一组相关元素的集合。</p>
+<p>在有结构的文件中，文件由若干个相关记录组成；</p>
+<p>而无结构文件则被看成是一个字符流。</p>
+<p>文件在文件系统中是一个基本的管理单元，这个管理单元必然有一组属性。</p>
+<h2 id="文件的属性"><a href="#文件的属性" class="headerlink" title="文件的属性"></a>文件的属性</h2><p>文件的属性可以包括：</p>
+<p>(1) 文件类型 </p>
+<p>(2) 文件长度  </p>
+<p>(3) 文件的物理位置  </p>
+<p>(4) 文件的建立时间   </p>
+<h2 id="文件系统概念"><a href="#文件系统概念" class="headerlink" title="文件系统概念"></a>文件系统概念</h2><p>定义：操作系统中的各类文件、管理文件的软件，以及管理文件所涉及到的数据结构等信息的集合。</p>
+<p>有少数实时操作系统没有文件系统功能。</p>
+<p>绝大多数操作系统都包含文件管理系统部分。</p>
+<h2 id="文件系统的功能"><a href="#文件系统的功能" class="headerlink" title="文件系统的功能"></a>文件系统的功能</h2><ul>
+<li>有效地管理文件的存储空间；</li>
+<li>管理文件目录；</li>
+<li>完成文件的读&#x2F;写操作；</li>
+<li>实现文件共享与保护；</li>
+<li>为用户提供交互式命令接口和程序调用接口。</li>
+</ul>
+<h2 id="文件系统模型"><a href="#文件系统模型" class="headerlink" title="文件系统模型"></a>文件系统模型</h2><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624170844359.png" srcset="/img/loading.gif" lazyload alt="image-20210624170844359"></p>
+<h2 id="文件操作概述"><a href="#文件操作概述" class="headerlink" title="文件操作概述"></a>文件操作概述</h2><p>1.最基本的文件操作有：创建文件、删除文件。读文件、写文件、截断文件和设置文件的读／写位置。</p>
+<p>2.文件的“打开”和“关闭”操作：所谓“打开”，是指系统将指名文件的属性（包括该文件在外存上的物理位置）从外存拷贝到内存打开文件表的一个表目中，并将该表目的编号（或称为索引）返回给用户。 利用“关闭”（close）系统调用来关闭此文件，OS将会把该文件从打开文件表中的表目上删除掉。 </p>
+<p>3．其它文件操作：对文件属性的操作，改变文件名、改变文件的拥有者，查询文件的状态等；  </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171142278.png" srcset="/img/loading.gif" lazyload alt="image-20210624171142278"></p>
+<h2 id="文件目录的管理要"><a href="#文件目录的管理要" class="headerlink" title="文件目录的管理要"></a>文件目录的管理要</h2><p>如何来组织和访问大量的文件？</p>
+<p>对目录管理的要求如下：</p>
+<p>(1)实现“按名存取”。 </p>
+<p>(2) 提高对目录的检索速度。 </p>
+<p>(3) 文件共享。 </p>
+<p>(4) 允许文件重名。 </p>
+<h3 id="文件控制块和索引节点"><a href="#文件控制块和索引节点" class="headerlink" title="文件控制块和索引节点"></a>文件控制块和索引节点</h3><p>文件控制块（FCB）：用于描述和控制文件的数据结构。</p>
+<p>文件目录：文件控制块的有序集合。</p>
+<p>通常，一个文件目录也被看做是一个文件，称为目录文件。</p>
+<h4 id="文件控制块的内容"><a href="#文件控制块的内容" class="headerlink" title="文件控制块的内容"></a>文件控制块的内容</h4><p><strong>基本信息：</strong>文件名、文件类型等；</p>
+<p><strong>地址信息：</strong>卷（存储文件的设备）、起始地址（起始物理地址）、文件长度（以字节、字或块为单位）等。</p>
+<p><strong>访问控制信息：</strong>文件所有者、访问信息（用户名和口令等）、合法操作等；</p>
+<p><strong>使用信息：</strong>创建时间、创建者身份、当前状态、最近修改时间、最近访问时间等。　 </p>
+<h4 id="FCB"><a href="#FCB" class="headerlink" title="FCB"></a>FCB</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171409892.png" srcset="/img/loading.gif" lazyload alt="image-20210624171409892"></p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><h3 id="单级目录结构"><a href="#单级目录结构" class="headerlink" title="单级目录结构"></a>单级目录结构</h3><p>所有用户的全部文件目录保存在一张目录表中，每个文件的目录项占用一个表项。 </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171621519.png" srcset="/img/loading.gif" lazyload alt="image-20210624171621519"></p>
+<ul>
+<li><p>单级目录的优点是简单且能实现目录管理的基本功能——按名存取</p>
+</li>
+<li><p>存在下述一些缺点：</p>
+</li>
+</ul>
+<p>​      (1) 查找速度慢 </p>
+<p>​      (2) 不允许重名 </p>
+<p>​      (3) 不便于实现文件共享 </p>
+<h3 id="两级目录结构"><a href="#两级目录结构" class="headerlink" title="两级目录结构"></a>两级目录结构</h3><p>主文件目录MFD、用户文件目录UFD</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171715822.png" srcset="/img/loading.gif" lazyload alt="image-20210624171715822"></p>
+<ul>
+<li>一定程度解决了重名问题</li>
+<li>提高了文件目录检索效率</li>
+<li>简单的文件共享</li>
+</ul>
+<p><strong>问题：</strong>不便用户文件的逻辑分类；进一步解决重名、共享、检索效率等问题</p>
+<h3 id="树形结构目录"><a href="#树形结构目录" class="headerlink" title="树形结构目录"></a>树形结构目录</h3><p>多级目录结构又称为树型目录结构，主目录在这里被称为根目录，把数据文件称为树叶，其它的目录均作为树的结点。</p>
+<p>树叶是数据文件。</p>
+<p>树的节点是目录，或称为子目录。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171815129.png" srcset="/img/loading.gif" lazyload alt="image-20210624171815129"></p>
+<h2 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h2><p><strong>创建目录：</strong>在用户要创建一个新文件时，只需查看在自己的UFD及其子目录中，有无与新建文件相同的文件名。若无，便可在UFD或其某个子目录中增加一个新目录项。 </p>
+<p><strong>目录删除</strong>采用下述两种方法处理： </p>
+<p>（1）不删除非空目录。 </p>
+<p>（2）可删除非空目录。 </p>
+<p><strong>改变目录：</strong>改变工作目录</p>
+<p><strong>移动目录：</strong>将子目录或者文件移动到其他目录下。</p>
+<p><strong>链接操作：</strong>通过链接让同一个文件具有多个父目录。</p>
+<p><strong>查找：</strong>在目录中查找某个文件或者子目录。</p>
+<h2 id="目录查询技术"><a href="#目录查询技术" class="headerlink" title="目录查询技术"></a>目录查询技术</h2><h3 id="线性检索法"><a href="#线性检索法" class="headerlink" title="线性检索法"></a>线性检索法</h3><p>线性检索法又称为顺序检索法。 </p>
+<p>①在单级目录中，利用用户提供的文件名，用顺序查找法直接从文件目录中找到指名文件的目录项。</p>
+<p>②在树型目录中，用户提供的文件名是由多个文件分量名组成的路径名，此时须对多级目录进行查找。 </p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624172104627.png" srcset="/img/loading.gif" lazyload alt="image-20210624172104627"></p>
+<h3 id="文件系统外存管理"><a href="#文件系统外存管理" class="headerlink" title="文件系统外存管理"></a>文件系统外存管理</h3><p>磁盘管理的主要任务和目标是；</p>
+<ul>
+<li>有效地利用外存空间</li>
+<li>提高对文件的访问速度</li>
+<li>提高磁盘系统的可靠性</li>
+</ul>
+<p>目前，常见的文件磁盘块的组织方法有:</p>
+<ul>
+<li>连续组织</li>
+<li>链接组织</li>
+<li>索引组织</li>
+</ul>
+<h3 id="连续组织"><a href="#连续组织" class="headerlink" title="连续组织"></a>连续组织</h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173103718.png" srcset="/img/loading.gif" lazyload alt="image-20210624173103718"></p>
+<p>假设磁盘的容量是1MB，每个磁盘块的大小为512个字节</p>
+<p>磁盘块数量：1MB&#x2F;512B&#x3D;2048块</p>
+<p>编码磁盘块需要位数：2∧10 &lt; 2048 &lt;&#x3D; 2 ∧11，因此需要11个二进制位</p>
+<p>如果文件的长度不大于512K</p>
+<p>长度需要10位来表示：512K&#x2F;512 &#x3D; 1024, 2∧10 &#x3D; 1024</p>
+<p>因此，每个文件需要在目录中额外占用21个二进制位。</p>
+<h3 id="空闲链表法"><a href="#空闲链表法" class="headerlink" title="空闲链表法"></a><strong>空闲链表法</strong></h3><p><strong>空闲盘区链</strong></p>
+<ul>
+<li><p>将磁盘上的所有空闲盘区(每个盘区可包含若干个盘块)拉成一条链。</p>
+</li>
+<li><p>在每个盘区上含有用于指示下一个空闲盘区的指针和能指明本盘区大小(盘块数)的信息。</p>
+</li>
+<li><p>分配盘区的方法与内存的动态分区分配类似，通常采用首次适应算法。</p>
+</li>
+<li><p>在回收盘区时，同样也要将回收区与相邻接的空闲盘区相合并。</p>
+</li>
+<li><p>为了提高对空闲盘区的检索速度，可以采用显式链接方法，亦即，在内存中为空闲盘区建立一张链表。</p>
+</li>
+<li><p>每个分区结点内容：起始盘块号、盘块数、指向下一个空闲盘区的指针。</p>
+</li>
+</ul>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173547334.png" srcset="/img/loading.gif" lazyload alt="image-20210624173547334"></p>
+<p> <strong>问题</strong></p>
+<ul>
+<li>一段时间以后，可能会使空闲分区链表中包含太多小分区，使文件分配到的存储空间过分离散。</li>
+<li>删除一个由许多离散小分区组成的文件时，将回收的小分区链接到空闲分区链表中需要很长时间。</li>
+<li>若一个文件申请连续存储空间，则需要花费较长的时间查找相邻的空闲分区。</li>
+<li>因此，这种空闲空间组织方法适合于非连续存储文件。</li>
+</ul>
+<h3 id="位示图"><a href="#位示图" class="headerlink" title="位示图"></a><strong>位示图</strong></h3><p>利用二进制位0、1表示存储空间中存储块的使用状态。空闲分区:0，已分配分区:1（或者相反）。</p>
+<p>磁盘上的所有盘块都有一个二进制位与之对应，这样，由所有盘块所对应的位构成一个集合，称为位示图。</p>
+<p>通常可用m × n 个位数来构成位示图，并使m × n等于磁盘的总块数。</p>
+<p>位示图也可描述为一个二维数组map：</p>
+<p><code>Var map: array of bit;</code></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173727639.png" srcset="/img/loading.gif" lazyload alt="image-20210624173727639"></p>
+<p><strong>位示图优点</strong></p>
+<ul>
+<li>可以容易地找到一个或一组连续的空闲分区。</li>
+<li>例如，我们需要找到4个相邻接的空闲盘块，这只需在位示图中找出4个其值连续为“0”的位即可。</li>
+</ul>
+<p><strong>位示图的其他问题</strong></p>
+<ul>
+<li>一个位示图需要占用的存储空间大小为：</li>
+</ul>
+<p><strong>磁盘容量（字节数）&#x2F; （8 * 数据块大小）</strong></p>
+<ul>
+<li>对于容量较小的磁盘，位示图占用的空间会很小。</li>
+<li>但是，对于一个16GB的磁盘，若数据块大小为512字节，则位示图大小为4MB，大约需要占用8000个磁盘块的存储空间。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>重点：</p>
+<ul>
+<li>文件和文件系统的概念；文件是具有符号名的信息（数据）项的集合；文件是具有符号名的记录的集合；文件是具有符号名的数据项的集合。</li>
+<li>文件逻辑结构；顺序文件、索引顺序文件、索引文件、HASH文件；</li>
+<li>磁盘存储分配方法；连续分配、链接分配、索引分配；</li>
+<li>文件目录及文件控制块；文件存储器分区和空间管理。</li>
+<li>磁盘存储管理；位示图、空闲链表、索引。</li>
+</ul>
+<p>难点：</p>
+<ul>
+<li><p>磁盘存储管理；</p>
+</li>
+<li><p>位示图、空闲链表、</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/cs/">#cs</a>
+      
+        <a href="/tags/review/">#review</a>
+      
+        <a href="/tags/os/">#os</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>计算机操作系统重点</div>
+      <div>https://jason-xy.github.io/2021/06/osreview/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason Hsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年6月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/intel-t265-ros-jetson-with-cuda/" title="Intel T265 + ROS视觉里程计搭建——Jetson平台">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Intel T265 + ROS视觉里程计搭建——Jetson平台</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/typora-chevereto-markdown/" title="Typora + Chevereto图床Markdown图片自动上传">
+                        <span class="hidden-mobile">Typora + Chevereto图床Markdown图片自动上传</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

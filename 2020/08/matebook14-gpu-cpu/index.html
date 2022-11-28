@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason Hsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="最近（2020年8月）开学又拿出了我封存半年的Matebook，开机第一件事还是像往常一样更新驱动、更新系统。但是用着用着就发现问题来了。之前全高特效LOL都能无压力运行，但是这下最低画质也卡成PPT，再看一看系统功耗和CPU温度，稳定在了15W&#x2F;70°。大事不妙！这个版本的驱动加强了功耗和温度限制，性能大幅缩水了！为了确认这一现象我赶快跑了跑AIDA64，果不其然，出大问题！ 开始还指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华为Matebook14解除CPU、GPU温度墙与功耗墙">
+<meta property="og:url" content="https://jason-xy.github.io/2020/08/matebook14-gpu-cpu/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="最近（2020年8月）开学又拿出了我封存半年的Matebook，开机第一件事还是像往常一样更新驱动、更新系统。但是用着用着就发现问题来了。之前全高特效LOL都能无压力运行，但是这下最低画质也卡成PPT，再看一看系统功耗和CPU温度，稳定在了15W&#x2F;70°。大事不妙！这个版本的驱动加强了功耗和温度限制，性能大幅缩水了！为了确认这一现象我赶快跑了跑AIDA64，果不其然，出大问题！ 开始还指">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/08/27/dptf.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/08/27/id.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/08/27/XTU.jpg">
+<meta property="article:published_time" content="2020-08-27T14:05:29.000Z">
+<meta property="article:modified_time" content="2022-11-28T16:27:20.795Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="matebook">
+<meta property="article:tag" content="cpu">
+<meta property="article:tag" content="gpu">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/08/27/dptf.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>华为Matebook14解除CPU、GPU温度墙与功耗墙 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-friends"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">华为Matebook14解除CPU、GPU温度墙与功耗墙</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Jason Hsu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-08-27 22:05" pubdate>
+          2020年8月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="生活"
+        id="heading-aefcbfca08c840aeb8bd72dc1c8ff7f9" role="tab" data-toggle="collapse" href="#collapse-aefcbfca08c840aeb8bd72dc1c8ff7f9"
+        aria-expanded="true"
+      >
+        生活
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-aefcbfca08c840aeb8bd72dc1c8ff7f9"
+           role="tabpanel" aria-labelledby="heading-aefcbfca08c840aeb8bd72dc1c8ff7f9">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="IT小技巧"
+        id="heading-9b6f36c62206acdf3c8637289dcd5159" role="tab" data-toggle="collapse" href="#collapse-9b6f36c62206acdf3c8637289dcd5159"
+        aria-expanded="true"
+      >
+        IT小技巧
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-9b6f36c62206acdf3c8637289dcd5159"
+           role="tabpanel" aria-labelledby="heading-9b6f36c62206acdf3c8637289dcd5159">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/08/trojanweb-443/" title="Trojan+web 443端口复用配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Trojan+web 443端口复用配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/typora-chevereto-markdown/" title="Typora + Chevereto图床Markdown图片自动上传"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Typora + Chevereto图床Markdown图片自动上传</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/vscode-c-cpp/" title="VScode C/C++编译及调试环境配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">VScode C/C++编译及调试环境配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/matebook14-gpu-cpu/" title="华为Matebook14解除CPU、GPU温度墙与功耗墙"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">华为Matebook14解除CPU、GPU温度墙与功耗墙</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/hd-cache/" title="基于PrimoCache的硬盘缓存加速"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于PrimoCache的硬盘缓存加速</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习计划"
+        id="heading-99d0dfe74ed4c34defe0366336398cea" role="tab" data-toggle="collapse" href="#collapse-99d0dfe74ed4c34defe0366336398cea"
+        aria-expanded="false"
+      >
+        学习计划
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-99d0dfe74ed4c34defe0366336398cea"
+           role="tabpanel" aria-labelledby="heading-99d0dfe74ed4c34defe0366336398cea">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/awesome-es/" title="本科阶段嵌入式方向技能树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">本科阶段嵌入式方向技能树</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">华为Matebook14解除CPU、GPU温度墙与功耗墙</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>最近（2020年8月）开学又拿出了我封存半年的Matebook，开机第一件事还是像往常一样更新驱动、更新系统。但是用着用着就发现问题来了。之前全高特效LOL都能无压力运行，但是这下最低画质也卡成PPT，再看一看系统功耗和CPU温度，稳定在了15W&#x2F;70°。大事不妙！这个版本的驱动加强了功耗和温度限制，性能大幅缩水了！为了确认这一现象我赶快跑了跑AIDA64，果不其然，出大问题！</p>
+<p>开始还指望售后帮我搞定，最后emmm，吐槽一波华为售后客服，啥都不懂。真要解决这个墙还是得靠自己。</p>
+<p><strong>BIOS版本：1.16</strong></p>
+<p><strong>DPTF版本：8.5.10103.7263</strong></p>
+<h3 id="CPU性能限制解除"><a href="#CPU性能限制解除" class="headerlink" title="CPU性能限制解除"></a>CPU性能限制解除</h3><p>查询了多方资料和实验最终确定华为是利用<strong>DPTF</strong>来控制<strong>CPU的功耗</strong>，进而控制<strong>CPU的温度</strong>。</p>
+<p>要解决掉DPTF，最简单的方法就是解决掉DPTF驱动</p>
+<p><strong>打开任务管理器</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/08/27/dptf.jpg" srcset="/img/loading.gif" lazyload alt="dptf.jpg"></p>
+<p>卸载前，分别打开设备的属性，查看其硬件Id，并将硬件Id的值都复制下来。</p>
+<p>三个ID都复制下来。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/08/27/id.jpg" srcset="/img/loading.gif" lazyload alt="id.jpg"></p>
+<p>然后Win+R输入gpedit.msc打开组策略编辑器，在计算机配置-管理模板-系统-设备安装-设备安装限制-阻止安装与下列任何设备ID相匹配的设备，选择启用，并将刚才复制出来的硬件Id都填到表格中。</p>
+<p><em>这一步主要是防止电脑自动安装DPTF导致每次都得重新设置</em></p>
+<p><strong>卸载这个DPTF驱动</strong></p>
+<p><strong>重启电脑</strong></p>
+<p><strong>安装Intel® Extreme Tuning Utility (Intel® XTU)：</strong></p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://downloadcenter.intel.com/download/29183/Intel-Extreme-Tuning-Utility-Intel-XTU-">XTU</a></p>
+<p>手动调试CPU</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/08/27/XTU.jpg" srcset="/img/loading.gif" lazyload alt="XTU.jpg"></p>
+<p>主要调整Core参数：</p>
+<p>1.核心电压降低-0.15V，来减少发热（看自己CPU的体制）。</p>
+<p>2.瞬时睿频功率拉到30W就够了，问题不是很大。</p>
+<p>3.最高功耗限制拉到25W，这本子太高了散热压不住，25W比官方的15W已经提升了很多性能了。</p>
+<p>调整好了之后运行<strong>压力测试</strong>，验证一下是否调整成功。</p>
+<p><strong>特别注释</strong>：如果确实不行的话建议卸载华为电脑管家重试。或者还是不行，可以安装纯净版的win10再来操作。我就是直接重新安装的官方版的win10来进行调整的。</p>
+<h3 id="GPU性能限制解除"><a href="#GPU性能限制解除" class="headerlink" title="GPU性能限制解除"></a>GPU性能限制解除</h3><p>根据我这几天的研究基本可以确定GPU的限制也是软墙，温度墙设置在了69°</p>
+<p>原本MX250标准25W的TDP当撞到温度墙的时候频率降得惨不忍睹，这也是玩游戏出现严重掉帧的主要问题。</p>
+<p>修改GPU温度墙就只需要ASUS GPUTweak II就够了。下载地址：[GPUTweak II](<a target="_blank" rel="noopener" href="https://www.asus.com.cn/supportonly/GPUTweak">https://www.asus.com.cn/supportonly/GPUTweak</a> II&#x2F;HelpDesk_Download&#x2F;)</p>
+<p><strong>如果出现安装失败或者BIOS加载失败建议先卸载华为电脑管家，或者安装纯净版win10</strong></p>
+<p>安装好并重启后系统就默认将温度墙设置为了94°，也可以根据自己的需要来自定义设置。</p>
+<p>之后就来一把LOL测下帧率哇，我的又飞到快100帧了，出奇流畅。</p>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>这样的操作可以最大限度地自定义芯片性能，但是伴随的发热和功耗问题就自己权衡，需要性能的时候牺牲一点散热，需要续航的时候就牺牲一点性能。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%9F%E6%B4%BB/" class="category-chain-item">生活</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%94%9F%E6%B4%BB/IT%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="category-chain-item">IT小技巧</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/matebook/">#matebook</a>
+      
+        <a href="/tags/cpu/">#cpu</a>
+      
+        <a href="/tags/gpu/">#gpu</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>华为Matebook14解除CPU、GPU温度墙与功耗墙</div>
+      <div>https://jason-xy.github.io/2020/08/matebook14-gpu-cpu/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason Hsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年8月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/keil-1/" title="keil上手">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">keil上手</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/raspi-config-sd/" title="树莓派安装raspi-config扩展SD卡空间">
+                        <span class="hidden-mobile">树莓派安装raspi-config扩展SD卡空间</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

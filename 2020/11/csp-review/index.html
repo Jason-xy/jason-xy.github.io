@@ -1,0 +1,1968 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason Hsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="概论冯诺依曼体系冯·诺依曼结构的特点是： 计算机硬件系统由五大部件（存储器、运算器、控制器、输入设备和输出设备）组成；计算机中采用二进制形式表示信息；采用存储程序的工作方式 。  冯诺依曼思想包含三个方面？ 计算机硬件系统由五大部件（存储器、运算器、控制器、输入设备和输出设备）组成；计算机中采用二进制形式表示信息；采用存储程序的工作方式 。  计算机及硬件系统计算机硬件系统由 CPU 、 存储器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理复习">
+<meta property="og:url" content="https://jason-xy.github.io/2020/11/csp-review/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="概论冯诺依曼体系冯·诺依曼结构的特点是： 计算机硬件系统由五大部件（存储器、运算器、控制器、输入设备和输出设备）组成；计算机中采用二进制形式表示信息；采用存储程序的工作方式 。  冯诺依曼思想包含三个方面？ 计算机硬件系统由五大部件（存储器、运算器、控制器、输入设备和输出设备）组成；计算机中采用二进制形式表示信息；采用存储程序的工作方式 。  计算机及硬件系统计算机硬件系统由 CPU 、 存储器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/9.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/3.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/2.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/06.jpg">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/44.jpg">
+<meta property="article:published_time" content="2020-11-12T10:28:12.000Z">
+<meta property="article:modified_time" content="2022-11-28T16:27:20.795Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="cs">
+<meta property="article:tag" content="review">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/9.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计算机组成原理复习 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-friends"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">计算机组成原理复习</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Jason Hsu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-12 18:28" pubdate>
+          2020年11月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          116 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="技术"
+        id="heading-a95dd3e179418be1ecd2a719a22db70e" role="tab" data-toggle="collapse" href="#collapse-a95dd3e179418be1ecd2a719a22db70e"
+        aria-expanded="true"
+      >
+        技术
+        <span class="list-group-count">(51)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a95dd3e179418be1ecd2a719a22db70e"
+           role="tabpanel" aria-labelledby="heading-a95dd3e179418be1ecd2a719a22db70e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="false"
+      >
+        Algorithm
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/bpnn/" title="BP神经网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">BP神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/pnn/" title="感知器（神经网络模型）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">感知器（神经网络模型）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/recursion-tail/" title="尾递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">尾递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/coin/" title="概率生成问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率生成问题</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="OJ"
+        id="heading-d62c64b8415b88b69d6076336d525c08" role="tab" data-toggle="collapse" href="#collapse-d62c64b8415b88b69d6076336d525c08"
+        aria-expanded="false"
+      >
+        OJ
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d62c64b8415b88b69d6076336d525c08"
+           role="tabpanel" aria-labelledby="heading-d62c64b8415b88b69d6076336d525c08">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/icoding-create-hash/" title="「Icoding题解」哈希表创建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-hash-add-int/" title="「Icoding题解」哈希表添加"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表添加</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-avl/" title="「Icoding题解」平衡二叉树(AVL)的插入算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」平衡二叉树(AVL)的插入算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-28/" title="「LeetCode」—— 28.实现 strStr() —KMP算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」—— 28.实现 strStr() —KMP算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-136/" title="「LeetCode」——136.只出现一次的数字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——136.只出现一次的数字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-217/" title="「LeetCode」——217.存在重复元素"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——217.存在重复元素</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-278/" title="「LeetCode」——278. 第一个错误的版本（二分查找）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——278. 第一个错误的版本（二分查找）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-8/" title="「LeetCode」——8.字符串转换整数 (atoi)"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——8.字符串转换整数 (atoi)</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Course"
+        id="heading-3730c9866421d81473613698c0c0ac4f" role="tab" data-toggle="collapse" href="#collapse-3730c9866421d81473613698c0c0ac4f"
+        aria-expanded="true"
+      >
+        Course
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3730c9866421d81473613698c0c0ac4f"
+           role="tabpanel" aria-labelledby="heading-3730c9866421d81473613698c0c0ac4f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/05/eosreview/" title="和廖老师一起学嵌入式操作系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和廖老师一起学嵌入式操作系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/osreview/" title="计算机操作系统重点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机操作系统重点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/11/csp-review/" title="计算机组成原理复习"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">计算机组成原理复习</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CUDA"
+        id="heading-a33b7755e5f9b504d2d038eaca4ff28d" role="tab" data-toggle="collapse" href="#collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+        aria-expanded="false"
+      >
+        CUDA
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+           role="tabpanel" aria-labelledby="heading-a33b7755e5f9b504d2d038eaca4ff28d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-l4t-ubuntu/" title="CUDA on Arm - L4t ubuntu基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - L4t ubuntu基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-memory/" title="CUDA on Arm - 存储单元"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 存储单元</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-parallelcomputing/" title="CUDA on Arm - 并行计算基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 并行计算基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-thread/" title="CUDA on Arm - 线程层次"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 线程层次</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-gpuhardware/" title="CUDA on Arm-GPU硬件架构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm-GPU硬件架构</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Embedded"
+        id="heading-069e7821d3b4c0bbf437147263eb4d0e" role="tab" data-toggle="collapse" href="#collapse-069e7821d3b4c0bbf437147263eb4d0e"
+        aria-expanded="false"
+      >
+        Embedded
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-069e7821d3b4c0bbf437147263eb4d0e"
+           role="tabpanel" aria-labelledby="heading-069e7821d3b4c0bbf437147263eb4d0e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hardware"
+        id="heading-3c02a379965ab0dfcd77b1c484450433" role="tab" data-toggle="collapse" href="#collapse-3c02a379965ab0dfcd77b1c484450433"
+        aria-expanded="false"
+      >
+        Hardware
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3c02a379965ab0dfcd77b1c484450433"
+           role="tabpanel" aria-labelledby="heading-3c02a379965ab0dfcd77b1c484450433">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/ad-stm32/" title="AD学习——STM32F103C8T6实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——STM32F103C8T6实战</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/09/ad20-learn/" title="AD学习——基本简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——基本简介</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Software"
+        id="heading-719d067b229178f03bcfa1da4ac4dede" role="tab" data-toggle="collapse" href="#collapse-719d067b229178f03bcfa1da4ac4dede"
+        aria-expanded="false"
+      >
+        Software
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-719d067b229178f03bcfa1da4ac4dede"
+           role="tabpanel" aria-labelledby="heading-719d067b229178f03bcfa1da4ac4dede">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/keil-1/" title="keil上手"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">keil上手</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ARM"
+        id="heading-47f45e65244c17ec9fa8771a5c6d60e1" role="tab" data-toggle="collapse" href="#collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+        aria-expanded="false"
+      >
+        ARM
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+           role="tabpanel" aria-labelledby="heading-47f45e65244c17ec9fa8771a5c6d60e1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/raspi-vpn/" title="Ras-Pi的VPN设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ras-Pi的VPN设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vs-code-pi/" title="使用VS Code远程开发树莓派"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用VS Code远程开发树莓派</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-source/" title="树莓派(Raspberry Pi)资源大全中文版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派(Raspberry Pi)资源大全中文版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-opencv/" title="树莓派安装OpenCV-4.3.0+Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装OpenCV-4.3.0+Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/raspi-config-sd/" title="树莓派安装raspi-config扩展SD卡空间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装raspi-config扩展SD卡空间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-kde/" title="树莓派的KDE桌面安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的KDE桌面安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-swap/" title="树莓派的SWAP分区扩展"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的SWAP分区扩展</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-flash-os/" title="树莓派系统镜像烧写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派系统镜像烧写</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/06/c-compile-speedup/" title="C/C++通用构建加速方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C/C++通用构建加速方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/linuxprocessesmanagement/" title="Linux进程管理-随笔记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux进程管理-随笔记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/detail-of-void/" title="void*是怎样的存在？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">void*是怎样的存在？</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/01/pc2jetpack/" title="PC模拟Jetson（Jetpack）运行环境"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PC模拟Jetson（Jetpack）运行环境</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/ubuntu-nvidia/" title="Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/manjaro-ifly/" title="manjaro 切换国内源及中文输入法安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">manjaro 切换国内源及中文输入法安装</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Usage"
+        id="heading-c64518704ce0c0d5501a45763f464276" role="tab" data-toggle="collapse" href="#collapse-c64518704ce0c0d5501a45763f464276"
+        aria-expanded="false"
+      >
+        Usage
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c64518704ce0c0d5501a45763f464276"
+           role="tabpanel" aria-labelledby="heading-c64518704ce0c0d5501a45763f464276">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/frp/" title="frp内网穿透方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">frp内网穿透方案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/linux-wifi/" title="linux 命令行下配置 wlan 无线网卡"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux 命令行下配置 wlan 无线网卡</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Robotics"
+        id="heading-c98c19727b6a8b8fcf6b4bf5ded39488" role="tab" data-toggle="collapse" href="#collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+        aria-expanded="false"
+      >
+        Robotics
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+           role="tabpanel" aria-labelledby="heading-c98c19727b6a8b8fcf6b4bf5ded39488">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/intel-t265-ros-jetson-with-cuda/" title="Intel T265 + ROS视觉里程计搭建——Jetson平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Intel T265 + ROS视觉里程计搭建——Jetson平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="System"
+        id="heading-a45da96d0bf6575970f2d27af22be28a" role="tab" data-toggle="collapse" href="#collapse-a45da96d0bf6575970f2d27af22be28a"
+        aria-expanded="false"
+      >
+        System
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a45da96d0bf6575970f2d27af22be28a"
+           role="tabpanel" aria-labelledby="heading-a45da96d0bf6575970f2d27af22be28a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/11/wuhutakeoff-v1-0/" title="四轴飞行器设计之系统集成"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">四轴飞行器设计之系统集成</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/docker-compose/" title="Docker Compose部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker Compose部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/docker-portainer/" title="Docker部署及Portainer可视化面板搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker部署及Portainer可视化面板搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vultr-vps/" title="Vultr VPS-服务器地址（机房）选择方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vultr VPS-服务器地址（机房）选择方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cdn/" title="WordPress全站优化策略——CDN加速配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——CDN加速配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cos/" title="WordPress全站优化策略——COS配置策略"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——COS配置策略</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/wordpress-docker/" title="使用docker部署WordPress"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用docker部署WordPress</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-nextcloud/" title="使用树莓派搭建私有云盘"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用树莓派搭建私有云盘</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cosfs/" title="挂载COS为本地磁盘——COSFS工具配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">挂载COS为本地磁盘——COSFS工具配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-bt/" title="树莓派部署宝塔面板+LAMP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派部署宝塔面板+LAMP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cos-ftp/" title="腾讯云COS-FTP部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">腾讯云COS-FTP部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计算机组成原理复习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h2><h3 id="冯诺依曼体系"><a href="#冯诺依曼体系" class="headerlink" title="冯诺依曼体系"></a>冯诺依曼体系</h3><p>冯·诺依曼结构的特点是： <strong>计算机硬件系统由五大部件（存储器、运算器、控制器、输入设备和输出设备）组成</strong>；<strong>计算机中采用二进制形式表示信息</strong>；<strong>采用存储程序的工作方式</strong> 。</p>
+<blockquote>
+<p><strong>冯诺依曼思想包含三个方面</strong>？</p>
+<p>计算机硬件系统由五大部件（存储器、运算器、控制器、输入设备和输出设备）组成；计算机中采用二进制形式表示信息；采用存储程序的工作方式 。</p>
+</blockquote>
+<h3 id="计算机及硬件系统"><a href="#计算机及硬件系统" class="headerlink" title="计算机及硬件系统"></a>计算机及硬件系统</h3><p>计算机硬件系统由 <strong>CPU</strong> 、 <strong>存储器</strong> 、 <strong>输入&#x2F;输出设备</strong> 、 <strong>总线</strong> 、 <strong>接口</strong> 部件组成。</p>
+<h3 id="计算机软件系统"><a href="#计算机软件系统" class="headerlink" title="计算机软件系统"></a>计算机软件系统</h3><p>软件系统分为 <strong>系统软件</strong> 和 <strong>应用软件</strong> 两大类。</p>
+<blockquote>
+<p><strong>编译方式和解释方式对源程序处理有什么区别</strong>？</p>
+<p>1、编译程序是整体编译完了，再一次性执行。</p>
+<p>2、而解释程序是一边解释，一边执行。</p>
+<p>3、编译器是把源程序的每一条语句都编译成机器语言,并保存成二进制文件,这样运行时计算机可以直接以机器语言来运行此程序,速度很快。</p>
+<p>4、而解释器则是只在执行程序时,才一条一条的解释成机器语言给计算机来执行,所以运行速度是不如编译后的程序运行的快的。</p>
+<p><strong>汇编程序、汇编语言（汇编源程序）</strong></p>
+<p><strong>控制流驱动和数据流驱动</strong></p>
+<p>控制流驱动方式：即，指令控制数据，执行指令即可进行相关操作。著名的冯诺依曼机就是这种模式。</p>
+<p>数据流驱动方式：需要的数据准备齐全即可执行操作.</p>
+</blockquote>
+<h3 id="计算机性能的主要评价指标"><a href="#计算机性能的主要评价指标" class="headerlink" title="计算机性能的主要评价指标"></a>计算机性能的主要评价指标</h3><h4 id="名词"><a href="#名词" class="headerlink" title="名词"></a>名词</h4><p><strong>基本字长：</strong>处理器中参加一次定点计算的操作数的位数。</p>
+<p><strong>外频：</strong>主板上振荡器输出的时钟频率。</p>
+<p><strong>存储字长（按字节&#x2F;字&#x2F;双字节编址）：</strong>存储单元的位数。MDR的位数反映了存储字长。</p>
+<p><strong>存储单元的个数：</strong>存储器中存储单元的个数。MAR的位数反映了存储单元的个数。 如果MAR为N位，则存储单元的个数为2的N次幂。</p>
+<p><strong>地址线条数：</strong>决定了存储单元的最大寻址范围，决定了MAR的位数和存储单元个数。</p>
+<p><strong>存储容量：</strong>存储容量&#x3D;存储单元的个数*存储字长。单位B（byte）。</p>
+<p><strong>指令字长：</strong>一条指令中包含的二进制代码的位数。指令字长一般是存储字长的整数倍，如果指令字长等于存储字长的2倍，需要2次访存来取出指令，因此，取指周期是机器周期的2倍。</p>
+<blockquote>
+<p><strong>某主存总容量为64MB，按字编址，需要多少条地址线，MAR位数是多少？</strong></p>
+<p><strong>若数据传输指令的元和目的操作数都采用变址寻址，指令字长为48bit（包含形式地址），数据总线和地址总线为16bit，则该指令的执行需要从存储器取指令、取源操作数，并送到目的存储单元，需要多少次访存？</strong></p>
+</blockquote>
+<h4 id="CPU综合性能"><a href="#CPU综合性能" class="headerlink" title="CPU综合性能"></a>CPU综合性能</h4><p><strong>主频：</strong>CPU内核工作频率。</p>
+<p><strong>平均每秒执行指令数IPS</strong></p>
+<p><strong>平均每条指令的时钟周期数CPI</strong></p>
+<p><strong>每秒执行定点&#x2F;浮点运算的次数FLOPS</strong>（标志系统性能）</p>
+<p><strong>CPU功耗P：</strong>P&#x3D;CU^2f</p>
+<h4 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h4><p><strong>数据通路宽度：</strong>总线一次能并行传输的数据位数。</p>
+<p><strong>数据传输率DTR：</strong>单位时间内信道的数据传输量。DTR &#x3D; Wf(bps)</p>
+<p>W:数据通路宽度</p>
+<p>f：工作频率</p>
+<h2 id="数据的表示、运算和校验"><a href="#数据的表示、运算和校验" class="headerlink" title="数据的表示、运算和校验"></a>数据的表示、运算和校验</h2><h3 id="数值型数据"><a href="#数值型数据" class="headerlink" title="数值型数据"></a>数值型数据</h3><h4 id="进位计数制"><a href="#进位计数制" class="headerlink" title="进位计数制"></a>进位计数制</h4><h4 id="带符号数的表示"><a href="#带符号数的表示" class="headerlink" title="带符号数的表示"></a>带符号数的表示</h4><p> <strong>原码：</strong></p>
+<p> 最高位是符号位**+：0<strong>；</strong>-：1**。</p>
+<p> 范围：-127~+127</p>
+<p> <strong>补码：</strong></p>
+<p> 整数的补码：与原码相同。</p>
+<p> 负数的补码：符号位为1，其余各位取反，在末位加一。</p>
+<p> 范围：-128~+127</p>
+<blockquote>
+<p>( X + Y )补 &#x3D; X补 + Y补 （1）<br>( X – Y )补 &#x3D; X补 + (-Y)补 （2）</p>
+</blockquote>
+<p> <strong>反码：</strong></p>
+<p> 正数的反码：与原码相同。</p>
+<p> 负数的反码：符号位为1，其余各位变反。</p>
+<p> 范围：-127~+127</p>
+<p> <strong>移码：</strong></p>
+<p> 正数的移码:与原码相同。</p>
+<p> 负数的移码：补码的符号位取反。</p>
+<blockquote>
+<p>1)若寄存器的内容为111111，若它等于-1，则为（B）<br>A、原码 B、补码 C、反码 D、移码</p>
+<p>2)若寄存器的内容为11111111，若它的真值为+127，则机器数为（D）<br>A、反码 B、补码 C、原码 D、移码</p>
+</blockquote>
+<h3 id="浮点数与-定点数"><a href="#浮点数与-定点数" class="headerlink" title="浮点数与 定点数"></a>浮点数与 定点数</h3><h3 id="IEEE754"><a href="#IEEE754" class="headerlink" title="IEEE754"></a>IEEE754</h3><p>IEE754表示法，掌握十进制和IEEE754（32位）之间的相互转换。<br>浮点数的表示方法（数符、尾数、阶码、阶符、尾数规格化）</p>
+<h3 id="定点加减运算"><a href="#定点加减运算" class="headerlink" title="定点加减运算"></a>定点加减运算</h3><p>算术移位、逻辑移位规则、溢出判断规则</p>
+<h4 id="逻辑移位"><a href="#逻辑移位" class="headerlink" title="逻辑移位"></a><strong>逻辑移位</strong></h4><p>对于逻辑移位，就是不考虑符号位，移位的结果只是数据所有的位数进行移位。根据移位操作的目的，左移时，低位补0，右移时，高位补0。</p>
+<h4 id="算术移位"><a href="#算术移位" class="headerlink" title="算术移位"></a><strong>算术移位</strong></h4><p>算术是带有符号的数据，所以我们不能直接移动所有的位数，这可能会使得符号不正确。</p>
+<p><strong>负数补码移位</strong></p>
+<p>数符不变 （单：符号位不变；双：第1符号位不变)</p>
+<p>左移空位补0</p>
+<p>右移空位补1 （第二符号位移至尾数最高位）</p>
+<blockquote>
+<p><strong>一个很重要的知识：</strong><br>关于数的移位，特别需要注意正数，三码相同，所以无论左移还是右移都是补0.而负数的补码就需要注意，左移在右边补0，右移需要在左边补1，有一个很有趣的误区是，认为符号位保持不变，仅仅移动数据位，这是不对的，因为无论数据位还是符号位，都是二进制，在整体大迁移的过程中，符号位也是要跟随潮流的。只不过，为了保证右移后，和原来的符号数一样，因此，负数在右移时左边补1。</p>
+</blockquote>
+<h4 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h4><p><strong>溢出：</strong>运算结果超出机器数的表示范围。</p>
+<p><strong>正溢：</strong>两正数相加绝对值超出允许的表示范围。</p>
+<p><strong>负溢：</strong>两负数相加绝对值超出允许的表示范围。</p>
+<p>数A有4位尾数，1位符号<strong>SA</strong></p>
+<p>数B有4位尾数，1位符号<strong>SB</strong></p>
+<p>结果符号<strong>Sf</strong></p>
+<p>符号位进位<strong>Cf</strong></p>
+<p>尾数最高位进位<strong>C</strong></p>
+<p><strong>硬件判断逻辑一（SA SB Sf的关系）</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/9.jpg" srcset="/img/loading.gif" lazyload alt="9.jpg"></p>
+<p><strong>硬件判断逻辑二（Cf 与 C的关系）</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/3.jpg" srcset="/img/loading.gif" lazyload alt="3.jpg"></p>
+<p><strong>硬件判断逻辑三（双符号位）</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/2.jpg" srcset="/img/loading.gif" lazyload alt="2.jpg"></p>
+<h3 id="奇偶校验"><a href="#奇偶校验" class="headerlink" title="奇偶校验"></a>奇偶校验</h3><h2 id="CPU子系统"><a href="#CPU子系统" class="headerlink" title="CPU子系统"></a>CPU子系统</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="运算部件（多路选择器、锁存器）"><a href="#运算部件（多路选择器、锁存器）" class="headerlink" title="运算部件（多路选择器、锁存器）"></a><strong>运算部件</strong>（多路选择器、锁存器）</h4><h4 id="数据缓存部件（Cache-L1、L2、L3）"><a href="#数据缓存部件（Cache-L1、L2、L3）" class="headerlink" title="数据缓存部件（Cache L1、L2、L3）"></a><strong>数据缓存部件</strong>（Cache L1、L2、L3）</h4><h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a><strong>寄存器</strong></h4><blockquote>
+<p>各种寄存器的作用（R0~R3、PSW 、PC、SP 、IR 、MAR、MDR、C、D）：哪些是可编程寄存器，哪些是不能编程访问的。</p>
+</blockquote>
+<h4 id="控制部件"><a href="#控制部件" class="headerlink" title="控制部件"></a><strong>控制部件</strong></h4><p>（1）控制部件的输入信号包括 <strong>IR</strong>、<strong>PSW</strong>、<strong>PC</strong>、<strong>时序系统</strong>、<strong>I&#x2F;O请求</strong>、<strong>复位信号</strong>。</p>
+<p>（2）按照微命令产生方式，控制器分为<strong>组合逻辑控制器</strong>和<strong>微程序控制器</strong>。</p>
+<p>（3）一般指令的读取和执行分为<strong>取指令</strong>、<strong>取源操作数</strong>、<strong>取目的操作数</strong>、<strong>执行</strong>阶段。</p>
+<p>（4）微命令：在计算机中用来控制微操作（如逻辑门的开或关、寄存器的打入或清除等操作）的控制命令称为微命令，也称为微操作控制信号。</p>
+<p>（5）组合逻辑控制：简单地讲，<strong>由硬连逻辑电路产生微命令</strong>的方式称为组合逻辑控制方式。它的基本思想如下：<br>综合、化简产生微命令的条件，形成相应逻辑式，并用组合逻辑电路实现；执行指令时，由组合逻辑电路(微命令发生器)在相应时间发出所需微命令，控制有关操作。</p>
+<p>（6）微程序控制：简单地讲，<strong>由微指令译码产生微命令</strong>的方式称为微程序控制方式。它的基本思想如下：<br>将若干微命令编制成一条微指令，控制实现一步操作；将若干微指令组成一段微程序，解释执行一条机器指令；将微程序事先存放在控制存储器中，执行机器指令时再取出。</p>
+<h4 id="时序部件"><a href="#时序部件" class="headerlink" title="时序部件"></a>时序部件</h4><p>（1）时序信号：周期、节拍、脉冲<br>（2）时序系统：产生时序信号的部件，由1个低频振荡器和倍频逻辑组成<br>（3）指令周期、工作周期、总线周期、时钟周期、时钟信号<br>（4）同步控制、异步控制、扩展同步控制</p>
+<h4 id="数据通路和控制通路"><a href="#数据通路和控制通路" class="headerlink" title="数据通路和控制通路"></a>数据通路和控制通路</h4><p>（1）分立寄存器的CPU数据通路</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/06.jpg" srcset="/img/loading.gif" lazyload alt="06.jpg"></p>
+<p>（2）集成寄存器结构的CPU数据通路</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/05/44.jpg" srcset="/img/loading.gif" lazyload alt="44.jpg"></p>
+<blockquote>
+<p>1、PSW寄存器的特征位是程序员设置的（ ）<br>x</p>
+<p>2、MAR寄存器是采用双向三态门或者OC组件构成。（ ）<br>x</p>
+<p>3、暂存器C用于存放源操作数或者源操作数地址，暂存器D存放目的操作数或者目的操作数地址（ ）<br>v</p>
+<p>4、IR寄存器适用于存放当前指令地址（ ）<br>x</p>
+<p>5、现代微处理器缓存采用三级缓存L1、L2和L3，三级缓存都部署与CPU内部。（ ）<br>v</p>
+<p>6、CM属于CPU的一部分（ ）<br>V</p>
+<p>7、时序系统里面有一个启停控制逻辑，它的作用是<br><strong>保证可靠的送出完整脉冲，并且产生一个总清信号&#x2F;复位信号，对计算机相关部件进行初始化。</strong></p>
+<p>8、晶体振荡器产生的时钟频率低于CPU的主频（ ）<br>V</p>
+<p>9、同步控制的同一时序信号都由CPU产生（）<br>x</p>
+<p>10、同步控制的时钟周期长度固定不变（）<br>v</p>
+<p>11、异步控制方式是指（）<br>各项操作不受统一时序信号【如时钟周期】的约束，各部件之间数据传输采用应答方式。</p>
+<p>12、扩展同步控制根据实际时间分配时钟周期数，时钟周期长度不变（ ）<br>V</p>
+<p>13、计算机工作的最小时间周期是（ ）<br>A、时钟周期 B、指令周期 C、总线周期 D、工作脉冲<br>D</p>
+<p>14、时序控制方式中，有一种方式，是总线周期中允许插入延长周期，其含义是（ ）<br>A、将一个总线周期延长为多个总线周期<br>B、在一个时钟周期内插入新的总线周期<br>C、在总线周期内增加新的总线周期<br>D、在一个总线周期内，延长时钟周期长度<br>B</p>
+</blockquote>
+<h3 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h3><h4 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h4><p>简化地址结构、操作码（固定操作码、扩展操作码、复合型操作码）</p>
+<p><strong>（1）简化地质结构的基本途径</strong><br>在指令中减少显地址的数量，即使用隐地址方式给出地址，指令中的地址（段）个数就可减少。</p>
+<p><strong>（2）减少指令中地址信息的位数的方法</strong><br>采用寄存器寻址、寄存器间址等以寄存器为基础的寻址方式可以大大减少指令中一个地址的信息位数。</p>
+<p><strong>（3）显地址</strong><br>在指令代码中明显给出的地址，如在指令中写明操作数的主存单元地址或寄存器号，则这种地址称为显地址。</p>
+<p><strong>（4）隐地址</strong><br>在指令中不明显给出地址码，地址以隐含方式约定，这种隐含约定的地址称为隐地址。</p>
+<blockquote>
+<p><strong>1、指令长度和机器字长有什么关系？ 半字长指令、单字长指令、双字长指令分别表示什么意思？</strong><br>解：指令长度与机器字长没有固定的关系，指令长度可以等于机器字长，也可以大于或小于机器字长。通常，把指令长度等于机器字长的指令称为单字长指令；指令长度等于半个机器字长的指令称为半字长指令；指令长度等于两个机器字长的指令称为双字长指令。</p>
+<p><strong>2、假设指令系统的指令字长16位，地址位4位，若两地址指令需要12条，单地址指令需要12条，那么零地址指令最多有（ ）条。</strong><br>256</p>
+</blockquote>
+<h4 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h4><p>指令中以什么方式提供操作数或操作数地址，称为寻址方式。</p>
+<p><strong>立即寻址：</strong>由指令直接给出操作数，在取出指令的同时也就取出了可以立即使用的操作数，这种寻址方式称为立即寻址。</p>
+<p><strong>直接寻址：</strong>由指令直接给出操作数地址，根据该地址可以从主存（或寄存器）中取出操作数，或向主存（或寄存器）写入数据，这种寻址方式称为直接寻址。</p>
+<p><strong>寄存器寻址：</strong>在指令中给出寄存器号，从该寄存器号所指的寄存器中取出操作数或将数据传送到该寄存器号所指的寄存器中。这种寻址方式实为寄存器直接寻址。</p>
+<p><strong>间接寻址：</strong>在指令中给出间址单元地址码（即操作数地址的存放单元地址），按照该地址访问主存中该间址单元，从中读取操作数地址，接着按操作数地址再次访问主存，从该单元中读取或向该单元写入操作数。</p>
+<p><strong>寄存器间址：</strong>由指令给出寄存器号，在该寄存器号所指定的寄存器中存放着操作数地址，按此地址访问主存，读取或写入操作数。</p>
+<p><strong>间址单元：</strong>在间接寻址方式中，存放操作数地址的主存编址单元称为间址单元。</p>
+<p><strong>变址寻址：</strong>在指令中的地址部分给出一个形式地址，并且指定一个寄存器作为变址寄存器，将变址寄存器的内容（称为变址量）与形式地址相加，得到操作数地址（称为有效地址）；按有效地址访问主存，从相应的主存单元中读得操作数或向该单元写入数据。</p>
+<p><strong>基址寻址：</strong>在指令中给出一个形式地址（作为位移量），并且指定一个寄存器作为基址寄存器（该基址寄存器内容作为基准地址）；将基址寄存器内容和形式地址相加，其和作为操作数有效地址；按有效地址访问主存，从该单元读取操作数或向该单元写入数据。</p>
+<p><strong>相对寻址：</strong>指用程序计数器PC的内容作为基准地址，指令中给出的形式地址作为位移量的基址寻址方式。</p>
+<p><strong>页面寻址：</strong>将程序计数器PC的高位段作为操作数有效地址的高位段，指令中给出的形式地址作为操作数有效地址的低位段，将这两部分拼接构成操作数有效地址，这种寻址方式称为页面寻址方式。</p>
+<p><strong>堆栈：</strong><br>一种按“后进先出”（或称“先进后出”）存取顺序进行存取的存储结构。<br><strong>a）栈顶：</strong>堆栈是一个连续的存储区，其一端固定称为栈底，存放最先压入的数；堆栈的另一端是浮动的，称为栈顶，对堆栈的读写都是对栈顶单元进行的；对堆栈的寻址也就是对栈顶单元的寻址，随着堆栈操作的进行，栈顶位置也发生变化。<br><strong>b）堆栈指针：</strong>指用于指向栈顶位置的寄存器SP，堆栈指针SP的内容是栈顶单元地址。</p>
+<blockquote>
+<p><strong>模型机：</strong>双重间址@(R)+、变址X(R)</p>
+<p><strong>1、若某个主存储器部分的地址单元与主存内容对应关系如下：</strong><br><strong>地址码 存储内容</strong><br><strong>1000H A307H</strong><br><strong>1001H 0B3FH</strong><br><strong>1002H 1200H</strong><br><strong>1003H F03CH</strong><br><strong>1004H D024H</strong><br><strong>（1）若采用寄存器间接寻址方式读取操作数，指定寄存器R0的内容是1002H，则操作数是多少？</strong><br>操作数是1200H<br><strong>（2）若采用自增型寄存器间址方式(R1)+读取操作数，R1内容是1000H，则操作数是多少？指令执行完后R1内容是多少？</strong><br>操作数是A307H，指令执行后R0的内容变为1001H<br><strong>（3）若采用自减型寄存器间址-(R2)读取操作数，R2内容为1003H，则操作数是多少？指令执行完后R2内容是多少？</strong><br>操作数是1200H，指令执行后R1的内容为1002H<br><strong>（4）若采用变址寻址方式X(R3)读取操作数，指令中给出的形式地址d&#x3D;3H，变址寄存器R3的内容是1000H，则操作数是多少？</strong><br>操作数为F03CH。</p>
+<p><strong>2、假设R0的内容为2000H，R1的内容为2500H，（2000H）&#x3D;3000H，</strong><br><strong>(3000H)&#x3D;4000H，则指令“MOV R1，@(R0)+”执行后，R0的内容为（），R1的内容为（），(2000H)的内容为（），(3000H)的内容为（ ）。</strong><br>2001H，4000H，3000H，4000H</p>
+<p><strong>3、若数据传输指令的源和目的操作数都采用变址寻址，指令字长为48bit（包含形式地址），数据总线和地址总线为16bit，则该指令的执行需要从存储器取指令、取源操作数，并送到目的存储单元，需要多少次访存？（ ）</strong><br>5 &#x3D; 3 + 1 + 1</p>
+<p><strong>4、隐地址是指()的地址。</strong><br><strong>A. 用寄存器号表示 B. 存放在主存单元中</strong><br><strong>C. 事先约定,指令中不必给出 D. 存放在寄存器中</strong><br>C</p>
+<p><strong>5、指令ADD（R0），@（R1）+的指令长度是3字节（存储器按字节编址），则指令从取指开始执行，共需要（ ）次访问存储器。</strong><br>7</p>
+</blockquote>
+<h3 id="加法器与运算部件"><a href="#加法器与运算部件" class="headerlink" title="加法器与运算部件"></a>加法器与运算部件</h3><p>运算器的核心部件是（ ALU ）,一般应具有（ 算术运算 ）与（ 逻辑运算 ）两大类运算能力。</p>
+<blockquote>
+<p><strong>1、并行加法器的运算速度取决于全加器单元的速度。</strong>（ x）</p>
+<p><strong>2、串行进位链是串行加法器中的进位链。</strong>（ v）</p>
+<p><strong>3、用4片74181和1片74182可组成（ ）</strong><br><strong>A、组内并行进位，组间串行进位的16位ALU</strong><br><strong>B、组内并行进位，组间并行进位的16位ALU</strong><br><strong>C、组内串行进位，组间串行进位的16位ALU</strong><br><strong>D、组内串行进位，组间并行进位的16位ALU</strong><br>B</p>
+<p><strong>【例1】已知操作数Ai,Bi,初始进位C0。试写出C6的逻辑表达式</strong></p>
+<p>（Ci：本位进位。 Gi：绝对进位。 Pi：条件进位。 Ci-1：传递进位。）</p>
+<p>串行进位：<br>C6 &#x3D; G6 + P6C5;</p>
+<p>并行进位：<br>C6 &#x3D; G6 + P6G5 + P6P5G4 + P6P5P4G3 + P6P5P4P3G2 + P6P5P4P3P2G1 + P6P5P4P3P2P1C0</p>
+</blockquote>
+<h3 id="模型机"><a href="#模型机" class="headerlink" title="模型机"></a>模型机</h3><h4 id="指令系统、"><a href="#指令系统、" class="headerlink" title="指令系统、"></a>指令系统、</h4><h4 id="寻址方式："><a href="#寻址方式：" class="headerlink" title="寻址方式："></a>寻址方式：</h4><p> 寄存器寻址、寄存器间址、自减型寄存器间址、自增型寄存器间址、自增型双重间址、相对寻址、跳步</p>
+<h4 id="指令类型："><a href="#指令类型：" class="headerlink" title="指令类型："></a>指令类型：</h4><p> 双地址指令、单地址指令、转移指令</p>
+<h4 id="模型机的数据通路结构P133-图3-34"><a href="#模型机的数据通路结构P133-图3-34" class="headerlink" title="模型机的数据通路结构P133 图3-34"></a>模型机的数据通路结构P133 图3-34</h4><h4 id="指令流程和微命令P137-P145"><a href="#指令流程和微命令P137-P145" class="headerlink" title="指令流程和微命令P137-P145"></a>指令流程和微命令P137-P145</h4><p> 传送指令、双操作数指令<br>​ 中断周期P145</p>
+<h4 id="组合逻辑控制器"><a href="#组合逻辑控制器" class="headerlink" title="组合逻辑控制器"></a>组合逻辑控制器</h4><p> 时序系统（工作周期【6个触发器】、时钟周期【计数器】、工作脉冲）</p>
+<p><strong>机器字长：</strong>CPU一次能处理数据的位数。通常与CPU的寄存器的位数有关, 单位b（bit）</p>
+<p><strong>存储字长（按字节&#x2F;字&#x2F;双字节编址）：</strong>存储单元的位数。MDR的位数反映了存储字长。</p>
+<p><strong>存储单元的个数：</strong>存储器中存储单元的个数。MAR的位数反映了存储单元的个数。 如果MAR为N位，则存储单元的个数为2的N次幂。</p>
+<p><strong>地址线条数：</strong>决定了存储单元的最大寻址范围，决定了MAR的位数和存储单元个数。</p>
+<p><strong>存储容量：</strong>存储容量&#x3D;存储单元的个数*存储字长。单位B（byte）。</p>
+<blockquote>
+<p><strong>【例1】某主存总容量为64MB，按字编址，需要多少条地址线，MAR位数是多少？</strong><br>（25，25）</p>
+<p><strong>【例2】若数据传输指令的源和目的操作数都采用变址寻址，指令字长为48bit（包含形式地址），数据总线和地址总线为16bit，则该指令的执行需要从存储器取指令、取源操作数，并送到目的存储单元，需要多少次访存？</strong><br>（5）</p>
+<p><strong>【例3】模型机中，MOV (R0)， @(R1)+，则该指令的执行需要从存储器取指令、取源操作数，并送到目的存储单元，需要多少次访存？</strong><br>（4）</p>
+<p><strong>【例4】模型机中，执行指令JSR @(R0)+后，PC和SP的值如何改变？</strong><br>（ SP-1-&gt;SP ，PC值压栈后，PC值变为子程序入口地址 ）<br><strong>执行RST (SP)+指令后， PC和SP的值如何改变？</strong><br>（PC出栈，SP+1-&gt;SP）</p>
+</blockquote>
+<h4 id="微程序控制器"><a href="#微程序控制器" class="headerlink" title="微程序控制器"></a>微程序控制器</h4><p> 一条机器指令的执行分为若干步，将每一步操作所需的微命令按照固定格式进行编码，并存储成一条<strong>微指令</strong>，多条微指令构成一段<strong>微程序</strong>，这段微程序对应一条机器指令。<br>​ 机器在执行指令过程中，每一步（时钟周期）取出一条微指令，经过译码后，产生一组控制信号（微命令），控制各个部件的操作。<br>​ <strong>控制存储器（Control memory,CM,控存）：只读存储器</strong>，存储可以经过译码产生控制信号的微程序（经过按照一定规则进行编制）。</p>
+<blockquote>
+<p><strong>1、控制存储器CM是（）的一种存储器</strong><br><strong>A、用于存储汇编指令 B、用于存储显示字符</strong><br><strong>C、位于CPU内部 D、用于存储指令流程</strong><br>C</p>
+<p><strong>2、后续微地址的形成有（</strong>增量和断定<strong>）两种，其中按照目的操作数寻址方式实现分支属于（</strong>断定<strong>）方式</strong></p>
+<p><strong>3、对微指令编码，采用分段编译法，下面说法正确的是（）</strong><br><strong>A、如果K个字段，则可提供K个微命令</strong><br><strong>B、微命令的数量与段的数量和各段长度都有关系</strong><br><strong>C、微命令的数量和段的数量没有关系，只与微指令的总长度有关</strong><br><strong>D、以上三种都不正确。</strong><br>B</p>
+</blockquote>
+<h2 id="存储子系统"><a href="#存储子系统" class="headerlink" title="存储子系统"></a>存储子系统</h2><h3 id="存储器的层次结构"><a href="#存储器的层次结构" class="headerlink" title="存储器的层次结构"></a>存储器的层次结构</h3><p><strong>主存：</strong><br>CPU可直接访问，存放CPU当前使用的指令和数据。<br>特点：能随机访问、工作速度快、容量有限。</p>
+<p><strong>辅存（外存）：</strong><br>存放大量的后备程序和数据。<br>特点：速度较慢、容量大。</p>
+<p><strong>高速缓冲存储器(Cache)：</strong><br>存放CPU在当前一小段时间内多次使用的程序和数据，以缓解CPU和主存的速度差异。<br>特点：速度很快、容量小。</p>
+<h3 id="存储器的分类"><a href="#存储器的分类" class="headerlink" title="存储器的分类"></a>存储器的分类</h3><h4 id="按存储介质（物理存储机制）分类："><a href="#按存储介质（物理存储机制）分类：" class="headerlink" title="按存储介质（物理存储机制）分类："></a>按存储介质（物理存储机制）分类：</h4><h5 id="半导体存储器"><a href="#半导体存储器" class="headerlink" title="半导体存储器"></a>半导体存储器</h5><p>静态存储器：利用双稳态触发器存储信息，功耗较大，速度快，做Cache。<br>动态存储器：依靠电容上的电荷暂存信息，功耗较小，容量较大，速度较快适合做主存。</p>
+<h5 id="磁表面存储器：磁带、存盘、硬盘"><a href="#磁表面存储器：磁带、存盘、硬盘" class="headerlink" title="磁表面存储器：磁带、存盘、硬盘"></a>磁表面存储器：磁带、存盘、硬盘</h5><p>利用磁层上不同方向的磁化区域表示信息。<br>特点：存储容量大；非破坏性读出、永久保存；读写速度比半导体存储器慢；适合用于外存。</p>
+<h5 id="光盘存储器"><a href="#光盘存储器" class="headerlink" title="光盘存储器"></a>光盘存储器</h5><p>利用光斑的有无存储信息。<br>特点：容量大；非破坏性读出、永久保存；速度慢；适合用于外存。</p>
+<h4 id="按存取方式分类"><a href="#按存取方式分类" class="headerlink" title="按存取方式分类"></a>按存取方式分类</h4><h5 id="随机存取存储器-RAM，ROM、Flash-memory"><a href="#随机存取存储器-RAM，ROM、Flash-memory" class="headerlink" title="随机存取存储器(RAM，ROM、Flash memory)"></a>随机存取存储器(RAM，ROM、Flash memory)</h5><p><strong>随机存取：</strong>可按地址访问存储器中的任一单元，与访问时间和单元地址无关。<br><strong>技术指标：</strong>存取周期、存取时间。</p>
+<h5 id="顺序存取存储器（SAM）"><a href="#顺序存取存储器（SAM）" class="headerlink" title="顺序存取存储器（SAM）"></a>顺序存取存储器（SAM）</h5><p>访问时读&#x2F;写部件按顺序查找目标地址，访问时间与数据位置有关。<br>例如，磁带机 — 与磁带录音机工作原理类似, 但存储信息为数字信息, 而非模拟信息。<br><strong>技术指标：</strong>平均存取时间、数据传输率。</p>
+<h5 id="直接存取存储器（DAM）"><a href="#直接存取存储器（DAM）" class="headerlink" title="直接存取存储器（DAM）"></a>直接存取存储器（DAM）</h5><p>访问时读&#x2F;写部件先直接指向一个小区域，再在该区域内顺序查找。访问时间与数据位置有关，如磁盘、硬盘、光盘。<br><strong>技术指标：</strong>平均定位&#x2F;寻道时间、平均等待&#x2F;旋转时间、数据传输率。</p>
+<h4 id="半导体存储原理"><a href="#半导体存储原理" class="headerlink" title="半导体存储原理"></a>半导体存储原理</h4><p><strong>静态存储器SRAM(双极型、静态MOS型):</strong> 依靠双稳态电路内部交叉反馈机制，功耗较大,速度快,作Cache、（六管单元构成1位，有VCC供电）非破坏性读出，读出后不需重写。</p>
+<p><strong>动态存储器DRAM：</strong>依靠电容存储电荷的原理存储信息，功耗较小,容量大,速度较快,作主存。（4管单元、无VCC供电）四管单元是非破坏性读出，读出过程即实现刷新；需定期向电容补充电荷（动态刷新）。</p>
+<p><strong>单管单元（无VCC）：</strong>单管单元是破坏性读出，读出后需重写。</p>
+<p><strong>存储器的逻辑设计：</strong><br>计算芯片数量（位扩展、单元数扩展）、地址分配和片选逻辑、电路连接（数据线、地址线、片选线、读&#x2F;写线）、3:8译码器或2:4译码器的连线、与门、与非门、或门、或非门的画法。</p>
+<blockquote>
+<p>步骤：</p>
+<p>（1）确定芯片数量（先位扩展，然后扩展单元数）</p>
+<p>（2）地址分配，确定片选逻辑</p>
+<p>（3）画连线图</p>
+</blockquote>
+<h4 id="动态刷新"><a href="#动态刷新" class="headerlink" title="动态刷新"></a>动态刷新</h4><p><strong>刷新和重写的区别：</strong>刷新是动态存储芯片，需补充电荷以保持原信息；重写是破坏性读出后重写，以恢复原来的信息。</p>
+<p><strong>刷新原因：</strong>动态存储器依靠电容电荷存储信息。电容电荷随时间推移会缓慢泄放，需定期向电容补充电荷，以保持信息不变。</p>
+<p><strong>最大刷新间隔：</strong>2ms内，必须对所有动态单元刷新一遍。</p>
+<p><strong>刷新方法：</strong>各DRAM芯片同时刷新，片内按行刷新(按行读)</p>
+<p><strong>刷新周期(存取周期)：</strong>刷新一行所用的时间。刷新周期数：刷新一块芯片所需的周期数，由芯片矩阵的行数决定。</p>
+<p><strong>刷新周期的安排方式：</strong><br>（a）集中刷新<br>（b）分散刷新<br>（c）异步刷新：每隔一定时间(2ms&#x2F;芯片的行数)提出一次刷新请求（DMA请求），刷新一行。</p>
+<h4 id="主存储器校验"><a href="#主存储器校验" class="headerlink" title="主存储器校验"></a>主存储器校验</h4><p><strong>奇偶校验编码规则：</strong>编码中“1”的个数为奇数或者偶数</p>
+<blockquote>
+<p><strong>1、某计算机主存空间是4GB，字长为32位，按字节编制，采用32位字长的指令格式，则程序计数器PC和指令寄存器IR的位数分别是（）</strong><br><strong>A、30，30 B、30，32 C、32,30 D、32,32</strong><br>D</p>
+<p><strong>2、半导体SRAM的存储信息原理是（ )</strong><br><strong>A、依靠双稳态电路 B. 依靠定时刷新</strong><br><strong>C. 依靠读后再生 D. 信息不再变化</strong><br>A</p>
+<p><strong>3、下列选项不属于动态刷新的方式为（ )</strong><br><strong>A、集中刷新 B. 分散刷新 C. 同步刷新 D. 异步刷新</strong><br>C</p>
+<p><strong>4、主存按字节编址，地址从A400H到DFFFH，共有容量 15KB ；若用存储容量为3K*4的存储芯片，至少需要( )片</strong><br>10</p>
+<p><strong>5、在计算机系统中存储器按介质分类，它们可以分为（ ）。</strong><br><strong>A、半导体存储器，磁表面存储器，光盘存储器； B、硬盘，软盘，光盘；</strong><br><strong>C、U盘，磁带，RAM； D、RAM，ROM，EPROM。</strong><br>A</p>
+<p><strong>6、存储器按存取方式分为：</strong><br>随机存取存储器，顺序存取存储器（SAM），直接存取存储器（DAM）。</p>
+<p><strong>7、地址总线A0∽A15，用4K*4的存储芯片组成16KB的存储器，则用于存储芯片内部寻址的地址线是（ ）</strong><br><strong>A. A16∽A15 B. A0∽A9 C. A0∽A11 D. A4∽A15</strong><br>C</p>
+<p><strong>8、某主存容量为32KB，由16片16K*1位（内部采用128*128存储阵列）的DRAM芯片组成，若采用集中式刷新方式，且刷新周期为2ms，那么所有存储单元刷新一遍需要至少需要安排 个刷新周期。</strong><br>128</p>
+<p><strong>9、16片2K*4位的存储器可以设计存储容量为 的16位存储器</strong><br>8K</p>
+<p><strong>10、磁盘属于（ ）类型的存储器</strong><br><strong>A．随机存取存储器（RAM） B.只读存储器（ROM） C.顺序存取存储器（SAM） D.直接存取存储器（DAM）</strong><br>D</p>
+<p><strong>11、下列几种存储器中，CPU不能直接访问的是（ ）</strong><br><strong>A、硬盘 B、内存 C、Cache D、寄存器</strong><br>A</p>
+<p><strong>12、DRAM的刷新是以（ ）为单位进行的。</strong><br><strong>A、存储单元 B、行 C、列 D、存储字</strong><br>B</p>
+<p><strong>13、某存储器容量为32K×16位，则地址线有 条。</strong><br>15</p>
+<p><strong>14、某DRAM芯片，采用地址复用技术，其容量为1024×8位，除电源和接地外，该芯片的引脚最少是 条（读写控制线为2条）</strong><br>17</p>
+</blockquote>
+<h2 id="总线与输入-x2F-输出子系统"><a href="#总线与输入-x2F-输出子系统" class="headerlink" title="总线与输入&#x2F;输出子系统"></a>总线与输入&#x2F;输出子系统</h2><h3 id="I-x2F-O系统包括："><a href="#I-x2F-O系统包括：" class="headerlink" title="I&#x2F;O系统包括："></a>I&#x2F;O系统包括：</h3><p>I&#x2F;O设备：实现与主机的信息交换和人机交互</p>
+<p>I&#x2F;O接口：主机与外设之间的连接逻辑，控制外设的I&#x2F;O操作</p>
+<p>系统总线：连接系统各大部件的公共信息通道</p>
+<blockquote>
+<p><strong>为什么在外设与CPU之间需要接口?</strong></p>
+<p>（1）时间同步：不同速度外设如何与CPU之间进行时间同步</p>
+<p>（2）数据格式的转换(如果需要)：外设数据格式可能与CPU数据格式不同</p>
+<p>（3）CPU与外设之间一次数据传送量的控制</p>
+<p>（4）其它因素(如电平转换)</p>
+</blockquote>
+<h3 id="接口分类"><a href="#接口分类" class="headerlink" title="接口分类"></a>接口分类</h3><h4 id="按数据传送格式划分"><a href="#按数据传送格式划分" class="headerlink" title="按数据传送格式划分"></a>按数据传送格式划分</h4><p><strong>并行接口:</strong> 接口与系统总线、接口与外设均按并行方式传送数据；数据各位同时传送；适合设备本身并行工作，距主机较近的场合。<br><strong>串行接口:</strong> 接口与系统总线并行传送，接口与外设串行传送；数据逐位分时传送。</p>
+<h4 id="按时序控制方式划分"><a href="#按时序控制方式划分" class="headerlink" title="按时序控制方式划分"></a>按时序控制方式划分</h4><p><strong>同步接口：</strong>连接同步总线，接口与系统总线的信息传送由统一时序信号控制。<br><strong>异步接口：</strong>连接异步总线，接口与系统总线的信息传送采用异步应答方式。</p>
+<h4 id="按I-x2F-O传送控制方式划分"><a href="#按I-x2F-O传送控制方式划分" class="headerlink" title="按I&#x2F;O传送控制方式划分"></a>按I&#x2F;O传送控制方式划分</h4><p><strong>程序控制接口：</strong>通过硬件或软件方式按指定优先级查询各设备是否要进行输入&#x2F;输出<br><strong>中断接口：</strong>设备提出中断请求，主机响应后与设备交换信息，接口中包含中断控制逻辑<br><strong>DMA接口：</strong>支持高速外设与主机之间进行DMA方式交换数据</p>
+<h3 id="I-x2F-O接口主要功能"><a href="#I-x2F-O接口主要功能" class="headerlink" title="I&#x2F;O接口主要功能"></a>I&#x2F;O接口主要功能</h3><p><strong>寻址：</strong>接收CPU送来的地址码，选择接口中的寄存器供CPU访问<br><strong>数据缓冲：</strong>实现主机与外设的速度匹配；缓冲深度与传送的数据量有关。<br><strong>预处理：</strong>串-并格式转换（串口）；数据通路寬度转换（并口）；电平转换<br><strong>控制功能：</strong>传送控制命令与状态信息，实现I&#x2F;O传送控制方式</p>
+<h3 id="接口编址"><a href="#接口编址" class="headerlink" title="接口编址"></a>接口编址</h3><p><strong>统一编址：</strong>将一部分总线地址（高区）分配给设备接口中的寄存器（占用了主存地址）。通用的访存指令<br><strong>单独编址：</strong>为接口中的每个寄存器分配独立的端口号（与主存地址无关），有专门的I&#x2F;O指令</p>
+<h4 id="接口传送信息包括控制命令、数据、状态"><a href="#接口传送信息包括控制命令、数据、状态" class="headerlink" title="接口传送信息包括控制命令、数据、状态"></a>接口传送信息包括控制命令、数据、状态</h4><h3 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h3><p><strong>定义：</strong>一组能为多个部件分时共享的信息传送线路。通常作法：发送部件通过OC组件或三态门分时发送信息，由打入脉冲将信息送入指定接收部件。<br><strong>实体：</strong>一组传送线与相应控制逻辑</p>
+<h3 id="总线分类"><a href="#总线分类" class="headerlink" title="总线分类"></a>总线分类</h3><h4 id="按时序控制方式划分-1"><a href="#按时序控制方式划分-1" class="headerlink" title="按时序控制方式划分"></a>按时序控制方式划分</h4><p><strong>同步总线:</strong> 由统一时序信号控制总线传送操作；在固定时钟周期内完成数据传送，由同步脉冲定时打入。<br>**异步总线:**无固定时钟周期划分，以异步应答方式控制传送<br><strong>扩展同步总线：</strong>以时钟周期为时序基础，允许总线周期中的时钟数可变。<br><strong>时钟周期：</strong>CPU执行一步操作的时间<br><strong>总线周期：</strong>经过总线的一次数据传送(访存)时间，通常包含若干时钟周期<br><strong>工作周期：</strong>指令周期中的一个操作阶段；可包含多个总线周期</p>
+<h4 id="计算机设计中，不同类型的总线可能采用的时序控制方式和数据传送格式："><a href="#计算机设计中，不同类型的总线可能采用的时序控制方式和数据传送格式：" class="headerlink" title="计算机设计中，不同类型的总线可能采用的时序控制方式和数据传送格式："></a>计算机设计中，不同类型的总线可能采用的时序控制方式和数据传送格式：</h4><p><strong>CPU内总线：</strong>同步、并行<br><strong>局部总线：</strong>同步、异步、扩展同步、并行<br><strong>系统总线：</strong>同步、异步、扩展同步、并行<br><strong>外总线：</strong>异步、并行、串行</p>
+<h4 id="总线的技术指标"><a href="#总线的技术指标" class="headerlink" title="总线的技术指标"></a>总线的技术指标</h4><p>总线宽度、总线频率、总线数据传输率</p>
+<h4 id="总线标准"><a href="#总线标准" class="headerlink" title="总线标准"></a>总线标准</h4><p><strong>内总线(典型)：</strong>ISA、EISA、VESA、PCI、PCI-e<br><strong>外总线(典型)：</strong>RS232、RS485、USB、IEEE1394</p>
+<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p><strong>定义：</strong>CPU暂时中止现行程序的执行，转去执行为某个随机事态服务的中断处理程序。处理完毕后自动恢复原程序的执行。<br><strong>实质：</strong>程序切换。在一条指令结束时切换，保证程序的完整性；切换前需保存断点、保护现场，中断服务程序执行结束后，需要恢复现场，返回断点。<br><strong>特点：</strong>随机性</p>
+<h4 id="中断与转子程序："><a href="#中断与转子程序：" class="headerlink" title="中断与转子程序："></a>中断与转子程序：</h4><p>（1）转子程序的执行由程序员事先安排,而中断服务程序的执行则是由随机中断事件触发。<br>（2）转子程序的执行受主程序或上层程序控制,而中断服务程序一般与被中断的现行程序无关。<br>（3）一般不存在同时调用多个子程序的情况,但可能发生多个外设同时向CPU发出中断服务请求的情况。</p>
+<h4 id="中断分类"><a href="#中断分类" class="headerlink" title="中断分类"></a>中断分类</h4><p>硬中断和软中断<br>内中断和外中断<br>可屏蔽中断和非屏蔽中断<br>向量中断和非向量中断</p>
+<h4 id="中断组成"><a href="#中断组成" class="headerlink" title="中断组成"></a>中断组成</h4><p><strong>软件：</strong>中断服务程序和中断向量表<br><strong>硬件：</strong>接口（中断请求、传递、判优逻辑）、CPU（中断响应逻辑）</p>
+<h4 id="中断优先级判断"><a href="#中断优先级判断" class="headerlink" title="中断优先级判断"></a>中断优先级判断</h4><p>优先顺序: 故障、内中断、DMA、外中断；高速操作优于低速操作，输入优于输出。<br>CPU现行程序与外设请求的判优<br>CPU设置允许中断标志<br>CPU设置程序状态字的优先级字段，为现行程序赋予优先级</p>
+<p>中断接口判优：中断请求寄存器、中断屏蔽寄存器、中断服务寄存器，判断是否发出INT请求。</p>
+<h4 id="中断响应"><a href="#中断响应" class="headerlink" title="中断响应"></a>中断响应</h4><p><strong>响应条件：</strong>外设有请求，且未被屏蔽；CPU开中断；中断源优先级高于当前程序的优先级；一条指令(非停机)结束，即ET之后。</p>
+<h5 id="如何获取中断程序的入口地址"><a href="#如何获取中断程序的入口地址" class="headerlink" title="如何获取中断程序的入口地址"></a>如何获取中断程序的入口地址</h5><p><strong>（a）非向量中断：</strong>将服务程序入口组织在查询程序中，CPU响应时，执行查询程序，查询中断源，转入相应的服务程序。<br><strong>（b）向量中断：</strong>将中断源的服务程序入口（中断向量）组织在中断向量表中，CPU响应时，由硬件直接产生相应的向量地址，按地址查表，取得服务程序入口，转入相应的服务程序。<br><strong>中断向量：</strong>中断服务程序入口地址<br><strong>中断向量表：</strong>存放各中断向量的表（一段存储区）<br><strong>向量地址：</strong>访问中断向量表的地址（指向中断向量首址）,可通过中断号（中断类型码）计算得到</p>
+<h5 id="响应过程"><a href="#响应过程" class="headerlink" title="响应过程"></a>响应过程</h5><p><strong>（a）中断周期IT流程</strong>（关中断；保存断点；获取服务程序入口地址；转向程序状态1-&gt;FT）<br><strong>（b）中断服务程序流程</strong><br>单级中断：保护现场、中断服务处理、恢复现场、开中断、返回。<br>多重中断：保护现场、送屏蔽字和开中断、中断服务处理、关中断、恢复现场及屏蔽字、开中断、返回。</p>
+<h3 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h3><p><strong>定义：</strong>直接由硬件实现主存与I&#x2F;O间的数据传送, 传送期间不需CPU程序干预。传送结束以后，通过中断的方式通知CPU。<br>\1) 传送发生在I&#x2F;O与主存之间;<br>\2) 由DMA控制器来控制传送,DMA控制器接管总线权,传送完毕再将总线权交还CPU<br>\3) 只要CPU不访存, DMA操作与CPU可并行操作<br>\4) 传送前和传送后需要CPU程序干预。</p>
+<p><strong>特点：</strong><br>(1)响应随机请求<br>(2)一般不影响CPU程序的执行，仅占用总线、无程序切换<br>(3)大批量数据的简单传送</p>
+<p><strong>应用场景：</strong><br>(1)主存与高速I&#x2F;O设备之间的简单数据传送。<br>(2)大批量数据采集系统<br>(3)动态存储器（DRAM）的自动刷新</p>
+<h4 id="DMA的数据传送操作方式"><a href="#DMA的数据传送操作方式" class="headerlink" title="DMA的数据传送操作方式"></a>DMA的数据传送操作方式</h4><p><strong>①单字传送：</strong>DMA请求获得批准后，CPU让出一个总线周期用于字或字节的传送，再回收并重新判断下一个周期的总线控制权，也称为周期挪用或窃取。</p>
+<p><strong>②成组连续传送方式：</strong>DMA被批准后，连续占用若干个总线周期，成组连续批量地传送，结束后将总线的控制权交回给CPU。</p>
+<h4 id="CPU初始化DMA步骤"><a href="#CPU初始化DMA步骤" class="headerlink" title="CPU初始化DMA步骤"></a>CPU初始化DMA步骤</h4><p>向接口送出I&#x2F;O设备的寻址信息；<br>向DMA控制器送出控制字，如传送方向；<br>向DMA控制器送出主存缓冲区首址；<br>向DMA控制器送出传送的数据量；</p>
+<h4 id="DMA硬件功能"><a href="#DMA硬件功能" class="headerlink" title="DMA硬件功能"></a>DMA硬件功能</h4><p><strong>DMA控制器功能：</strong><br>接收初始化信息（传送方向、主存首址、交换量）<br>接收外设DMA请求，判优，向CPU申请总线。<br>接管总线权，发地址、读&#x2F;写命令。<br>接口功能<br>接收初始化信息(外设寻址信息）)<br>向DMA控制器发请求。<br>传送数据。</p>
+<blockquote>
+<p><strong>1、主设备发送数据，从设备接收数据（ ）</strong><br>X</p>
+<p><strong>2、串行接口与系统总线串行传送，接口与外设串行传送（ ）</strong><br>X</p>
+<p><strong>3、有关I&#x2F;O接口的叙述中，错误的是（ ）</strong><br><strong>A、状态端口和控制端口可以合并为同一寄存器</strong><br><strong>B、I&#x2F;O接口中CPU可访问的寄存器称为I&#x2F;O端口</strong><br><strong>C、采用独立编址方式时，I&#x2F;O端口地址和主存地址可能相同</strong><br><strong>D、采用同一编址方式，CPU不能用访存指令访问I&#x2F;O端口</strong><br>D</p>
+<p><strong>4、下列关于中断I&#x2F;O方式和DMA方式的叙述中，错误的是（ ）</strong><br><strong>A、中断I&#x2F;O方式请求的是CPU处理时间，DMA方式请求的是总线使用权</strong><br><strong>B、中断响应发生在一条指令执行结束后，DMA响应发生在一个总线周期完成后</strong><br><strong>C、中断I&#x2F;O方式下数据传送通过软件完成，DMA方式下数据传送通过硬件完成</strong><br><strong>中断I&#x2F;O方式下适用于所有外部设备，DMA方式仅适用于快速外部设备</strong><br>D</p>
+<p><strong>5、程序控制类指令的功能是（ ）</strong><br><strong>A、进行算术和逻辑运算</strong><br><strong>B、进行主存与CPU之间的数据传送</strong><br><strong>C、进行CPU和I&#x2F;O设备之间的数据传送</strong><br><strong>D、改变程序的执行顺序</strong><br>D</p>
+<p><strong>6、采用向量中断方式，是通过（ ）来识别中断来源（中断源）</strong><br><strong>A、中断号或者中断类型号 C、中断优先排队的方式</strong><br><strong>B、中断源端口地址译码 D、提出中断请求的先后顺序</strong><br>A</p>
+<p><strong>7、中断屏蔽和允许中断的描述，以下说法不正确的是（ ）</strong><br><strong>A、中断屏蔽是指向CPU向接口写入控制字，以控制是否让中断源提出中断请求</strong><br><strong>B、允许中断是指CPU向接口写入控制字，以允许或不允许中断源提出中断请求</strong><br><strong>C、允许中断是CPU内部状态位，用于决定是否响应中断请求</strong><br><strong>D、中断屏蔽功能的实施一般在中断接口中。</strong><br>B</p>
+<p><strong>8、中断响应周期结束后，CPU应该转入（ ）</strong><br><strong>A、执行周期 B、取指周期 C、取源数据周期 D、取目的数据周期</strong><br>B</p>
+<p><strong>9、为了保证返回主程序后的正常执行，在中断服务程序中，应进行（ ）操作</strong><br><strong>A、保存断点地址 B、关中断 C、保存现场 D、开中断</strong><br>C</p>
+<p><strong>10、在有多个中断源的系统中，采用向量中断方式，中断屏蔽字来自于（ ）</strong><br><strong>A、中断接口 B、提出中断请求设备 C、CPU D、向量地址</strong><br>C</p>
+<p><strong>11、在单级中断中，中断服务程序执行顺序是（ ）</strong><br><strong>a. 保护现场；b. 开中断；c. 关中断 d. 保存断点； e. 中断事件处理；</strong><br><strong>f. 恢复现场； g. 中断返回</strong><br><strong>A、a→e→f→b→g B. c→a→e→g</strong><br><strong>C. c→d→e→f→g D. d→a→e→f→g</strong><br>A</p>
+<p>12、某机有4级中断，优先级从高到低是1→2→3→4。若将优先级顺序修改，修改候1级中断的屏蔽字为<strong>1011，2级中断的屏蔽字为1111，3级中断的屏蔽字为0011，4级中断的屏蔽字为0001，则修改后的优先顺序为 。</strong><br>2→1→3→4</p>
+<p><strong>13、有 8个 中断源，优先级为I0&gt;I1&gt;I2&gt;I3&gt;I4&gt;I5&gt;I6&gt;I7，采用多重中断方式，屏蔽字中Di用于屏蔽Ii（为0则屏蔽）。CPU在执行I2所对应的中断服务程序时，应写入接口的屏蔽字是 。</strong><br>11000000</p>
+<p><strong>14、CPU响应中断必须满足的条件是(）</strong><br><strong>A. CPU接收到中断请求信号 B. CPU允许中断</strong><br><strong>一条指令执行完毕 D. 以上都是</strong><br>D</p>
+<p><strong>15、某计算机有五级中断L4-L0，中断屏蔽字为M4M3M2M1M0，Mi&#x3D;1(0≤i≤4)表示Li级中断屏蔽，若中断响应优先级顺序是L4 L0 L2L1L3，则L1的中断处理程序中设置的中断屏蔽字是 。</strong><br>01010</p>
+<p><strong>16、关于DMA方式的说法，正确的是（ ）</strong><br><strong>A、DMA方式利用软件是新数据传送</strong><br><strong>B、DMA方式能完全取代中断方式</strong><br><strong>C、DMA方式在传送过程中需要CPU程序的干预</strong><br><strong>D、DMA方式一般用于高速外设数据的简单传送</strong><br>D</p>
+<p><strong>17、由于DMA传输发生在外设与内存之间，因此当CPU响应DMA请求以后，CPU应将（ ）。</strong><br><strong>A、数据总线交给外设； B、总线控制权交给DMA控制器.；</strong><br><strong>C、存储器交给外设； D、内存交给外设。</strong><br>B</p>
+<p><strong>18、下列关于中断方式和DMA方式的描述，错误的是（ ）</strong><br><strong>A、中断方式请求的是CPU处理时间，DMA方式请求的是总线使用权</strong><br><strong>B、中断响应发生在一条指令执行结束，DMA响应发生在总线书屋完成</strong><br><strong>C、中断方式下数据传送通过软件完成，DMA方式下数据传送由硬件完成</strong><br><strong>D、中断方式适用于外部设备，DMA方式仅适用于快速设备。</strong><br>D</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Course/" class="category-chain-item">Course</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/cs/">#cs</a>
+      
+        <a href="/tags/review/">#review</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>计算机组成原理复习</div>
+      <div>https://jason-xy.github.io/2020/11/csp-review/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason Hsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年11月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/wuhutakeoff-v1-0/" title="四轴飞行器设计之系统集成">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">四轴飞行器设计之系统集成</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/ad-stm32/" title="AD学习——STM32F103C8T6实战">
+                        <span class="hidden-mobile">AD学习——STM32F103C8T6实战</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

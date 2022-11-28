@@ -1,0 +1,1841 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason Hsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="项目仓库：https:&#x2F;&#x2F;github.com&#x2F;Jason-xy&#x2F;WuhuTakeOff.git 目标需求1.模块单独运行 （1）串口能够输出调试信息。  （2）OLED可以在飞控PCB上显示实时参数。  （3）单片机可以读取GY-86传感器数据。  （4）单片机可以控制电机以不同转速转动。  （5）单片机可以捕获接收机信号。 2.模块联动 （1）OLED和串口可以同步输出各项参数。  （2）将G">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四轴飞行器设计之系统集成">
+<meta property="og:url" content="https://jason-xy.github.io/2020/11/wuhutakeoff-v1-0/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="项目仓库：https:&#x2F;&#x2F;github.com&#x2F;Jason-xy&#x2F;WuhuTakeOff.git 目标需求1.模块单独运行 （1）串口能够输出调试信息。  （2）OLED可以在飞控PCB上显示实时参数。  （3）单片机可以读取GY-86传感器数据。  （4）单片机可以控制电机以不同转速转动。  （5）单片机可以捕获接收机信号。 2.模块联动 （1）OLED和串口可以同步输出各项参数。  （2）将G">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/28/image.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/image.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/imaged5490fa743844796.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/imagec3550508fe0875fe.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/image279a73c0e6f45ec5.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/image7478609ec90ffd4a.png">
+<meta property="article:published_time" content="2020-11-29T11:27:51.000Z">
+<meta property="article:modified_time" content="2022-11-28T16:27:20.795Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="robotic">
+<meta property="article:tag" content="drone">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/28/image.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>四轴飞行器设计之系统集成 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-guanli"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-friends"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">四轴飞行器设计之系统集成</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Jason Hsu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-29 19:27" pubdate>
+          2020年11月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          116 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="技术"
+        id="heading-a95dd3e179418be1ecd2a719a22db70e" role="tab" data-toggle="collapse" href="#collapse-a95dd3e179418be1ecd2a719a22db70e"
+        aria-expanded="true"
+      >
+        技术
+        <span class="list-group-count">(51)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a95dd3e179418be1ecd2a719a22db70e"
+           role="tabpanel" aria-labelledby="heading-a95dd3e179418be1ecd2a719a22db70e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="false"
+      >
+        Algorithm
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/bpnn/" title="BP神经网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">BP神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/pnn/" title="感知器（神经网络模型）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">感知器（神经网络模型）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/recursion-tail/" title="尾递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">尾递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/coin/" title="概率生成问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率生成问题</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="OJ"
+        id="heading-d62c64b8415b88b69d6076336d525c08" role="tab" data-toggle="collapse" href="#collapse-d62c64b8415b88b69d6076336d525c08"
+        aria-expanded="false"
+      >
+        OJ
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d62c64b8415b88b69d6076336d525c08"
+           role="tabpanel" aria-labelledby="heading-d62c64b8415b88b69d6076336d525c08">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/icoding-create-hash/" title="「Icoding题解」哈希表创建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-hash-add-int/" title="「Icoding题解」哈希表添加"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表添加</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-avl/" title="「Icoding题解」平衡二叉树(AVL)的插入算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」平衡二叉树(AVL)的插入算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-28/" title="「LeetCode」—— 28.实现 strStr() —KMP算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」—— 28.实现 strStr() —KMP算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-136/" title="「LeetCode」——136.只出现一次的数字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——136.只出现一次的数字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-217/" title="「LeetCode」——217.存在重复元素"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——217.存在重复元素</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-278/" title="「LeetCode」——278. 第一个错误的版本（二分查找）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——278. 第一个错误的版本（二分查找）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-8/" title="「LeetCode」——8.字符串转换整数 (atoi)"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——8.字符串转换整数 (atoi)</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Course"
+        id="heading-3730c9866421d81473613698c0c0ac4f" role="tab" data-toggle="collapse" href="#collapse-3730c9866421d81473613698c0c0ac4f"
+        aria-expanded="false"
+      >
+        Course
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3730c9866421d81473613698c0c0ac4f"
+           role="tabpanel" aria-labelledby="heading-3730c9866421d81473613698c0c0ac4f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/05/eosreview/" title="和廖老师一起学嵌入式操作系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和廖老师一起学嵌入式操作系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/osreview/" title="计算机操作系统重点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机操作系统重点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/11/csp-review/" title="计算机组成原理复习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机组成原理复习</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CUDA"
+        id="heading-a33b7755e5f9b504d2d038eaca4ff28d" role="tab" data-toggle="collapse" href="#collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+        aria-expanded="false"
+      >
+        CUDA
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+           role="tabpanel" aria-labelledby="heading-a33b7755e5f9b504d2d038eaca4ff28d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-l4t-ubuntu/" title="CUDA on Arm - L4t ubuntu基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - L4t ubuntu基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-memory/" title="CUDA on Arm - 存储单元"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 存储单元</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-parallelcomputing/" title="CUDA on Arm - 并行计算基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 并行计算基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-thread/" title="CUDA on Arm - 线程层次"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 线程层次</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-gpuhardware/" title="CUDA on Arm-GPU硬件架构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm-GPU硬件架构</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Embedded"
+        id="heading-069e7821d3b4c0bbf437147263eb4d0e" role="tab" data-toggle="collapse" href="#collapse-069e7821d3b4c0bbf437147263eb4d0e"
+        aria-expanded="false"
+      >
+        Embedded
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-069e7821d3b4c0bbf437147263eb4d0e"
+           role="tabpanel" aria-labelledby="heading-069e7821d3b4c0bbf437147263eb4d0e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hardware"
+        id="heading-3c02a379965ab0dfcd77b1c484450433" role="tab" data-toggle="collapse" href="#collapse-3c02a379965ab0dfcd77b1c484450433"
+        aria-expanded="false"
+      >
+        Hardware
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3c02a379965ab0dfcd77b1c484450433"
+           role="tabpanel" aria-labelledby="heading-3c02a379965ab0dfcd77b1c484450433">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/ad-stm32/" title="AD学习——STM32F103C8T6实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——STM32F103C8T6实战</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/09/ad20-learn/" title="AD学习——基本简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——基本简介</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Software"
+        id="heading-719d067b229178f03bcfa1da4ac4dede" role="tab" data-toggle="collapse" href="#collapse-719d067b229178f03bcfa1da4ac4dede"
+        aria-expanded="false"
+      >
+        Software
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-719d067b229178f03bcfa1da4ac4dede"
+           role="tabpanel" aria-labelledby="heading-719d067b229178f03bcfa1da4ac4dede">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/keil-1/" title="keil上手"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">keil上手</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ARM"
+        id="heading-47f45e65244c17ec9fa8771a5c6d60e1" role="tab" data-toggle="collapse" href="#collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+        aria-expanded="false"
+      >
+        ARM
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+           role="tabpanel" aria-labelledby="heading-47f45e65244c17ec9fa8771a5c6d60e1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/raspi-vpn/" title="Ras-Pi的VPN设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ras-Pi的VPN设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vs-code-pi/" title="使用VS Code远程开发树莓派"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用VS Code远程开发树莓派</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-source/" title="树莓派(Raspberry Pi)资源大全中文版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派(Raspberry Pi)资源大全中文版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-opencv/" title="树莓派安装OpenCV-4.3.0+Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装OpenCV-4.3.0+Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/raspi-config-sd/" title="树莓派安装raspi-config扩展SD卡空间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装raspi-config扩展SD卡空间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-kde/" title="树莓派的KDE桌面安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的KDE桌面安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-swap/" title="树莓派的SWAP分区扩展"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的SWAP分区扩展</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-flash-os/" title="树莓派系统镜像烧写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派系统镜像烧写</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/06/c-compile-speedup/" title="C/C++通用构建加速方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C/C++通用构建加速方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/linuxprocessesmanagement/" title="Linux进程管理-随笔记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux进程管理-随笔记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/detail-of-void/" title="void*是怎样的存在？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">void*是怎样的存在？</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/01/pc2jetpack/" title="PC模拟Jetson（Jetpack）运行环境"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PC模拟Jetson（Jetpack）运行环境</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/ubuntu-nvidia/" title="Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/manjaro-ifly/" title="manjaro 切换国内源及中文输入法安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">manjaro 切换国内源及中文输入法安装</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Usage"
+        id="heading-c64518704ce0c0d5501a45763f464276" role="tab" data-toggle="collapse" href="#collapse-c64518704ce0c0d5501a45763f464276"
+        aria-expanded="false"
+      >
+        Usage
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c64518704ce0c0d5501a45763f464276"
+           role="tabpanel" aria-labelledby="heading-c64518704ce0c0d5501a45763f464276">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/frp/" title="frp内网穿透方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">frp内网穿透方案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/linux-wifi/" title="linux 命令行下配置 wlan 无线网卡"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux 命令行下配置 wlan 无线网卡</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Robotics"
+        id="heading-c98c19727b6a8b8fcf6b4bf5ded39488" role="tab" data-toggle="collapse" href="#collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+        aria-expanded="true"
+      >
+        Robotics
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+           role="tabpanel" aria-labelledby="heading-c98c19727b6a8b8fcf6b4bf5ded39488">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/intel-t265-ros-jetson-with-cuda/" title="Intel T265 + ROS视觉里程计搭建——Jetson平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Intel T265 + ROS视觉里程计搭建——Jetson平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="System"
+        id="heading-a45da96d0bf6575970f2d27af22be28a" role="tab" data-toggle="collapse" href="#collapse-a45da96d0bf6575970f2d27af22be28a"
+        aria-expanded="true"
+      >
+        System
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a45da96d0bf6575970f2d27af22be28a"
+           role="tabpanel" aria-labelledby="heading-a45da96d0bf6575970f2d27af22be28a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/11/wuhutakeoff-v1-0/" title="四轴飞行器设计之系统集成"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">四轴飞行器设计之系统集成</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/docker-compose/" title="Docker Compose部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker Compose部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/docker-portainer/" title="Docker部署及Portainer可视化面板搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker部署及Portainer可视化面板搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vultr-vps/" title="Vultr VPS-服务器地址（机房）选择方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vultr VPS-服务器地址（机房）选择方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cdn/" title="WordPress全站优化策略——CDN加速配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——CDN加速配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cos/" title="WordPress全站优化策略——COS配置策略"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——COS配置策略</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/wordpress-docker/" title="使用docker部署WordPress"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用docker部署WordPress</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-nextcloud/" title="使用树莓派搭建私有云盘"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用树莓派搭建私有云盘</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cosfs/" title="挂载COS为本地磁盘——COSFS工具配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">挂载COS为本地磁盘——COSFS工具配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-bt/" title="树莓派部署宝塔面板+LAMP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派部署宝塔面板+LAMP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cos-ftp/" title="腾讯云COS-FTP部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">腾讯云COS-FTP部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">四轴飞行器设计之系统集成</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>项目仓库：<a target="_blank" rel="noopener" href="https://github.com/Jason-xy/WuhuTakeOff.git">https://github.com/Jason-xy/WuhuTakeOff.git</a></p>
+<h2 id="目标需求"><a href="#目标需求" class="headerlink" title="目标需求"></a>目标需求</h2><h3 id="1-模块单独运行"><a href="#1-模块单独运行" class="headerlink" title="1.模块单独运行"></a>1.模块单独运行</h3><p> （1）串口能够输出调试信息。</p>
+<p> （2）OLED可以在飞控PCB上显示实时参数。</p>
+<p> （3）单片机可以读取GY-86传感器数据。</p>
+<p> （4）单片机可以控制电机以不同转速转动。</p>
+<p> （5）单片机可以捕获接收机信号。</p>
+<h3 id="2-模块联动"><a href="#2-模块联动" class="headerlink" title="2.模块联动"></a>2.模块联动</h3><p> （1）OLED和串口可以同步输出各项参数。</p>
+<p> （2）将GY-86实时数据作为调试信息输出。</p>
+<p> （3）根据接收机信号来调整电机转速。</p>
+<h3 id="3-用户程序"><a href="#3-用户程序" class="headerlink" title="3.用户程序"></a>3.用户程序</h3><p> （1）系统初始化。</p>
+<p> （2）基础外设初始化。</p>
+<p> （3）硬件模块初始化。</p>
+<p> a.调试信息输出设备初始化。</p>
+<p> b.电机初始化。</p>
+<p> c.传感器初始化。</p>
+<p> d.电机自动解锁。</p>
+<p> e.接收机初始化。</p>
+<p> f.参数显示界面绘制。</p>
+<p> （4）后台程序：参数输出。</p>
+<p> （5）前台程序：串口中断、TIM中断。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="硬件集成方案"><a href="#硬件集成方案" class="headerlink" title="硬件集成方案"></a>硬件集成方案</h3><h4 id="硬件选型"><a href="#硬件选型" class="headerlink" title="硬件选型"></a>硬件选型</h4><p><strong>机械部分（略）：</strong>机架、电机、电调、电池。</p>
+<p><strong>飞控部分：</strong></p>
+<ol>
+<li><p>主控芯片：STM32F411CEU6</p>
+<p>板型：最小系统板。裁剪多余模块，仅留下供系统运行的最小系统，体积小，自定义潜力大。</p>
+<p>优点：Cortex-M4、128K SRAM、512K Flash、100MHz主频、以及丰富的外设接口和较小的体积。</p>
+<p>方便在进一步迭代中运行操作系统，以及添加红外测距、WiFi图传等外设。</p>
+</li>
+<li><p>上位机通讯：WIFI-ESP8266</p>
+<p>优点：数据传输距离远、速度快，可以接入互联网。</p>
+<p>在进一步迭代中方便飞控实现长距离、大数据量上位机传输任务，实现远程OTA固件更新、远程PID参数一键调整，同时还可扩展为WIFI图传、串口接收机、一旦接入互联网即可实现真正意义上的远距离控制等丰富功能。</p>
+</li>
+<li><p>板载参数显示：0.96存I2C OLED小屏幕</p>
+<p>优点：方便在飞控上直接获取实时数据，即便不连接上位机也可以初步了解飞控运行情况。</p>
+</li>
+<li><p>姿态传感器：GY-86</p>
+<p>优点：麻雀虽小，五脏俱全。</p>
+</li>
+<li><p>接收机：FS-IA10B</p>
+<p>优点：提供10通道数据传输，可以实现更多自定义功能。</p>
+</li>
+<li><p>遥控器：Jumper T18</p>
+<p>优点：兼容性以及自定义程度最高的Open TX开源操作系统。</p>
+</li>
+</ol>
+<h4 id="硬件连接"><a href="#硬件连接" class="headerlink" title="硬件连接"></a>硬件连接</h4><p>借助CubeMX快速规划。</p>
+<p>如图所示：</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/28/image.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h4><p><strong>原理图绘制（扩展板）</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/image.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>根据CubeMX生成引脚号进行连线即可。</p>
+<p>可以考虑预留调试接口和其他外设的电源接口。</p>
+<p><strong>PCB绘制</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/imaged5490fa743844796.png" srcset="/img/loading.gif" lazyload alt="imaged5490fa743844796.png"></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/imagec3550508fe0875fe.png" srcset="/img/loading.gif" lazyload alt="imagec3550508fe0875fe.png"></p>
+<p><strong>注意：</strong></p>
+<p>1.布局安排。</p>
+<p>2.封装选择。</p>
+<p>3.器件方向。</p>
+<p>4.特殊网络规则。</p>
+<p><strong>原理图绘制（一体化半成品）</strong></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/image279a73c0e6f45ec5.png" srcset="/img/loading.gif" lazyload alt="image279a73c0e6f45ec5.png"></p>
+<h3 id="软件集成方案"><a href="#软件集成方案" class="headerlink" title="软件集成方案"></a>软件集成方案</h3><h4 id="STM32基于HAL库的的软件开发。"><a href="#STM32基于HAL库的的软件开发。" class="headerlink" title="STM32基于HAL库的的软件开发。"></a>STM32基于HAL库的的软件开发。</h4><p>优点：效率高、逻辑性强、资料多、可移植性强。</p>
+<p>缺点：复杂的代码量、极慢的编译速度、略微低下的效率、屏蔽硬件差异，需要挖掘库函数源码才能了解底层运作。</p>
+<h4 id="HAL库软件层级"><a href="#HAL库软件层级" class="headerlink" title="HAL库软件层级"></a>HAL库软件层级</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2020/11/29/image7478609ec90ffd4a.png" srcset="/img/loading.gif" lazyload alt="image7478609ec90ffd4a.png"></p>
+<h5 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br></pre></td><td class="code"><pre><code class="hljs bash">C:.<br>│  F411CEU6_V1.ioc<br>│  tree.txt<br>│  <br>├─Core  <span class="hljs-comment">#用户代码</span><br>│  ├─Inc<br>│  │      gpio.h<br>│  │      i2c.h<br>│  │      main.h<br>│  │      stm32f4xx_hal_conf.h<br>│  │      stm32f4xx_it.h<br>│  │      tim.h<br>│  │      usart.h<br>│  │      <br>│  └─Src<br>│          gpio.c<br>│          i2c.c<br>│          main.c<br>│          stm32f4xx_hal_msp.c<br>│          stm32f4xx_it.c<br>│          system_stm32f4xx.c<br>│          tim.c<br>│          usart.c<br>│          <br>├─Drivers<br>│  |—CMSIS......    <span class="hljs-comment">#硬件抽象层</span><br>│  ├─HW <span class="hljs-comment">#外部硬件模块驱动</span><br>│  │  ├─inc<br>│  │  │      controller.h<br>│  │  │      esp8266.h<br>│  │  │      hmc5883l.h<br>│  │  │      motor.h<br>│  │  │      mpu6050.h<br>│  │  │      oled.h<br>│  │  │      oledfont.h<br>│  │  │      <br>│  │  └─src<br>│  │          controller.c<br>│  │          esp8266.c<br>│  │          hmc5883l.c<br>│  │          motor.c<br>│  │          mpu6050.c<br>│  │          oled.c<br>│  │          <br>│  └─STM32F4xx_HAL_Driver   <span class="hljs-comment">#HAL库文件</span><br>│      ├─Inc<br>│      │  │  stm32f4xx_hal.h<br>│      │  │  stm32f4xx_hal_adc.h<br>│      │  │  stm32f4xx_hal_adc_ex.h<br>│      │  │  stm32f4xx_hal_can.h<br>│      │  │  stm32f4xx_hal_cec.h<br>│      │  │  stm32f4xx_hal_conf_template.h<br>│      │  │  stm32f4xx_hal_cortex.h<br>│      │  │  stm32f4xx_hal_crc.h<br>│      │  │  stm32f4xx_hal_cryp.h<br>│      │  │  stm32f4xx_hal_cryp_ex.h<br>│      │  │  stm32f4xx_hal_dac.h<br>│      │  │  stm32f4xx_hal_dac_ex.h<br>│      │  │  stm32f4xx_hal_dcmi.h<br>│      │  │  stm32f4xx_hal_dcmi_ex.h<br>│      │  │  stm32f4xx_hal_def.h<br>│      │  │  stm32f4xx_hal_dfsdm.h<br>│      │  │  stm32f4xx_hal_dma.h<br>│      │  │  stm32f4xx_hal_dma2d.h<br>│      │  │  stm32f4xx_hal_dma_ex.h<br>│      │  │  stm32f4xx_hal_dsi.h<br>│      │  │  stm32f4xx_hal_eth.h<br>│      │  │  stm32f4xx_hal_exti.h<br>│      │  │  stm32f4xx_hal_flash.h<br>│      │  │  stm32f4xx_hal_flash_ex.h<br>│      │  │  stm32f4xx_hal_flash_ramfunc.h<br>│      │  │  stm32f4xx_hal_fmpi2c.h<br>│      │  │  stm32f4xx_hal_fmpi2c_ex.h<br>│      │  │  stm32f4xx_hal_fmpsmbus.h<br>│      │  │  stm32f4xx_hal_gpio.h<br>│      │  │  stm32f4xx_hal_gpio_ex.h<br>│      │  │  stm32f4xx_hal_hash.h<br>│      │  │  stm32f4xx_hal_hash_ex.h<br>│      │  │  stm32f4xx_hal_hcd.h<br>│      │  │  stm32f4xx_hal_i2c.h<br>│      │  │  stm32f4xx_hal_i2c_ex.h<br>│      │  │  stm32f4xx_hal_i2s.h<br>│      │  │  stm32f4xx_hal_i2s_ex.h<br>│      │  │  stm32f4xx_hal_irda.h<br>│      │  │  stm32f4xx_hal_iwdg.h<br>│      │  │  stm32f4xx_hal_lptim.h<br>│      │  │  stm32f4xx_hal_ltdc.h<br>│      │  │  stm32f4xx_hal_ltdc_ex.h<br>│      │  │  stm32f4xx_hal_mmc.h<br>│      │  │  stm32f4xx_hal_nand.h<br>│      │  │  stm32f4xx_hal_nor.h<br>│      │  │  stm32f4xx_hal_pccard.h<br>│      │  │  stm32f4xx_hal_pcd.h<br>│      │  │  stm32f4xx_hal_pcd_ex.h<br>│      │  │  stm32f4xx_hal_pwr.h<br>│      │  │  stm32f4xx_hal_pwr_ex.h<br>│      │  │  stm32f4xx_hal_qspi.h<br>│      │  │  stm32f4xx_hal_rcc.h<br>│      │  │  stm32f4xx_hal_rcc_ex.h<br>│      │  │  stm32f4xx_hal_rng.h<br>│      │  │  stm32f4xx_hal_rtc.h<br>│      │  │  stm32f4xx_hal_rtc_ex.h<br>│      │  │  stm32f4xx_hal_sai.h<br>│      │  │  stm32f4xx_hal_sai_ex.h<br>│      │  │  stm32f4xx_hal_sd.h<br>│      │  │  stm32f4xx_hal_sdram.h<br>│      │  │  stm32f4xx_hal_smartcard.h<br>│      │  │  stm32f4xx_hal_smbus.h<br>│      │  │  stm32f4xx_hal_spdifrx.h<br>│      │  │  stm32f4xx_hal_spi.h<br>│      │  │  stm32f4xx_hal_sram.h<br>│      │  │  stm32f4xx_hal_tim.h<br>│      │  │  stm32f4xx_hal_tim_ex.h<br>│      │  │  stm32f4xx_hal_uart.h<br>│      │  │  stm32f4xx_hal_usart.h<br>│      │  │  stm32f4xx_hal_wwdg.h<br>│      │  │  stm32f4xx_ll_adc.h<br>│      │  │  stm32f4xx_ll_bus.h<br>│      │  │  stm32f4xx_ll_cortex.h<br>│      │  │  stm32f4xx_ll_crc.h<br>│      │  │  stm32f4xx_ll_dac.h<br>│      │  │  stm32f4xx_ll_dma.h<br>│      │  │  stm32f4xx_ll_dma2d.h<br>│      │  │  stm32f4xx_ll_exti.h<br>│      │  │  stm32f4xx_ll_fmc.h<br>│      │  │  stm32f4xx_ll_fmpi2c.h<br>│      │  │  stm32f4xx_ll_fsmc.h<br>│      │  │  stm32f4xx_ll_gpio.h<br>│      │  │  stm32f4xx_ll_i2c.h<br>│      │  │  stm32f4xx_ll_iwdg.h<br>│      │  │  stm32f4xx_ll_lptim.h<br>│      │  │  stm32f4xx_ll_pwr.h<br>│      │  │  stm32f4xx_ll_rcc.h<br>│      │  │  stm32f4xx_ll_rng.h<br>│      │  │  stm32f4xx_ll_rtc.h<br>│      │  │  stm32f4xx_ll_sdmmc.h<br>│      │  │  stm32f4xx_ll_spi.h<br>│      │  │  stm32f4xx_ll_system.h<br>│      │  │  stm32f4xx_ll_tim.h<br>│      │  │  stm32f4xx_ll_usart.h<br>│      │  │  stm32f4xx_ll_usb.h<br>│      │  │  stm32f4xx_ll_utils.h<br>│      │  │  stm32f4xx_ll_wwdg.h<br>│      │  │  stm32_assert_template.h<br>│      │  │  <br>│      │  └─Legacy<br>│      │          stm32f4xx_hal_can_legacy.h<br>│      │          stm32_hal_legacy.h<br>│      │          <br>│      └─Src<br>│              stm32f4xx_hal.c<br>│              stm32f4xx_hal_adc.c<br>│              stm32f4xx_hal_adc_ex.c<br>│              stm32f4xx_hal_can.c<br>│              stm32f4xx_hal_cec.c<br>│              stm32f4xx_hal_cortex.c<br>│              stm32f4xx_hal_crc.c<br>│              stm32f4xx_hal_cryp.c<br>│              stm32f4xx_hal_cryp_ex.c<br>│              stm32f4xx_hal_dac.c<br>│              stm32f4xx_hal_dac_ex.c<br>│              stm32f4xx_hal_dcmi.c<br>│              stm32f4xx_hal_dcmi_ex.c<br>│              stm32f4xx_hal_dfsdm.c<br>│              stm32f4xx_hal_dma.c<br>│              stm32f4xx_hal_dma2d.c<br>│              stm32f4xx_hal_dma_ex.c<br>│              stm32f4xx_hal_dsi.c<br>│              stm32f4xx_hal_eth.c<br>│              stm32f4xx_hal_exti.c<br>│              stm32f4xx_hal_flash.c<br>│              stm32f4xx_hal_flash_ex.c<br>│              stm32f4xx_hal_flash_ramfunc.c<br>│              stm32f4xx_hal_fmpi2c.c<br>│              stm32f4xx_hal_fmpi2c_ex.c<br>│              stm32f4xx_hal_fmpsmbus.c<br>│              stm32f4xx_hal_gpio.c<br>│              stm32f4xx_hal_hash.c<br>│              stm32f4xx_hal_hash_ex.c<br>│              stm32f4xx_hal_hcd.c<br>│              stm32f4xx_hal_i2c.c<br>│              stm32f4xx_hal_i2c_ex.c<br>│              stm32f4xx_hal_i2s.c<br>│              stm32f4xx_hal_i2s_ex.c<br>│              stm32f4xx_hal_irda.c<br>│              stm32f4xx_hal_iwdg.c<br>│              stm32f4xx_hal_lptim.c<br>│              stm32f4xx_hal_ltdc.c<br>│              stm32f4xx_hal_ltdc_ex.c<br>│              stm32f4xx_hal_mmc.c<br>│              stm32f4xx_hal_msp_template.c<br>│              stm32f4xx_hal_nand.c<br>│              stm32f4xx_hal_nor.c<br>│              stm32f4xx_hal_pccard.c<br>│              stm32f4xx_hal_pcd.c<br>│              stm32f4xx_hal_pcd_ex.c<br>│              stm32f4xx_hal_pwr.c<br>│              stm32f4xx_hal_pwr_ex.c<br>│              stm32f4xx_hal_qspi.c<br>│              stm32f4xx_hal_rcc.c<br>│              stm32f4xx_hal_rcc_ex.c<br>│              stm32f4xx_hal_rng.c<br>│              stm32f4xx_hal_rtc.c<br>│              stm32f4xx_hal_rtc_ex.c<br>│              stm32f4xx_hal_sai.c<br>│              stm32f4xx_hal_sai_ex.c<br>│              stm32f4xx_hal_sd.c<br>│              stm32f4xx_hal_sdram.c<br>│              stm32f4xx_hal_smartcard.c<br>│              stm32f4xx_hal_smbus.c<br>│              stm32f4xx_hal_spdifrx.c<br>│              stm32f4xx_hal_spi.c<br>│              stm32f4xx_hal_sram.c<br>│              stm32f4xx_hal_tim.c<br>│              stm32f4xx_hal_timebase_rtc_alarm_template.c<br>│              stm32f4xx_hal_timebase_rtc_wakeup_template.c<br>│              stm32f4xx_hal_timebase_tim_template.c<br>│              stm32f4xx_hal_tim_ex.c<br>│              stm32f4xx_hal_uart.c<br>│              stm32f4xx_hal_usart.c<br>│              stm32f4xx_hal_wwdg.c<br>│              stm32f4xx_ll_adc.c<br>│              stm32f4xx_ll_crc.c<br>│              stm32f4xx_ll_dac.c<br>│              stm32f4xx_ll_dma.c<br>│              stm32f4xx_ll_dma2d.c<br>│              stm32f4xx_ll_exti.c<br>│              stm32f4xx_ll_fmc.c<br>│              stm32f4xx_ll_fmpi2c.c<br>│              stm32f4xx_ll_fsmc.c<br>│              stm32f4xx_ll_gpio.c<br>│              stm32f4xx_ll_i2c.c<br>│              stm32f4xx_ll_lptim.c<br>│              stm32f4xx_ll_pwr.c<br>│              stm32f4xx_ll_rcc.c<br>│              stm32f4xx_ll_rng.c<br>│              stm32f4xx_ll_rtc.c<br>│              stm32f4xx_ll_sdmmc.c<br>│              stm32f4xx_ll_spi.c<br>│              stm32f4xx_ll_tim.c<br>│              stm32f4xx_ll_usart.c<br>│              stm32f4xx_ll_usb.c<br>│              stm32f4xx_ll_utils.c<br>│              <br>└─MDK-ARM<br>    │  EventRecorderStub.scvd<br>    │  F411CEU6_V1.uvguix.Jason<br>    │  F411CEU6_V1.uvoptx<br>    │  F411CEU6_V1.uvprojx<br>    │  startup_stm32f411xe.lst<br>    │  startup_stm32f411xe.s<br>    │  <br>    ├─DebugConfig<br>    │      F411CEU6_V1_STM32F411CEUx.dbgconf<br>    │      <br>    ├─F411CEU6_V1<br>    │      controller.crf<br>    │      controller.d<br>    │      controller.o<br>    │      esp8266.crf<br>    │      esp8266.d<br>    │      esp8266.o<br>    │      ExtDll.iex<br>    │      F411CEU6_V1.axf<br>    │      F411CEU6_V1.build_log.htm<br>    │      F411CEU6_V1.hex<br>    │      F411CEU6_V1.htm<br>    │      F411CEU6_V1.lnp<br>    │      F411CEU6_V1.map<br>    │      F411CEU6_V1.sct<br>    │      F411CEU6_V1_F411CEU6_V1.dep<br>    │      gpio.crf<br>    │      gpio.d<br>    │      gpio.o<br>    │      hmc5883l.crf<br>    │      hmc5883l.d<br>    │      hmc5883l.o<br>    │      i2c.crf<br>    │      i2c.d<br>    │      i2c.o<br>    │      main.crf<br>    │      main.d<br>    │      main.o<br>    │      motor.crf<br>    │      motor.d<br>    │      motor.o<br>    │      mpu6050.crf<br>    │      mpu6050.d<br>    │      mpu6050.o<br>    │      oled.crf<br>    │      oled.d<br>    │      oled.o<br>    │      startup_stm32f411xe.d<br>    │      startup_stm32f411xe.o<br>    │      stm32f4xx_hal.crf<br>    │      stm32f4xx_hal.d<br>    │      stm32f4xx_hal.o<br>    │      stm32f4xx_hal_cortex.crf<br>    │      stm32f4xx_hal_cortex.d<br>    │      stm32f4xx_hal_cortex.o<br>    │      stm32f4xx_hal_dma.crf<br>    │      stm32f4xx_hal_dma.d<br>    │      stm32f4xx_hal_dma.o<br>    │      stm32f4xx_hal_dma_ex.crf<br>    │      stm32f4xx_hal_dma_ex.d<br>    │      stm32f4xx_hal_dma_ex.o<br>    │      stm32f4xx_hal_exti.crf<br>    │      stm32f4xx_hal_exti.d<br>    │      stm32f4xx_hal_exti.o<br>    │      stm32f4xx_hal_flash.crf<br>    │      stm32f4xx_hal_flash.d<br>    │      stm32f4xx_hal_flash.o<br>    │      stm32f4xx_hal_flash_ex.crf<br>    │      stm32f4xx_hal_flash_ex.d<br>    │      stm32f4xx_hal_flash_ex.o<br>    │      stm32f4xx_hal_flash_ramfunc.crf<br>    │      stm32f4xx_hal_flash_ramfunc.d<br>    │      stm32f4xx_hal_flash_ramfunc.o<br>    │      stm32f4xx_hal_gpio.crf<br>    │      stm32f4xx_hal_gpio.d<br>    │      stm32f4xx_hal_gpio.o<br>    │      stm32f4xx_hal_i2c.crf<br>    │      stm32f4xx_hal_i2c.d<br>    │      stm32f4xx_hal_i2c.o<br>    │      stm32f4xx_hal_i2c_ex.crf<br>    │      stm32f4xx_hal_i2c_ex.d<br>    │      stm32f4xx_hal_i2c_ex.o<br>    │      stm32f4xx_hal_msp.crf<br>    │      stm32f4xx_hal_msp.d<br>    │      stm32f4xx_hal_msp.o<br>    │      stm32f4xx_hal_pwr.crf<br>    │      stm32f4xx_hal_pwr.d<br>    │      stm32f4xx_hal_pwr.o<br>    │      stm32f4xx_hal_pwr_ex.crf<br>    │      stm32f4xx_hal_pwr_ex.d<br>    │      stm32f4xx_hal_pwr_ex.o<br>    │      stm32f4xx_hal_rcc.crf<br>    │      stm32f4xx_hal_rcc.d<br>    │      stm32f4xx_hal_rcc.o<br>    │      stm32f4xx_hal_rcc_ex.crf<br>    │      stm32f4xx_hal_rcc_ex.d<br>    │      stm32f4xx_hal_rcc_ex.o<br>    │      stm32f4xx_hal_tim.crf<br>    │      stm32f4xx_hal_tim.d<br>    │      stm32f4xx_hal_tim.o<br>    │      stm32f4xx_hal_tim_ex.crf<br>    │      stm32f4xx_hal_tim_ex.d<br>    │      stm32f4xx_hal_tim_ex.o<br>    │      stm32f4xx_hal_uart.crf<br>    │      stm32f4xx_hal_uart.d<br>    │      stm32f4xx_hal_uart.o<br>    │      stm32f4xx_it.crf<br>    │      stm32f4xx_it.d<br>    │      stm32f4xx_it.o<br>    │      system_stm32f4xx.crf<br>    │      system_stm32f4xx.d<br>    │      system_stm32f4xx.o<br>    │      tim.crf<br>    │      tim.d<br>    │      tim.o<br>    │      usart.crf<br>    │      usart.d<br>    │      usart.o<br>    │      <br>    └─RTE<br>        └─_F411CEU6_V1<br>                RTE_Components.hCOPY<br></code></pre></td></tr></table></figure>
+
+<p>文件类型详解参考资料：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ZCShouCSDN/article/details/81354197">Keil 项目&#x2F;生成的各种文件类型（.AXF、.D、.crf、.exf）说明</a></p>
+<h4 id="HAL库用户文件"><a href="#HAL库用户文件" class="headerlink" title="HAL库用户文件"></a>HAL库用户文件</h4><p><strong>主函数：</strong>main.c&#x2F;.h</p>
+<p><strong>MSP初始化：</strong> stm32f2xx_hal_msp_template.c ……</p>
+<p><strong>中断服务函数：</strong> stm32f2xx_it.c&#x2F;.h</p>
+<p><strong>硬件模块驱动：</strong>mpu6050.c&#x2F;.h ……</p>
+<h4 id="HAL库用户代码"><a href="#HAL库用户代码" class="headerlink" title="HAL库用户代码"></a>HAL库用户代码</h4><p>HAL 库对底层进行了抽象，在此结构下，用户代码处理可分为三大部分：</p>
+<ul>
+<li><strong>句柄</strong></li>
+<li><strong>MSP</strong></li>
+<li><strong>回调函数</strong></li>
+</ul>
+<h5 id="1-句柄"><a href="#1-句柄" class="headerlink" title="1.句柄"></a><strong>1.句柄</strong></h5><p>在STM32的标准库中，假设我们要初始化一个外设（这里以USART为例）<br>我们首先要初始化他们的各个寄存器。在标准库中，这些操作都是利用固件库结构体变量+固件库Init函数实现的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c">USART_InitTypeDef USART_InitStructure;<br><br>USART_InitStructure.USART_BaudRate = bound;<span class="hljs-comment">//串口波特率</span><br>USART_InitStructure.USART_WordLength = USART_WordLength_8b;<span class="hljs-comment">//字长为8位数据格式</span><br>USART_InitStructure.USART_StopBits = USART_StopBits_1;<span class="hljs-comment">//一个停止位</span><br>USART_InitStructure.USART_Parity = USART_Parity_No;<span class="hljs-comment">//无奇偶校验位</span><br>USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;<span class="hljs-comment">//无硬件数据流控制</span><br>USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx; <span class="hljs-comment">//收发模式</span><br><br>USART_Init(USART3, &amp;USART_InitStructure); <span class="hljs-comment">//初始化串口1COPY</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到，要初始化一个串口，需要对六个位置进行赋值，然后引用Init函数，并且USART_InitStructure并不是一个全局结构体变量，而是只在函数内部的局部变量，初始化完成之后，USART_InitStructure就失去了作用。</p>
+<p>而在HAL库中，同样是USART初始化结构体变量，我们要定义为全局变量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">UART_HandleTypeDef UART1_Handler;   <span class="hljs-comment">//串口处理结构体COPY</span><br></code></pre></td></tr></table></figure>
+
+<p>相关结构体成员：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span></span><br><span class="hljs-class">&#123;</span><br>      USART_TypeDef                 *Instance;        <span class="hljs-comment">/*!&lt; UART registers base address        */</span><br>      UART_InitTypeDef              Init;             <span class="hljs-comment">/*!&lt; UART communication parameters      */</span><br>      <span class="hljs-type">uint8_t</span>                       *pTxBuffPtr;      <span class="hljs-comment">/*!&lt; Pointer to UART Tx transfer Buffer */</span><br>      <span class="hljs-type">uint16_t</span>                      TxXferSize;       <span class="hljs-comment">/*!&lt; UART Tx Transfer size              */</span><br>      <span class="hljs-type">uint16_t</span>                      TxXferCount;      <span class="hljs-comment">/*!&lt; UART Tx Transfer Counter           */</span><br>      <span class="hljs-type">uint8_t</span>                       *pRxBuffPtr;      <span class="hljs-comment">/*!&lt; Pointer to UART Rx transfer Buffer */</span><br>      <span class="hljs-type">uint16_t</span>                      RxXferSize;       <span class="hljs-comment">/*!&lt; UART Rx Transfer size              */</span><br>      <span class="hljs-type">uint16_t</span>                      RxXferCount;      <span class="hljs-comment">/*!&lt; UART Rx Transfer Counter           */</span>  <br>      DMA_HandleTypeDef             *hdmatx;          <span class="hljs-comment">/*!&lt; UART Tx DMA Handle parameters      */</span> <br>      DMA_HandleTypeDef             *hdmarx;          <span class="hljs-comment">/*!&lt; UART Rx DMA Handle parameters      */</span><br>      HAL_LockTypeDef               Lock;             <span class="hljs-comment">/*!&lt; Locking object                     */</span><br>      __IO HAL_UART_StateTypeDef    State;            <span class="hljs-comment">/*!&lt; UART communication state           */</span><br>      __IO <span class="hljs-type">uint32_t</span>                 ErrorCode;        <span class="hljs-comment">/*!&lt; UART Error code                    */</span><br>&#125;UART_HandleTypeDef;COPY<br></code></pre></td></tr></table></figure>
+
+<p>我们发现，与标准库不同的是，该成员不仅包含了之前标准库就有的六个成员（波特率，数据格式等），还包含过采样、（发送或接收的）数据缓存、数据指针、串口 DMA 相关的变量、各种标志位等等要在整个项目流程中都要设置的各个成员。</p>
+<p>该 <strong>UART1_Handler</strong> 就被称为串口的<strong>句柄</strong><br>它被贯穿整个USART收发的流程，比如开启中断：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_UART_Receive_IT</span><span class="hljs-params">(&amp;UART1_Handler, (u8 *)aRxBuffer, RXBUFFERSIZE)</span>;COPY<br></code></pre></td></tr></table></figure>
+
+<p>比如后面要讲到的MSP与Callback回调函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_UART_MspInit</span><span class="hljs-params">(UART_HandleTypeDef *huart)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_UART_RxCpltCallback</span><span class="hljs-params">(UART_HandleTypeDef *huart)</span>;COPY<br></code></pre></td></tr></table></figure>
+
+<p>在这些函数中，只需要调用初始化时定义的句柄UART1_Handler就好。</p>
+<h5 id="2-MSP函数"><a href="#2-MSP函数" class="headerlink" title="2.MSP函数"></a>2.MSP函数</h5><p>MCU Specific Package 单片机的具体方案</p>
+<p><strong>MSP是指和MCU相关的初始化：</strong><br>1.一部分是与MCU无关的，协议层。<br>2.一部分是与MCU相关的，物理层。</p>
+<p><strong>举个例子：</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">我们要初始化一个串口，首先要设置和 MCU 无关的东西，例如波特率，奇偶校验，停止位等，这些参数设置和 MCU 没有任何关系，可以使用 STM32F1，也可以是 STM32F2/F3/F4/F7上的串口。<br>而一个串口设备它需要一个 MCU 来承载，例如用 STM32F4 来做承载，PA9 做为发送，PA10 做为接收，MSP 就是要初始化 STM32F4 的 PA9,PA10，配置这两个引脚。所以 HAL驱动方式的初始化流程就是：HAL_USART_Init()—&gt;HAL_USART_MspInit() ，先初始化与 MCU无关的串口协议，再初始化与 MCU 相关的串口引脚。<br>在 STM32 的 HAL 驱动中HAL_PPP_MspInit()作为回调，被HAL_PPP_Init()函数所调用。当我们需要移植程序到 STM32F1平台的时候，我们只需要修改 HAL_PPP_MspInit 函数内容而不需要修改 HAL_PPP_Init 入口参数内容。COPY<br></code></pre></td></tr></table></figure>
+
+<p><strong>优点：</strong>可移植性强。</p>
+<p><strong>缺点：</strong>增加代码量、增加代码嵌套层级。</p>
+<p><strong>同样，MSP函数又可以配合句柄，达到非常强的移植性：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_UART_MspInit</span><span class="hljs-params">(UART_HandleTypeDef *huart)</span>;COPY<br></code></pre></td></tr></table></figure>
+
+<p>入口参数仅仅需要一个串口句柄，这样有能看出句柄的方便。</p>
+<h5 id="3-Callback函数"><a href="#3-Callback函数" class="headerlink" title="3.Callback函数"></a>3.Callback函数</h5><p>类似于MSP函数，Callback函数主要帮助用户<strong>应用层</strong>的代码编写。<br>还是以USART为例，在标准库中，串口触发中断了以后，我们要先在中断中判断是否是接收中断，然后读出数据，顺便清除中断标志位，然后再是对数据的处理，这样如果我们在一个中断函数中写这么多代码，就会显得很混乱：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">USART3_IRQHandler</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>    <span class="hljs-comment">//串口1中断服务程序</span><br>&#123;<br>    <span class="hljs-type">uint8_t</span> Res;<br>    <span class="hljs-keyword">if</span>(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)   <span class="hljs-comment">//接收中断(接收到的数据必须是0x0d 0x0a结尾)</span><br>    &#123;<br>        Res =USART_ReceiveData(USART3); <span class="hljs-comment">//读取接收到的数据</span><br>        <span class="hljs-comment">/*数据处理区*/</span><br>        &#125;            <br>     &#125; <br>&#125; COPY<br></code></pre></td></tr></table></figure>
+
+<p>而在HAL库中，进入串口中断后，直接由HAL库中断函数进行托管：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">USART1_IRQHandler</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>                    <br>&#123; <br>    HAL_UART_IRQHandler(&amp;UART1_Handler);    <span class="hljs-comment">//调用HAL库中断处理公用函数</span><br>    <span class="hljs-comment">/***************省略无关代码****************/</span> <br>&#125;COPY<br></code></pre></td></tr></table></figure>
+
+<p>HAL_UART_IRQHandler这个函数完成了判断是哪个中断（接收？发送？或者其他？），然后读出数据，保存至缓存区，顺便清除中断标志位等等操作。<br>比如我提前设置了，串口每接收五个字节，我就要对这五个字节进行处理。<br>在一开始我定义了一个串口接收缓存区：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/*HAL库使用的串口接收缓冲,处理逻辑由HAL库控制，接收完这个数组就会调用HAL_UART_RxCpltCallback进行处理这个数组*/</span><br><span class="hljs-comment">/*RXBUFFERSIZE=5*/</span><br><span class="hljs-type">uint8_t</span> aRxBuffer[RXBUFFERSIZE];COPY<br></code></pre></td></tr></table></figure>
+
+<p>在初始化中，我在句柄里设置好了缓存区的地址，缓存大小（五个字节）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/*该代码在HAL_UART_Receive_IT函数中，初始化时会引用*/</span><br>    huart-&gt;pRxBuffPtr = pData;<span class="hljs-comment">//aRxBuffer</span><br>    huart-&gt;RxXferSize = Size;<span class="hljs-comment">//RXBUFFERSIZE</span><br>    huart-&gt;RxXferCount = Size;<span class="hljs-comment">//RXBUFFERSIZECOPY</span><br></code></pre></td></tr></table></figure>
+
+<p>则在接收数据中，每接收完五个字节，HAL_UART_IRQHandler才会执行一次<strong>Callback</strong>函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_UART_RxCpltCallback</span><span class="hljs-params">(UART_HandleTypeDef *huart)</span>;COPY<br></code></pre></td></tr></table></figure>
+
+<p>在这个Callback回调函数中，我们只需要对这接收到的五个字节（保存在aRxBuffer[]中）进行处理就好了，完全不用再去手动清除标志位等操作。<br>所以说Callback函数是一个应用层代码的函数，我们在一开始只设置句柄里面的各个参数，然后就等着HAL库把自己安排好的代码执行完毕就行了。</p>
+<h4 id="HAL库编程方式"><a href="#HAL库编程方式" class="headerlink" title="HAL库编程方式"></a>HAL库编程方式</h4><p>在 HAL 库中对外设模型进行了统一，支持三种编程方式：</p>
+<ul>
+<li><strong>轮询模式&#x2F;阻塞模式</strong></li>
+<li><strong>中断方式</strong></li>
+<li><strong>DMA模式</strong></li>
+</ul>
+<p>以IIC为例，三种编程模式对应的函数如下：</p>
+<p><strong>1、轮询模式&#x2F;阻塞模式</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Master_Transmit</span><span class="hljs-params">()</span>;<br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Master_Receive</span><span class="hljs-params">()</span>;  <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Slave_Transmit</span><span class="hljs-params">()</span>;  <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Slave_Receive</span><span class="hljs-params">()</span>;<br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Mem_Write</span><span class="hljs-params">()</span>;    <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Mem_Read</span><span class="hljs-params">()</span>;   <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_IsDeviceReady</span><span class="hljs-params">()</span>;COPY<br></code></pre></td></tr></table></figure>
+
+<p><strong>2、中断模式</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Master_Transmit_IT</span><span class="hljs-params">()</span>;  <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Master_Receive_IT</span><span class="hljs-params">()</span>;  <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Slave_Transmit_IT</span><span class="hljs-params">()</span>;<br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Slave_Receive_IT</span><span class="hljs-params">()</span>;    <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Mem_Write_IT</span><span class="hljs-params">()</span>;    <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Mem_Read_IT</span><span class="hljs-params">()</span>;COPY<br></code></pre></td></tr></table></figure>
+
+<p><strong>3、DMA模式</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Master_Transmit_DMA</span><span class="hljs-params">()</span>;   <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Master_Receive_DMA</span><span class="hljs-params">()</span>;   <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Slave_Transmit_DMA</span><span class="hljs-params">()</span>;    <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Slave_Receive_DMA</span><span class="hljs-params">()</span>;    <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Mem_Write_DMA</span><span class="hljs-params">()</span>;  <br><span class="hljs-type">uint8_t</span> <span class="hljs-title function_">HAL_I2C_Mem_Read_DMA</span><span class="hljs-params">()</span>;COPY<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/" class="category-chain-item">Robotics</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/System/" class="category-chain-item">System</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/robotic/">#robotic</a>
+      
+        <a href="/tags/drone/">#drone</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>四轴飞行器设计之系统集成</div>
+      <div>https://jason-xy.github.io/2020/11/wuhutakeoff-v1-0/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason Hsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年11月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/pc2jetpack/" title="PC模拟Jetson（Jetpack）运行环境">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PC模拟Jetson（Jetpack）运行环境</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/csp-review/" title="计算机组成原理复习">
+                        <span class="hidden-mobile">计算机组成原理复习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
