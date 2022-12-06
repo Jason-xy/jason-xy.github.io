@@ -18,27 +18,34 @@
   <meta name="author" content="Jason Hsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最近在用Chevereto做图床平台，但是惊奇的发现外部存储中有Aliyun OSS但是没有腾讯云的COS，这就意味着无法直接用COS与图床对接啦&#x2F;(ㄒoㄒ)&#x2F;~~ 腾讯云太没有排面了↓   但是我一下看到了FTP也有接口呀！但是查了一圈资料发现…COS原生不支持FTP┭┮﹏┭┮。抱着试一试的态度继续翻了翻COS的文档，突然发现了COS居然有FTP流式传输的Python官方脚本">
+    <meta name="description" content="不同于普通AMD64的PC，安装perf相关工具一行apt命令即可sudo apt install linux-tools-common  linux-tools-&quot;$(uname -r)&quot;  linux-cloud-tools-&quot;$(uname -r)&quot;, L4T版本的perf由于不在arm64的apt源中需要从源码编译。 获取源码 可以通过jtop直接查">
 <meta property="og:type" content="article">
-<meta property="og:title" content="腾讯云COS-FTP部署">
-<meta property="og:url" content="https://jason-xy.github.io/2020/07/cos-ftp/index.html">
+<meta property="og:title" content="Jetpack(L4T) Perf性能分析工具安装及测试">
+<meta property="og:url" content="https://jason-xy.github.io/2022/12/Jetpack-Perf-install-and-test/index.html">
 <meta property="og:site_name" content="The Road to Full Stack">
-<meta property="og:description" content="最近在用Chevereto做图床平台，但是惊奇的发现外部存储中有Aliyun OSS但是没有腾讯云的COS，这就意味着无法直接用COS与图床对接啦&#x2F;(ㄒoㄒ)&#x2F;~~ 腾讯云太没有排面了↓   但是我一下看到了FTP也有接口呀！但是查了一圈资料发现…COS原生不支持FTP┭┮﹏┭┮。抱着试一试的态度继续翻了翻COS的文档，突然发现了COS居然有FTP流式传输的Python官方脚本">
+<meta property="og:description" content="不同于普通AMD64的PC，安装perf相关工具一行apt命令即可sudo apt install linux-tools-common  linux-tools-&quot;$(uname -r)&quot;  linux-cloud-tools-&quot;$(uname -r)&quot;, L4T版本的perf由于不在arm64的apt源中需要从源码编译。 获取源码 可以通过jtop直接查">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202007/cos_ftp/1.png">
-<meta property="article:published_time" content="2020-07-22T04:10:42.000Z">
-<meta property="article:modified_time" content="2022-12-06T17:16:22.756Z">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070000797.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070000620.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070002708.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070004807.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070015187.png">
+<meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070103413.svg">
+<meta property="article:published_time" content="2022-12-06T17:05:46.000Z">
+<meta property="article:modified_time" content="2022-12-06T17:16:22.760Z">
 <meta property="article:author" content="Jason Hsu">
-<meta property="article:tag" content="wordpress">
-<meta property="article:tag" content="cos">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="jetson">
+<meta property="article:tag" content="l4t">
+<meta property="article:tag" content="perf">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202007/cos_ftp/1.png">
+<meta name="twitter:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070000797.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>腾讯云COS-FTP部署 - The Road to Full Stack</title>
+  <title>Jetpack(L4T) Perf性能分析工具安装及测试 - The Road to Full Stack</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -207,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">腾讯云COS-FTP部署</span>
+            <span id="subtitle">Jetpack(L4T) Perf性能分析工具安装及测试</span>
           
         </div>
 
@@ -223,8 +230,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2020-07-22 12:10" pubdate>
-          2020年7月22日 中午
+        <time datetime="2022-12-07 01:05" pubdate>
+          2022年12月7日 凌晨
         </time>
       </span>
     
@@ -235,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          932 字
         
       </span>
     
@@ -246,7 +253,7 @@
         
         
         
-          23 分钟
+          8 分钟
         
       </span>
     
@@ -793,17 +800,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
         id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         Linux
         <span class="list-group-count">(17)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+      <div class="category-collapse collapse show" id="collapse-edc9f0a5a5d57797bf68e37364743831"
            role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
         
         
@@ -1030,17 +1037,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Usage"
         id="heading-c64518704ce0c0d5501a45763f464276" role="tab" data-toggle="collapse" href="#collapse-c64518704ce0c0d5501a45763f464276"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         Usage
         <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-c64518704ce0c0d5501a45763f464276"
+      <div class="category-collapse collapse show" id="collapse-c64518704ce0c0d5501a45763f464276"
            role="tabpanel" aria-labelledby="heading-c64518704ce0c0d5501a45763f464276">
         
         
@@ -1052,7 +1059,7 @@
       
         <a href="/2022/12/Jetpack-Perf-install-and-test/" title="Jetpack(L4T) Perf性能分析工具安装及测试"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">Jetpack(L4T) Perf性能分析工具安装及测试</span>
         </a>
       
@@ -1194,17 +1201,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
         id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         Web
         <span class="list-group-count">(10)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-c6e190b284633c48e39e55049da3cce8"
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
            role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
         
         
@@ -1297,7 +1304,7 @@
       
         <a href="/2020/07/cos-ftp/" title="腾讯云COS-FTP部署"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">腾讯云COS-FTP部署</span>
         </a>
       
@@ -1325,52 +1332,43 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">腾讯云COS-FTP部署</h1>
+            <h1 style="display: none">Jetpack(L4T) Perf性能分析工具安装及测试</h1>
             
             
               <div class="markdown-body">
                 
-                <p>最近在用Chevereto做图床平台，但是惊奇的发现外部存储中有Aliyun OSS但是没有腾讯云的COS，这就意味着无法直接用COS与图床对接啦&#x2F;(ㄒoㄒ)&#x2F;~~</p>
-<p>腾讯云太没有排面了↓</p>
-<img align="center" src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202007/cos_ftp/1.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
-
-<p>但是我一下看到了FTP也有接口呀！但是查了一圈资料发现…COS原生不支持FTP┭┮﹏┭┮。抱着试一试的态度继续翻了翻COS的文档，突然发现了COS居然有FTP流式传输的Python官方脚本！那不妨试试用腾讯云服务器当跳板，将FTP根目录对接到COS中。</p>
-<h2 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h2><h4 id="安装运行"><a href="#安装运行" class="headerlink" title="安装运行"></a>安装运行</h4><p>FTP Server 工具下载地址为：<a target="_blank" rel="noopener" href="https://github.com/tencentyun/cos-ftp-server-V5">cos-ftp-server</a>。安装步骤如下：</p>
-<ol>
-<li><p>进入 FTP Server 目录，运行 setup.py 安装 FTP Server 及其相关的依赖库（需要联网）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python setup.py install   <span class="hljs-comment"># 这里可能需要您的账号 sudo 或者拥有 root 权限。</span><br></code></pre></td></tr></table></figure>
+                <p>不同于普通AMD64的PC，安装perf相关工具一行apt命令即可<code>sudo apt install linux-tools-common  linux-tools-&quot;$(uname -r)&quot;  linux-cloud-tools-&quot;$(uname -r)&quot;</code>, L4T版本的perf由于不在arm64的apt源中需要从源码编译。</p>
+<h2 id="获取源码"><a href="#获取源码" class="headerlink" title="获取源码"></a>获取源码</h2><ol>
+<li><p>可以通过jtop直接查看相应的l4t版本，如图<img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070000797.png" srcset="/img/loading.gif" lazyload alt="image-20221206235818326"></p>
 </li>
-<li><p>将配置示例文件<code>conf/vsftpd.conf.example</code>复制命名为<code>conf/vsftpd.conf</code>，参考本文下方章节 ，正确配置 bucket 和用户信息。</p>
+<li><p>去<a target="_blank" rel="noopener" href="https://developer.nvidia.com/embedded/downloads">nvidia下载中心</a>寻找相应版本的Linux Driver<img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070000620.png" srcset="/img/loading.gif" lazyload alt="image-20221207000032138"></p>
 </li>
-<li><p>运行 ftp_server.py 启动 FTP Server：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python ftp_server.py<br></code></pre></td></tr></table></figure>
-
-<p>此外还有两种方式启动 FTP Server，如下：</p>
-<ul>
-<li><p>使用 nohup 命令，以后台进程方式启动：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">nohup</span> python ftp_server.py &gt;&gt; /dev/null 2&gt;&amp;1 &amp;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>使用 screen 命令放入后台运行（需要安装 screen 工具)：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -dmS ftp<br>screen -r ftp<br>python ftp_server.py<br><span class="hljs-comment">#使用快捷键 Ctrl+A+D ，切回主 screen 即可。</span><br></code></pre></td></tr></table></figure></li>
-</ul>
+<li><p>进入release page找到BSP源码</p>
 </li>
 </ol>
-<h4 id="停止运行"><a href="#停止运行" class="headerlink" title="停止运行"></a>停止运行</h4><ul>
-<li><p>若您是直接运行，或 screen 方式放在后台运行的 FTP Server，您可以使用快捷键<code>Ctrl+C</code>停止 FTP Server 运行。</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070002708.png" srcset="/img/loading.gif" lazyload alt="image-20221207000212684"></p>
+<ol start="4">
+<li><p>复制链接后直接用<code>wget</code>下载至jetson，通常为<code>public_sources.tbz2</code>，通过<code>tar -xjvf public_sources.tbz2</code>解压后可以得到<code>Linux_for_Tegra</code>目录<img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070004807.png" srcset="/img/loading.gif" lazyload alt="image-20221207000416790"></p>
 </li>
-<li><p>若您是通过 nohup 命令启动，可以使用下面方式停止：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps -ef | grep python | grep ftp_server.py | grep -v grep | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span> | xargs -I&#123;&#125; <span class="hljs-built_in">kill</span> &#123;&#125;<br></code></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>FTP Server 工具的配置示例文件为<code>conf/vsftpd.conf.example</code>，请复制命名为 vsftpd.conf，并按照以下的配置项进行配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs conf">[COS_ACCOUNT_0]<br>cos_secretid = COS_SECRETID    # 替换为您的 SECRETID<br>cos_secretkey = COS_SECRETKEY  # 替换为您的 SECRETKEY<br>cos_bucket = examplebucket-1250000000<br>cos_region = region   # 替换为您的存储桶地域<br>cos_protocol = https<br>#cos_endpoint = region.myqcloud.com<br>home_dir = /home/user0<br>ftp_login_user_name=user0   #替换为用户自定义的账号<br>ftp_login_user_password=pass0   #替换为用户自定义的密码<br>authority=RW                # 设置该用户的读写权限，R 表示读权限，W 表示写权限，RW 表示同时具备读写权限<br>delete_enable=true         # true 为允许该 ftp 用户进行删除操作（默认），false 为禁止该用户进行删除操作<br><br>[COS_ACCOUNT_1]<br>cos_secretid = COS_SECRETID    # 替换为您的 SECRETID<br>cos_secretkey = COS_SECRETKEY  # 替换为您的 SECRETKEY<br>cos_bucket = examplebucket-1250000000<br>cos_region = region   # 替换为您的存储桶地域<br>cos_protocol = https<br>#cos_endpoint = region.myqcloud.com<br>home_dir = /home/user1<br>ftp_login_user_name=user1   #替换为用户自定义的账号<br>ftp_login_user_password=pass1   #替换为用户自定义的密码<br>authority=RW               # 设置该用户的读写权限，R 表示读权限，W 表示写权限，RW 表示同时具备读写权限<br>delete_enable=false        # true 为允许该 ftp 用户进行删除操作（默认），false 为禁止该用户进行删除操作<br><br>[NETWORK]<br># 如果 FTP Server 处于某个网关或 NAT 后，可以通过该配置项将网关的 IP 地址或域名指定给 FTP<br>masquerade_address = XXX.XXX.XXX.XXX<br># FTP Server 的监听端口，默认为2121，注意防火墙需要放行该端口（例如您是将 FTP Server 工具部署在腾讯云 CVM，则需要在 CVM 安全组放行该端口）<br>listen_port = 2121            <br># passive_port 可以设置 passive 模式下，端口的选择范围，默认在 [60000, 65535] 区间上选择，注意防火墙（例如 CVM 安全组）需要放行此区间端口<br>passive_port = 60000,65535      <br><br><br>[FILE_OPTION]<br># 默认单文件大小最大支持到200G，不建议设置太大<br>single_file_max_size = 21474836480<br><br>[OPTIONAL]<br># 以下设置，如无特殊需要，建议保留 default 设置。如需设置，请合理填写一个整数<br>min_part_size       = default<br>upload_thread_num   = default<br>max_connection_num  = 512<br>max_list_file       = 10000                # ls 命令最大可列出的文件数目，建议不要设置太大，否则 ls 命令延时会很高<br>log_level           = INFO                 # 设置日志输出的级别<br>log_dir             = log                  # 设置日志的存放目录，默认是在 FTP Server 目录下<br></code></pre></td></tr></table></figure>
+<li><p>进入目录<code>Linux_for_Tegra/source/public</code>，解压<code>tar -xjvf kernel_src.tbz2</code>，之后可会得到<code>kernel</code>目录，进入目录<code>kernel/kernel-5.10/tools/perf</code>，即可找到perf相关的源码</p>
+</li>
+</ol>
+<h2 id="编译并安装perf"><a href="#编译并安装perf" class="headerlink" title="编译并安装perf"></a>编译并安装perf</h2><p><code>make &amp;&amp; sudo rm /usr/bin/perf &amp;&amp; sudo cp perf /usr/bin/perf </code></p>
+<p>检查perf是否安装成功<code>perf --version</code></p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070015187.png" srcset="/img/loading.gif" lazyload alt="image-20221207001524167"></p>
+<h2 id="生成火焰图"><a href="#生成火焰图" class="headerlink" title="生成火焰图"></a>生成火焰图</h2><p><strong>下载火焰图工具</strong></p>
+<p><code>git clone https://github.com/brendangregg/FlameGraph</code></p>
+<p><strong>查看并设置系统限制</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sysctl kernel.kptr_restrict <br>sudo sysctl -w kernel.kptr_restrict=0<br>sudo sysctl -w kernel.perf_event_paranoid=-1<br></code></pre></td></tr></table></figure>
 
-<p><strong>在服务器上执行程序如果出现以下提示就说明成功了：</strong></p>
-<p>直接启动调试：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@VM-0-12-debian:/ftp/cos-ftp-server-V5<span class="hljs-comment"># python ftp_server.py</span><br>starting  ftp server...<br></code></pre></td></tr></table></figure>
+<p><strong>采集特定进程信息</strong></p>
+<p><code>perf record -F 100 -p  1157822  -g -- sleep 100</code></p>
+<p>采样频率100Hz，PID 1157822，包含调用栈，持续100s</p>
+<p><strong>生成火焰图</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">export PATH=&lt;FlameGraph工程目录&gt;:$PATH<br>perf script  | stackcollapse-perf.pl | flamegraph.pl  &gt; out.svg<br></code></pre></td></tr></table></figure>
 
-<p>后台启动运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">^Croot@VM-0-12-debian:/ftp/cos-ftp-server-V5<span class="hljs-comment"># nohup python ftp_server.py &gt;&gt; /dev/null 2&gt;&amp;1 &amp;</span><br>[1] 29981<br></code></pre></td></tr></table></figure>
-
+<p>用浏览器打开即可</p>
+<p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070103413.svg" srcset="/img/loading.gif" lazyload alt="out"></p>
 
                 
               </div>
@@ -1394,8 +1392,15 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Web/" class="category-chain-item">Web</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="category-chain-item">Linux</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/Usage/" class="category-chain-item">Usage</a>
+  
+  
+
   
 
   
@@ -1411,9 +1416,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/wordpress/">#wordpress</a>
+        <a href="/tags/ubuntu/">#ubuntu</a>
       
-        <a href="/tags/cos/">#cos</a>
+        <a href="/tags/jetson/">#jetson</a>
+      
+        <a href="/tags/l4t/">#l4t</a>
+      
+        <a href="/tags/perf/">#perf</a>
       
     </div>
   
@@ -1425,8 +1434,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>腾讯云COS-FTP部署</div>
-      <div>https://jason-xy.github.io/2020/07/cos-ftp/</div>
+      <div>Jetpack(L4T) Perf性能分析工具安装及测试</div>
+      <div>https://jason-xy.github.io/2022/12/Jetpack-Perf-install-and-test/</div>
     </div>
     <div class="license-meta">
       
@@ -1438,7 +1447,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2020年7月22日</div>
+          <div>2022年12月7日</div>
         </div>
       
       
@@ -1470,18 +1479,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/cosfs/" title="挂载COS为本地磁盘——COSFS工具配置">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">挂载COS为本地磁盘——COSFS工具配置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/wp-cos/" title="WordPress全站优化策略——COS配置策略">
-                        <span class="hidden-mobile">WordPress全站优化策略——COS配置策略</span>
+                      <a href="/2022/06/c-compile-speedup/" title="C/C++通用构建加速方法">
+                        <span class="hidden-mobile">C/C++通用构建加速方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
