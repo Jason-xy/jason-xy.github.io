@@ -29,6 +29,10 @@ categories:
 
 `make && sudo rm /usr/bin/perf && sudo cp perf /usr/bin/perf `
 
+可以根据检查报告安装相应的库，以支持更加丰富的功能
+
+![image-20221207212812351](https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212072128394.png)
+
 检查perf是否安装成功`perf --version`
 
 ![image-20221207001524167](https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212070015187.png)
