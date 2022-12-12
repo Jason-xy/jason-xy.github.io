@@ -18,25 +18,28 @@
   <meta name="author" content="Jason Hsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="SWAP分区简介Swap分区是磁盘上的一个特殊用途的分区。是当系统的物理内存不够用的时候，把物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap分区中，等到那些程序要运行时，再从Swap分区中恢复保存的数据到内存中。分配太多的Swap空间，会浪费磁盘空间，而Swap空间太少，则系统会发生错误。一般在内存">
+    <meta name="description" content="总体来说从ros1迁移至ros2的过程还是比较简单的，基本上是在ros1的package基础上针对ros2的差异进行一些改动和适配。 catkin package与colcon package的差异主要体现在以下几个方面：  构建系统：catkin-&gt;colcon ros组件：roscpp-&gt;rclcpp 源码：部分模块命名空间有区别  迁移步骤以vins-fusion中的loop_f">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派的SWAP分区扩展">
-<meta property="og:url" content="https://jason-xy.github.io/2020/06/raspi-swap/index.html">
+<meta property="og:title" content="将ros package从ros1迁移至ros2">
+<meta property="og:url" content="https://jason-xy.github.io/2022/12/Migration-from-ROS1-to-ROS2/index.html">
 <meta property="og:site_name" content="The Road to Full Stack">
-<meta property="og:description" content="SWAP分区简介Swap分区是磁盘上的一个特殊用途的分区。是当系统的物理内存不够用的时候，把物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap分区中，等到那些程序要运行时，再从Swap分区中恢复保存的数据到内存中。分配太多的Swap空间，会浪费磁盘空间，而Swap空间太少，则系统会发生错误。一般在内存">
+<meta property="og:description" content="总体来说从ros1迁移至ros2的过程还是比较简单的，基本上是在ros1的package基础上针对ros2的差异进行一些改动和适配。 catkin package与colcon package的差异主要体现在以下几个方面：  构建系统：catkin-&gt;colcon ros组件：roscpp-&gt;rclcpp 源码：部分模块命名空间有区别  迁移步骤以vins-fusion中的loop_f">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-27T15:12:00.000Z">
-<meta property="article:modified_time" content="2022-12-12T07:26:43.780Z">
+<meta property="article:published_time" content="2022-12-11T19:26:09.000Z">
+<meta property="article:modified_time" content="2022-12-12T07:26:43.784Z">
 <meta property="article:author" content="Jason Hsu">
-<meta property="article:tag" content="raspberry-pi">
-<meta property="article:tag" content="swap">
+<meta property="article:tag" content="robotic">
+<meta property="article:tag" content="drone">
+<meta property="article:tag" content="ROS">
+<meta property="article:tag" content="catkin">
+<meta property="article:tag" content="colcon">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>树莓派的SWAP分区扩展 - The Road to Full Stack</title>
+  <title>将ros package从ros1迁移至ros2 - The Road to Full Stack</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +208,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">树莓派的SWAP分区扩展</span>
+            <span id="subtitle">将ros package从ros1迁移至ros2</span>
           
         </div>
 
@@ -221,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2020-06-27 23:12" pubdate>
-          2020年6月27日 晚上
+        <time datetime="2022-12-12 03:26" pubdate>
+          2022年12月12日 凌晨
         </time>
       </span>
     
@@ -233,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          688 字
+          6.9k 字
         
       </span>
     
@@ -244,7 +247,7 @@
         
         
         
-          6 分钟
+          58 分钟
         
       </span>
     
@@ -791,17 +794,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
         id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         Linux
         <span class="list-group-count">(17)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-edc9f0a5a5d57797bf68e37364743831"
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
            role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
         
         
@@ -818,17 +821,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ARM"
         id="heading-47f45e65244c17ec9fa8771a5c6d60e1" role="tab" data-toggle="collapse" href="#collapse-47f45e65244c17ec9fa8771a5c6d60e1"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         ARM
         <span class="list-group-count">(8)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+      <div class="category-collapse collapse " id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
            role="tabpanel" aria-labelledby="heading-47f45e65244c17ec9fa8771a5c6d60e1">
         
         
@@ -894,7 +897,7 @@
       
         <a href="/2020/06/raspi-swap/" title="树莓派的SWAP分区扩展"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">树莓派的SWAP分区扩展</span>
         </a>
       
@@ -1087,17 +1090,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Robotics"
         id="heading-c98c19727b6a8b8fcf6b4bf5ded39488" role="tab" data-toggle="collapse" href="#collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         Robotics
         <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+      <div class="category-collapse collapse show" id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
            role="tabpanel" aria-labelledby="heading-c98c19727b6a8b8fcf6b4bf5ded39488">
         
         
@@ -1151,17 +1154,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="System"
         id="heading-a45da96d0bf6575970f2d27af22be28a" role="tab" data-toggle="collapse" href="#collapse-a45da96d0bf6575970f2d27af22be28a"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         System
         <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-a45da96d0bf6575970f2d27af22be28a"
+      <div class="category-collapse collapse show" id="collapse-a45da96d0bf6575970f2d27af22be28a"
            role="tabpanel" aria-labelledby="heading-a45da96d0bf6575970f2d27af22be28a">
         
         
@@ -1182,7 +1185,7 @@
       
         <a href="/2022/12/Migration-from-ROS1-to-ROS2/" title="将ros package从ros1迁移至ros2"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">将ros package从ros1迁移至ros2</span>
         </a>
       
@@ -1332,28 +1335,87 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">树莓派的SWAP分区扩展</h1>
+            <h1 style="display: none">将ros package从ros1迁移至ros2</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="SWAP分区简介"><a href="#SWAP分区简介" class="headerlink" title="SWAP分区简介"></a>SWAP分区简介</h2><p>Swap分区是磁盘上的一个特殊用途的分区。是当系统的物理内存不够用的时候，把物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap分区中，等到那些程序要运行时，再从Swap分区中恢复保存的数据到内存中。<br>分配太多的Swap空间，会浪费磁盘空间，而Swap空间太少，则系统会发生错误。一般在内存小于2G的情况下，交换分区应为内存的2倍。对于树莓派来说，可以设置为2GB。当然也需要考虑 microSD 卡容量和使用情况。</p>
-<h2 id="扩展方法"><a href="#扩展方法" class="headerlink" title="扩展方法"></a>扩展方法</h2><h3 id="1-程序安装"><a href="#1-程序安装" class="headerlink" title="1.程序安装"></a>1.程序安装</h3><p>如果系统默认没有SWAP，则需要手动建立，不过推荐这个自动设置SWAP的软件——dphys-swapfile。</p>
-<p>安装 dphys-swapfile：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install dphys-swapfile<br></code></pre></td></tr></table></figure>
+                <p>总体来说从ros1迁移至ros2的过程还是比较简单的，基本上是在ros1的package基础上针对ros2的差异进行一些改动和适配。</p>
+<p>catkin package与colcon package的差异主要体现在以下几个方面：</p>
+<ol>
+<li>构建系统：catkin-&gt;colcon</li>
+<li>ros组件：roscpp-&gt;rclcpp</li>
+<li>源码：部分模块命名空间有区别</li>
+</ol>
+<h2 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h2><p>以vins-fusion中的loop_fusion模块为例</p>
+<h3 id="package-xml"><a href="#package-xml" class="headerlink" title="package.xml"></a>package.xml</h3><p>ros2对package.xml的格式有新的要求，不在支持format 1，需要将格式更新到format 2及以上，具体体现如下：</p>
+<p>ros1</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">package</span>&gt;</span><br>  ...<br><span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p><em>此软件会默认设置RAM两倍大小的SWAP分区</em>。</p>
-<h3 id="2-程序配置"><a href="#2-程序配置" class="headerlink" title="2.程序配置"></a>2.程序配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/dphys-swapfile<br></code></pre></td></tr></table></figure>
+<p>ros2</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span><br><span class="hljs-meta">&lt;?xml-model href=<span class="hljs-string">&quot;http://download.ros.org/schema/package_format3.xsd&quot;</span> schematypens=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span><br>  ...<br><span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p>将 CONF_SWAPSIZE 的值修改成你想要的大小。 一般在内存小于2G的情况下，交换分区应为内存的2倍!</p>
-<h3 id="3-重启服务"><a href="#3-重启服务" class="headerlink" title="3.重启服务"></a>3.重启服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /etc/init.d/dphys-swapfile restart<br></code></pre></td></tr></table></figure>
+<p>buildtool_depend字段从catkin更换为ament_cmake，build_type字段也更换为ament_cmake，具体体现如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span><br><span class="hljs-meta">&lt;?xml-model href=<span class="hljs-string">&quot;http://download.ros.org/schema/package_format3.xsd&quot;</span> schematypens=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span><br>  ...<br>  ...<br>  <span class="hljs-tag">&lt;<span class="hljs-name">buildtool_depend</span>&gt;</span>ament_cmake<span class="hljs-tag">&lt;/<span class="hljs-name">buildtool_depend</span>&gt;</span><br>  ...<br>  ...<br>  <span class="hljs-tag">&lt;<span class="hljs-name">export</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">build_type</span>&gt;</span>ament_cmake<span class="hljs-tag">&lt;/<span class="hljs-name">build_type</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">export</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="4-查看分区大小"><a href="#4-查看分区大小" class="headerlink" title="4.查看分区大小"></a>4.查看分区大小</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">free -h<br></code></pre></td></tr></table></figure>
+<p>depend字段中的roscpp也需要更换为rclcpp，rospy需要更换为rclpy,如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>rclcpp<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>rclpy<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p>你会看到以下内容：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pi</span>@raspbian:~$ free -h<br>              <span class="hljs-attribute">total</span>        used        free      shared  buff/cache   available<br><span class="hljs-attribute">Mem</span>:          <span class="hljs-number">1</span>.<span class="hljs-number">9</span>Gi       <span class="hljs-number">929</span>Mi       <span class="hljs-number">681</span>Mi       <span class="hljs-number">0</span>.<span class="hljs-number">0</span>Ki       <span class="hljs-number">288</span>Mi       <span class="hljs-number">877</span>Mi<br><span class="hljs-attribute">Swap</span>:         <span class="hljs-number">3</span>.<span class="hljs-number">0</span>Gi       <span class="hljs-number">137</span>Mi       <span class="hljs-number">2</span>.<span class="hljs-number">9</span>Gi<br></code></pre></td></tr></table></figure>
+<p>ros2对组件中的message package也有一些调整，需要指出对相应的msg的依赖，如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>std_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>sensor_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>visualization_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>nav_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p>SWAP即为你设置的SWAP分区信息。</p>
+
+
+<p>完整的package.xml如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span><br><span class="hljs-meta">&lt;?xml-model href=<span class="hljs-string">&quot;http://download.ros.org/schema/package_format3.xsd&quot;</span> schematypens=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>loop_fusion<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>loop_fusion package<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">maintainer</span> <span class="hljs-attr">email</span>=<span class="hljs-string">&quot;tony-ws@todo.todo&quot;</span>&gt;</span>tony-ws<span class="hljs-tag">&lt;/<span class="hljs-name">maintainer</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">license</span>&gt;</span>TODO: License declaration<span class="hljs-tag">&lt;/<span class="hljs-name">license</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">buildtool_depend</span>&gt;</span>ament_cmake<span class="hljs-tag">&lt;/<span class="hljs-name">buildtool_depend</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>rclcpp<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>ament_index_cpp<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>std_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>sensor_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>visualization_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>nav_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>cv_bridge<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">depend</span>&gt;</span>camera_models<span class="hljs-tag">&lt;/<span class="hljs-name">depend</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">export</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">build_type</span>&gt;</span>ament_cmake<span class="hljs-tag">&lt;/<span class="hljs-name">build_type</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">export</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="CMakeLists-txt"><a href="#CMakeLists-txt" class="headerlink" title="CMakeLists.txt"></a>CMakeLists.txt</h3><p>cmake最低版本要求需要3.5以上：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">cmake_minimum_required</span><span class="hljs-params">(VERSION <span class="hljs-number">3.10</span>)</span></span><br></code></pre></td></tr></table></figure>
+
+<p>C&#x2F;C++代码需要依照C14标准，否则会报编译错误：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">set</span><span class="hljs-params">(CMAKE_CXX_STANDARD <span class="hljs-number">14</span>)</span></span><br></code></pre></td></tr></table></figure>
+
+<p>改变对ros组件依赖的查找方式：</p>
+<p>对比ros1与ros2：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs scss"># ROS1<br><span class="hljs-built_in">find_package</span>(catkin REQUIRED COMPONENTS<br>    roscpp<br>    std_msgs<br>    nav_msgs<br>    camera_models<br>    cv_bridge<br>    roslib<br>    )<br><br># ROS2<br><span class="hljs-built_in">find_package</span>(ament_cmake REQUIRED)<br><span class="hljs-built_in">find_package</span>(rclcpp REQUIRED)<br><span class="hljs-built_in">find_package</span>(ament_index_cpp REQUIRED)<br><span class="hljs-built_in">find_package</span>(std_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(sensor_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(visualization_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(nav_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(cv_bridge REQUIRED)<br><span class="hljs-built_in">find_package</span>(camera_models REQUIRED)<br></code></pre></td></tr></table></figure>
+
+<p>在include_directories中去除对catkin头文件依赖。</p>
+<p>通过ament_target_dependencies描述ros2依赖：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">ament<span class="hljs-constructor">_target_dependencies(<span class="hljs-params">loop_fusion_node</span> <span class="hljs-params">camera_models</span> <span class="hljs-params">rclcpp</span> <span class="hljs-params">ament_index_cpp</span> <span class="hljs-params">std_msgs</span> <span class="hljs-params">sensor_msgs</span> <span class="hljs-params">visualization_msgs</span> <span class="hljs-params">nav_msgs</span> <span class="hljs-params">cv_bridge</span> OpenCV)</span><br></code></pre></td></tr></table></figure>
+
+<p>安装编译产物：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-built_in">install</span>(<br>  TARGETS loop_fusion_node<br>  DESTINATION lib/$&#123;PROJECT_NAME&#125;<br>)<br><span class="hljs-built_in">install</span>(TARGETS<br>   loop_fusion_node<br>   DESTINATION lib/$&#123;PROJECT_NAME&#125;<br>)<br><span class="hljs-built_in">install</span>(TARGETS loop_fusion_node<br>   ARCHIVE DESTINATION lib<br>   LIBRARY DESTINATION lib<br>   RUNTIME DESTINATION bin<br>)<br><span class="hljs-built_in">install</span>(TARGETS loop_fusion_node<br>   RUNTIME DESTINATION lib/$&#123;PROJECT_NAME&#125;<br>)<br></code></pre></td></tr></table></figure>
+
+<p>最后把catkin_package换成ament_package:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">ament_package</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+
+<p>完整的CMakeLists.txt如下：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-built_in">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.10</span>)<br><span class="hljs-built_in">project</span>(loop_fusion)<br><br><span class="hljs-built_in">set</span>(CMAKE_CXX_STANDARD <span class="hljs-number">14</span>)<br><span class="hljs-built_in">set</span>(CMAKE_BUILD_TYPE &quot;Release&quot;)<br><span class="hljs-built_in">set</span>(CMAKE_CXX_FLAGS_RELEASE &quot;-O3 -Wall -g&quot;)<br><br><span class="hljs-built_in">find_package</span>(ament_cmake REQUIRED)<br><span class="hljs-built_in">find_package</span>(rclcpp REQUIRED)<br><span class="hljs-built_in">find_package</span>(ament_index_cpp REQUIRED)<br><span class="hljs-built_in">find_package</span>(std_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(sensor_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(visualization_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(nav_msgs REQUIRED)<br><span class="hljs-built_in">find_package</span>(cv_bridge REQUIRED)<br><span class="hljs-built_in">find_package</span>(camera_models REQUIRED)<br><span class="hljs-built_in">find_package</span>(OpenCV)<br><span class="hljs-built_in">find_package</span>(Ceres REQUIRED)<br><br><span class="hljs-built_in">set</span>(CMAKE_MODULE_PATH $&#123;PROJECT_SOURCE_DIR&#125;/cmake)<br><span class="hljs-built_in">find_package</span>(Eigen3)<br><span class="hljs-built_in">include_directories</span>($&#123;CERES_INCLUDE_DIRS&#125;  $&#123;EIGEN3_INCLUDE_DIR&#125;)<br><br><span class="hljs-built_in">add_executable</span>(loop_fusion_node<br>    src/pose_graph_node.cpp<br>    src/pose_graph.cpp<br>    src/keyframe.cpp<br>    src/utility/CameraPoseVisualization.cpp<br>    src/ThirdParty/DBoW/BowVector.cpp<br>    src/ThirdParty/DBoW/FBrief.cpp<br>    src/ThirdParty/DBoW/FeatureVector.cpp<br>    src/ThirdParty/DBoW/QueryResults.cpp<br>    src/ThirdParty/DBoW/ScoringObject.cpp<br>    src/ThirdParty/DUtils/Random.cpp<br>    src/ThirdParty/DUtils/Timestamp.cpp<br>    src/ThirdParty/DVision/BRIEF.cpp<br>    src/ThirdParty/VocabularyBinary.cpp<br>    )<br><br><span class="hljs-built_in">ament_target_dependencies</span>(loop_fusion_node camera_models rclcpp ament_index_cpp std_msgs sensor_msgs visualization_msgs nav_msgs cv_bridge OpenCV)<br><span class="hljs-built_in">target_link_libraries</span>(loop_fusion_node $&#123;OpenCV_LIBS&#125; $&#123;CERES_LIBRARIES&#125;)<br><br># Install nodes<br><span class="hljs-built_in">install</span>(<br>  TARGETS loop_fusion_node<br>  DESTINATION lib/$&#123;PROJECT_NAME&#125;<br>)<br><span class="hljs-built_in">install</span>(TARGETS<br>   loop_fusion_node<br>   DESTINATION lib/$&#123;PROJECT_NAME&#125;<br>)<br><span class="hljs-built_in">install</span>(TARGETS loop_fusion_node<br>   ARCHIVE DESTINATION lib<br>   LIBRARY DESTINATION lib<br>   RUNTIME DESTINATION bin<br>)<br><span class="hljs-built_in">install</span>(TARGETS loop_fusion_node<br>   RUNTIME DESTINATION lib/$&#123;PROJECT_NAME&#125;<br>)<br><br><span class="hljs-built_in">ament_package</span>()<br></code></pre></td></tr></table></figure>
+
+<h3 id="源码修改"><a href="#源码修改" class="headerlink" title="源码修改"></a>源码修改</h3><h4 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h4><p>ros2使用rclcpp替换了roscpp接口，源码里面的改动如下：</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs autoit">//<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;ros/ros.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;rclcpp/rclcpp.hpp&quot;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>对于msg的依赖需要加一级msg目录，例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">//#</span><span class="language-bash">include <span class="hljs-string">&quot;std_msgs/String.h&quot;</span></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">include <span class="hljs-string">&quot;std_msgs/msg/string.hpp&quot;</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">//#</span><span class="language-bash">include <span class="hljs-string">&quot;nav_msgs/path.hpp&quot;</span></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">include nav_msgs/msg/path.hpp<span class="hljs-string">&quot;</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">//#</span><span class="language-bash"><span class="hljs-string">include &quot;</span>geometry_msgs/point_stamped.h<span class="hljs-string">&quot;</span></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-string">include &quot;</span>geometry_msgs/msg/point_stamped.h<span class="hljs-string">&quot;</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">//#</span><span class="language-bash"><span class="hljs-string">include &quot;</span>nav_msgs/odometry.h<span class="hljs-string">&quot;</span></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-string">include &quot;</span>nav_msgs/msg/odometry.h<span class="hljs-string">&quot;</span></span><br></code></pre></td></tr></table></figure>
+
+<h4 id="接口调用"><a href="#接口调用" class="headerlink" title="接口调用"></a>接口调用</h4><p>rclcpp不是将节点的名称传递给库初始化调用，而是进行初始化，然后将节点名称传递给节点对象的构造器：（auto关键字依赖C14标准编译器）</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">//  ros::init(argc, argv, <span class="hljs-string">&quot;talker&quot;</span>);<br>//  ros::NodeHandle n;<br>    rclcpp::init(argc, argv);<br>    auto <span class="hljs-keyword">node</span> <span class="hljs-title">= rclcpp</span>::<span class="hljs-keyword">Node</span><span class="hljs-title">::make_shared</span>(<span class="hljs-string">&quot;talker&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>publisher和rate对象的命名空间发生了变化：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs elixir">//  ros::<span class="hljs-title class_">Publisher</span> chatter_pub = n.advertise&lt;std_msgs::<span class="hljs-title class_">String</span>&gt;(<span class="hljs-string">&quot;chatter&quot;</span>, <span class="hljs-number">1000</span>);<br>//  ros::<span class="hljs-title class_">Rate</span> loop_rate(<span class="hljs-number">10</span>);<br>  auto chatter_pub = node-&gt;create_publisher&lt;std_msgs::msg::<span class="hljs-title class_">String</span>&gt;(<span class="hljs-string">&quot;chatter&quot;</span>,<br>    <span class="hljs-number">1000</span>);<br>  rclcpp::<span class="hljs-title class_">Rate</span> loop_rate(<span class="hljs-number">10</span>);<br></code></pre></td></tr></table></figure>
+
+<p>msg相关的模块命名空间也发生了变化，相比ros1多了一层msg：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">//  std_msgs::String msg;</span><br>  std_msgs::msg::<span class="hljs-type">String</span> msg;<br><span class="hljs-comment">//  nav_msgs::Path;</span><br>  nav_msgs::msg::Path<br></code></pre></td></tr></table></figure>
+
+<p>还有一些别的ros接口稍微有点小变化：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">//    while (ros::ok())</span><br>    <span class="hljs-keyword">while</span> (rclcpp::ok<span class="hljs-literal">()</span>)<br><span class="hljs-comment">//    ros::spinOnce();</span><br>    rclcpp::spin<span class="hljs-constructor">_some(<span class="hljs-params">node</span>)</span>;<br><span class="hljs-comment">//    ROS_INFO(&quot;%s&quot;, msg.data.c_str());</span><br>    <span class="hljs-constructor">RCLCPP_INFO(<span class="hljs-params">node</span>-&gt;<span class="hljs-params">get_logger</span>()</span>, <span class="hljs-string">&quot;%s\n&quot;</span>, msg.data.c<span class="hljs-constructor">_str()</span>);<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="Colcon-build"><a href="#Colcon-build" class="headerlink" title="Colcon build"></a>Colcon build</h3><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> $<span class="hljs-params">(PATH_TO_YOUR_ROS2_WS)</span><span class="hljs-string">/src</span><br>git clone -b cuda https:<span class="hljs-string">//github.com/Jason-xy/VINS-Fusion.git</span><br><span class="hljs-keyword">cd</span> <span class="hljs-string">..</span><br>colcon build <span class="hljs-params">--symlink-install</span> <span class="hljs-params">--allow-overriding</span> cv_bridge<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a target="_blank" rel="noopener" href="https://docs.ros.org/en/foxy/The-ROS2-Project/Contributing/Migration-Guide.html">ROS迁移指南官方文档</a></p>
+<p>实例代码：VINS-Fusion <a target="_blank" rel="noopener" href="https://github.dev/Jason-xy/VINS-Fusion/tree/master/loop_fusion">ROS1</a> <a target="_blank" rel="noopener" href="https://github.dev/Jason-xy/VINS-Fusion/tree/cuda/loop_fusion">ROS2</a></p>
 
                 
               </div>
@@ -1377,12 +1439,12 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="category-chain-item">Linux</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/" class="category-chain-item">Robotics</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/ARM/" class="category-chain-item">ARM</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/System/" class="category-chain-item">System</a>
   
   
 
@@ -1401,9 +1463,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/raspberry-pi/">#raspberry-pi</a>
+        <a href="/tags/robotic/">#robotic</a>
       
-        <a href="/tags/swap/">#swap</a>
+        <a href="/tags/drone/">#drone</a>
+      
+        <a href="/tags/ROS/">#ROS</a>
+      
+        <a href="/tags/catkin/">#catkin</a>
+      
+        <a href="/tags/colcon/">#colcon</a>
       
     </div>
   
@@ -1415,8 +1483,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>树莓派的SWAP分区扩展</div>
-      <div>https://jason-xy.github.io/2020/06/raspi-swap/</div>
+      <div>将ros package从ros1迁移至ros2</div>
+      <div>https://jason-xy.github.io/2022/12/Migration-from-ROS1-to-ROS2/</div>
     </div>
     <div class="license-meta">
       
@@ -1428,7 +1496,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2020年6月27日</div>
+          <div>2022年12月12日</div>
         </div>
       
       
@@ -1460,18 +1528,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/raspi-kde/" title="树莓派的KDE桌面安装">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">树莓派的KDE桌面安装</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/06/icoding-avl/" title="「Icoding题解」平衡二叉树(AVL)的插入算法">
-                        <span class="hidden-mobile">「Icoding题解」平衡二叉树(AVL)的插入算法</span>
+                      <a href="/2022/12/Jetpack-Perf-install-and-test/" title="Jetpack(L4T) Perf性能分析工具安装及测试">
+                        <span class="hidden-mobile">Jetpack(L4T) Perf性能分析工具安装及测试</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
