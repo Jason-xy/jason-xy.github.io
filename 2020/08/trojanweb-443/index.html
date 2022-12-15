@@ -18,15 +18,15 @@
   <meta name="author" content="Jason Hsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="准备1、VPS一台内存最好1GB左右，重置任意可安装宝塔面板的系统（建站推荐CentOS7X以上，或者是CentOS8X） 2、一级域名一个做好相应的解析（今天作者解析的域名为：jason-xy.online | www.jason-xy.online） （分别解析主域名和www的二级域名到VPS主机。） 预期效果我们访问 jason-xy.online 及 www.jason-xy.online">
+    <meta name="description" content="一键脚本安装 source &lt;(curl -sL https:&#x2F;&#x2F;git.io&#x2F;trojan-install) shanchu source &lt;(curl -sL https:&#x2F;&#x2F;git.io&#x2F;trojan-install) --remove 准备1、VPS一台内存最好1GB左右，重置任意可安装宝塔面板的系统（建站推荐CentOS7X以上，或者是CentOS8X） 2、一级域名一个做好">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Trojan+web 443端口复用配置">
 <meta property="og:url" content="https://jason-xy.github.io/2020/08/trojanweb-443/index.html">
 <meta property="og:site_name" content="The Road to Full Stack">
-<meta property="og:description" content="准备1、VPS一台内存最好1GB左右，重置任意可安装宝塔面板的系统（建站推荐CentOS7X以上，或者是CentOS8X） 2、一级域名一个做好相应的解析（今天作者解析的域名为：jason-xy.online | www.jason-xy.online） （分别解析主域名和www的二级域名到VPS主机。） 预期效果我们访问 jason-xy.online 及 www.jason-xy.online">
+<meta property="og:description" content="一键脚本安装 source &lt;(curl -sL https:&#x2F;&#x2F;git.io&#x2F;trojan-install) shanchu source &lt;(curl -sL https:&#x2F;&#x2F;git.io&#x2F;trojan-install) --remove 准备1、VPS一台内存最好1GB左右，重置任意可安装宝塔面板的系统（建站推荐CentOS7X以上，或者是CentOS8X） 2、一级域名一个做好">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-11T07:28:28.000Z">
-<meta property="article:modified_time" content="2022-12-15T09:22:13.867Z">
+<meta property="article:modified_time" content="2022-12-15T16:41:11.733Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="proxy">
 <meta property="article:tag" content="trojan">
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.3k 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          35 分钟
+          36 分钟
         
       </span>
     
@@ -452,7 +452,11 @@
             
               <div class="markdown-body">
                 
-                <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>1、VPS一台内存最好1GB左右，重置任意可安装宝塔面板的系统（建站推荐CentOS7X以上，或者是CentOS8X）</p>
+                <h2 id="一键脚本"><a href="#一键脚本" class="headerlink" title="一键脚本"></a>一键脚本</h2><p>安装</p>
+<p><code>source &lt;(curl -sL https://git.io/trojan-install)</code></p>
+<p>shanchu</p>
+<p><code>source &lt;(curl -sL https://git.io/trojan-install) --remove</code></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>1、VPS一台内存最好1GB左右，重置任意可安装宝塔面板的系统（建站推荐CentOS7X以上，或者是CentOS8X）</p>
 <p>2、一级域名一个做好相应的解析（今天作者解析的域名为：jason-xy.online | <a target="_blank" rel="noopener" href="http://www.jason-xy.online)/">www.jason-xy.online）</a></p>
 <p>（分别解析主域名和www的二级域名到VPS主机。）</p>
 <h2 id="预期效果"><a href="#预期效果" class="headerlink" title="预期效果"></a>预期效果</h2><p>我们访问 jason-xy.online 及 <a target="_blank" rel="noopener" href="http://www.jason-xy.online/">www.jason-xy.online</a> 均能使用 https 的方式，也就是正常访问我们的博客。</p>
