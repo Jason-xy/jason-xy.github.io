@@ -8,6 +8,15 @@ categories:
 - IT小技巧
 ---
 
+## 一键脚本
+安装
+
+`source <(curl -sL https://git.io/trojan-install)`
+
+shanchu
+
+`source <(curl -sL https://git.io/trojan-install) --remove`
+
 ## 准备
 
 1、VPS一台内存最好1GB左右，重置任意可安装宝塔面板的系统（建站推荐CentOS7X以上，或者是CentOS8X）
