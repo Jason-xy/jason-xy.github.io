@@ -18,25 +18,30 @@
   <meta name="author" content="Jason Hsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="SWAP分区简介Swap分区是磁盘上的一个特殊用途的分区。是当系统的物理内存不够用的时候，把物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap分区中，等到那些程序要运行时，再从Swap分区中恢复保存的数据到内存中。分配太多的Swap空间，会浪费磁盘空间，而Swap空间太少，则系统会发生错误。一般在内存">
+    <meta name="description" content="对于API相对稳定的ROS package通常会采用二进制发布的方式向社区项目提供支持，这里的二进制发布有许多可选的流程，最终的包形态也不尽相同，不同的包发布方式也各有优劣。当前较为主流的包发布方式还是以ROS社区的bloom+ros_buildfarm为主，但是很多特定场景下开发者们也可能通过snapshot&#x2F;bundle或者container的形式进行发布。最近为了解决上述发布形式的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派的SWAP分区扩展">
-<meta property="og:url" content="https://jason-xy.github.io/2020/06/raspi-swap/index.html">
+<meta property="og:title" content="ROS package发布工作流">
+<meta property="og:url" content="https://jason-xy.github.io/2022/12/ros-pkg-distro/index.html">
 <meta property="og:site_name" content="The Road to Full Stack">
-<meta property="og:description" content="SWAP分区简介Swap分区是磁盘上的一个特殊用途的分区。是当系统的物理内存不够用的时候，把物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap分区中，等到那些程序要运行时，再从Swap分区中恢复保存的数据到内存中。分配太多的Swap空间，会浪费磁盘空间，而Swap空间太少，则系统会发生错误。一般在内存">
+<meta property="og:description" content="对于API相对稳定的ROS package通常会采用二进制发布的方式向社区项目提供支持，这里的二进制发布有许多可选的流程，最终的包形态也不尽相同，不同的包发布方式也各有优劣。当前较为主流的包发布方式还是以ROS社区的bloom+ros_buildfarm为主，但是很多特定场景下开发者们也可能通过snapshot&#x2F;bundle或者container的形式进行发布。最近为了解决上述发布形式的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-27T15:12:00.000Z">
-<meta property="article:modified_time" content="2022-12-15T09:22:13.863Z">
+<meta property="og:image" content="https://s1.ax1x.com/2022/12/15/zTp380.png">
+<meta property="article:published_time" content="2022-12-15T01:09:59.000Z">
+<meta property="article:modified_time" content="2022-12-15T09:22:13.867Z">
 <meta property="article:author" content="Jason Hsu">
-<meta property="article:tag" content="raspberry-pi">
-<meta property="article:tag" content="swap">
+<meta property="article:tag" content="robotic">
+<meta property="article:tag" content="drone">
+<meta property="article:tag" content="ROS">
+<meta property="article:tag" content="catkin">
+<meta property="article:tag" content="colcon">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s1.ax1x.com/2022/12/15/zTp380.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>树莓派的SWAP分区扩展 - The Road to Full Stack</title>
+  <title>ROS package发布工作流 - The Road to Full Stack</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -206,7 +211,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">树莓派的SWAP分区扩展</span>
+            <span id="subtitle">ROS package发布工作流</span>
           
         </div>
 
@@ -222,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2020-06-27 23:12" pubdate>
-          2020年6月27日 晚上
+        <time datetime="2022-12-15 09:09" pubdate>
+          2022年12月15日 上午
         </time>
       </span>
     
@@ -234,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          688 字
+          3.1k 字
         
       </span>
     
@@ -245,7 +250,7 @@
         
         
         
-          6 分钟
+          26 分钟
         
       </span>
     
@@ -792,17 +797,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
         id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         Linux
         <span class="list-group-count">(17)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-edc9f0a5a5d57797bf68e37364743831"
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
            role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
         
         
@@ -819,17 +824,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ARM"
         id="heading-47f45e65244c17ec9fa8771a5c6d60e1" role="tab" data-toggle="collapse" href="#collapse-47f45e65244c17ec9fa8771a5c6d60e1"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         ARM
         <span class="list-group-count">(8)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+      <div class="category-collapse collapse " id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
            role="tabpanel" aria-labelledby="heading-47f45e65244c17ec9fa8771a5c6d60e1">
         
         
@@ -895,7 +900,7 @@
       
         <a href="/2020/06/raspi-swap/" title="树莓派的SWAP分区扩展"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">树莓派的SWAP分区扩展</span>
         </a>
       
@@ -1088,17 +1093,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Robotics"
         id="heading-c98c19727b6a8b8fcf6b4bf5ded39488" role="tab" data-toggle="collapse" href="#collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         Robotics
         <span class="list-group-count">(4)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+      <div class="category-collapse collapse show" id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
            role="tabpanel" aria-labelledby="heading-c98c19727b6a8b8fcf6b4bf5ded39488">
         
         
@@ -1152,17 +1157,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Syste"
         id="heading-5ab7f128bd6c32bb76f66a44765d6584" role="tab" data-toggle="collapse" href="#collapse-5ab7f128bd6c32bb76f66a44765d6584"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         Syste
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-5ab7f128bd6c32bb76f66a44765d6584"
+      <div class="category-collapse collapse show" id="collapse-5ab7f128bd6c32bb76f66a44765d6584"
            role="tabpanel" aria-labelledby="heading-5ab7f128bd6c32bb76f66a44765d6584">
         
         
@@ -1174,7 +1179,7 @@
       
         <a href="/2022/12/ros-pkg-distro/" title="ROS package发布工作流"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">ROS package发布工作流</span>
         </a>
       
@@ -1370,28 +1375,156 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">树莓派的SWAP分区扩展</h1>
+            <h1 style="display: none">ROS package发布工作流</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="SWAP分区简介"><a href="#SWAP分区简介" class="headerlink" title="SWAP分区简介"></a>SWAP分区简介</h2><p>Swap分区是磁盘上的一个特殊用途的分区。是当系统的物理内存不够用的时候，把物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap分区中，等到那些程序要运行时，再从Swap分区中恢复保存的数据到内存中。<br>分配太多的Swap空间，会浪费磁盘空间，而Swap空间太少，则系统会发生错误。一般在内存小于2G的情况下，交换分区应为内存的2倍。对于树莓派来说，可以设置为2GB。当然也需要考虑 microSD 卡容量和使用情况。</p>
-<h2 id="扩展方法"><a href="#扩展方法" class="headerlink" title="扩展方法"></a>扩展方法</h2><h3 id="1-程序安装"><a href="#1-程序安装" class="headerlink" title="1.程序安装"></a>1.程序安装</h3><p>如果系统默认没有SWAP，则需要手动建立，不过推荐这个自动设置SWAP的软件——dphys-swapfile。</p>
-<p>安装 dphys-swapfile：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install dphys-swapfile<br></code></pre></td></tr></table></figure>
-
-<p><em>此软件会默认设置RAM两倍大小的SWAP分区</em>。</p>
-<h3 id="2-程序配置"><a href="#2-程序配置" class="headerlink" title="2.程序配置"></a>2.程序配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/dphys-swapfile<br></code></pre></td></tr></table></figure>
-
-<p>将 CONF_SWAPSIZE 的值修改成你想要的大小。 一般在内存小于2G的情况下，交换分区应为内存的2倍!</p>
-<h3 id="3-重启服务"><a href="#3-重启服务" class="headerlink" title="3.重启服务"></a>3.重启服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /etc/init.d/dphys-swapfile restart<br></code></pre></td></tr></table></figure>
-
-<h3 id="4-查看分区大小"><a href="#4-查看分区大小" class="headerlink" title="4.查看分区大小"></a>4.查看分区大小</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">free -h<br></code></pre></td></tr></table></figure>
-
-<p>你会看到以下内容：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pi</span>@raspbian:~$ free -h<br>              <span class="hljs-attribute">total</span>        used        free      shared  buff/cache   available<br><span class="hljs-attribute">Mem</span>:          <span class="hljs-number">1</span>.<span class="hljs-number">9</span>Gi       <span class="hljs-number">929</span>Mi       <span class="hljs-number">681</span>Mi       <span class="hljs-number">0</span>.<span class="hljs-number">0</span>Ki       <span class="hljs-number">288</span>Mi       <span class="hljs-number">877</span>Mi<br><span class="hljs-attribute">Swap</span>:         <span class="hljs-number">3</span>.<span class="hljs-number">0</span>Gi       <span class="hljs-number">137</span>Mi       <span class="hljs-number">2</span>.<span class="hljs-number">9</span>Gi<br></code></pre></td></tr></table></figure>
-
-<p>SWAP即为你设置的SWAP分区信息。</p>
+                <p>对于API相对稳定的ROS package通常会采用二进制发布的方式向社区项目提供支持，这里的二进制发布有许多可选的流程，最终的包形态也不尽相同，不同的包发布方式也各有优劣。当前较为主流的包发布方式还是以ROS社区的bloom+ros_buildfarm为主，但是很多特定场景下开发者们也可能通过snapshot&#x2F;bundle或者container的形式进行发布。最近为了解决上述发布形式的一些问题也有开发者提出了基于nix的发布方式，以及结合C++包管理工具Conan进行发布的一系列方法。</p>
+<h2 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h2><h3 id="当前常见包发布流程特点"><a href="#当前常见包发布流程特点" class="headerlink" title="当前常见包发布流程特点"></a>当前常见包发布流程特点</h3><table>
+<thead>
+<tr>
+<th>bloom+ros_buildfarm</th>
+<th>snapshot&#x2F;bundle&#x2F;container</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>支持增量构建</td>
+<td>环境版本化，可回退</td>
+</tr>
+<tr>
+<td>强制要求每次发布打tag</td>
+<td>编译资源、存储资源网络资源消耗巨大</td>
+</tr>
+<tr>
+<td>对于下游项目缺乏系统集成后的版本管理</td>
+<td>没有统一工具集</td>
+</tr>
+<tr>
+<td>无回退流程</td>
+<td></td>
+</tr>
+<tr>
+<td>发布为.deb存入apt源</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>上述发布流程中大部分情况只对模块本身进行自测，将集成测试推后，模块自身API的稳定性和向前兼容性是二进制版本发布的前提。</p>
+<h3 id="可能的包发布流程需求"><a href="#可能的包发布流程需求" class="headerlink" title="可能的包发布流程需求"></a>可能的包发布流程需求</h3><ul>
+<li>支持增量构建</li>
+<li>环境版本化，可回退</li>
+<li>统一的框架和工具集</li>
+</ul>
+<h3 id="可能难以解决的问题"><a href="#可能难以解决的问题" class="headerlink" title="可能难以解决的问题"></a>可能难以解决的问题</h3><p>对于二进制集成的迭代模式，下游项目通常选择可用版本进行集成，放在末端项目级别来考虑的话如果涉及对已发布包的变更和再次发布的需求，往往相比于直接源码集成迭代周期会被出包+验证流程拉长。</p>
+<h2 id="ROS-Build-Farm"><a href="#ROS-Build-Farm" class="headerlink" title="ROS Build Farm"></a>ROS Build Farm</h2><p>ROS Build Farm 是支持 ROS 生态系统的重要基础设施之一。它提供源代码和二进制包的构建、持续集成、测试和分析。它旨在满足公共 ROS 社区的需求，并且在 <a target="_blank" rel="noopener" href="http://build.ros.org/">http://build.ros.org/</a> 上有一个开源包的托管实例。</p>
+<p>ROS Build Farm 还旨在支持部署自定义构建农场。这对于发布闭源包、为官方 ROS 构建农场未提供的平台和架构构建或根据特定需求定制过程的场景很有用。</p>
+<p>构建的各项工作主要由 Jenkins 实例完成。当然还有其他人将这些工具与 Build Bot 一起使用。ROS Build Farm 的设计目标是大部分基础设施是模块化的和可重用的。</p>
+<h3 id="release准备"><a href="#release准备" class="headerlink" title="release准备"></a>release准备</h3><p>更新源码仓库change log：<code>b</code></p>
+<p>更新源码仓库版本、tag信息，并push至release仓库： <code>catkin_prepare_release</code></p>
+<p>更新release仓库，准备进行新的一次release：<code>bloom-release</code></p>
+<p>bloom会自动向rosdistro仓库提交pr，以vision_opencv的一次release为例：</p>
+<blockquote>
+<h2 id="vision-opencv-foxy-3-0-7-1"><a href="#vision-opencv-foxy-3-0-7-1" class="headerlink" title="vision_opencv (foxy) - 3.0.7-1"></a>vision_opencv (foxy) - 3.0.7-1</h2><p>The packages in the <code>vision_opencv</code> repository were released into the <code>foxy</code> distro by running <code>/usr/bin/bloom-release --rosdistro foxy vision_opencv</code> on <code>Sat, 15 Oct 2022 13:19:59 -0000</code></p>
+<p><strong>These packages were released:</strong></p>
+<ul>
+<li><code>cv_bridge</code></li>
+<li><code>image_geometry</code></li>
+<li><code>vision_opencv</code></li>
+</ul>
+<p><strong>These packages were explicitly ignored:</strong></p>
+<ul>
+<li><code>opencv_tests</code></li>
+</ul>
+<p>Version of package(s) in repository <code>vision_opencv</code>:</p>
+<ul>
+<li>upstream repository: <a target="_blank" rel="noopener" href="https://github.com/ros-perception/vision_opencv.git">https://github.com/ros-perception/vision_opencv.git</a></li>
+<li>release repository: <a target="_blank" rel="noopener" href="https://github.com/ros2-gbp/vision_opencv-release.git">https://github.com/ros2-gbp/vision_opencv-release.git</a></li>
+<li>rosdistro version: <code>3.0.6-1</code></li>
+<li>old version: <code>3.0.6-1</code></li>
+<li>new version: <code>3.0.7-1</code></li>
+</ul>
+<p><strong>Versions of tools used:</strong></p>
+<ul>
+<li>bloom version:  <code>0.11.2</code></li>
+<li>catkin_pkg version: <code>0.5.2</code></li>
+<li>rosdep version: <code>0.22.1</code></li>
+<li>rosdistro version: <code>0.9.0</code></li>
+<li>vcstools version: <code>0.1.42</code></li>
+</ul>
+</blockquote>
+<h3 id="编译农场"><a href="#编译农场" class="headerlink" title="编译农场"></a>编译农场</h3><p><strong>rosdistro_cache job</strong></p>
+<p>每五分钟同步一次ros&#x2F;rosdistro的变更</p>
+<p>gzip压缩后的yaml文件包含：</p>
+<ul>
+<li>distribution_file：ros&#x2F;rosdistro中的distribution_file拷贝</li>
+<li>release_repo_package_xmls：当前发布的包版本中的 package.xml 内容</li>
+<li>source_repo_package_xmls：空，获取源package.xml比较棘手</li>
+<li>name：分发包名</li>
+<li>type, version：REP-141 格式的信息</li>
+</ul>
+<p>job内容：</p>
+<ol>
+<li>生成一个新的 rosdistro 缓存文件并将其上传到存储库主机</li>
+<li>每五分钟运行一次</li>
+<li>通过HTTPS轮询distribution.yaml 更改</li>
+<li>由于 CDN 缓存，更改有时会滞后</li>
+<li>触发器为更新的包重新配置作业</li>
+</ol>
+<p><strong>reconfigure job</strong></p>
+<p>rosdistro_cache job拉取变更后将会触发包变更的版本分发配置</p>
+<ul>
+<li>每次job对应ros_buildfarm_config中的一个构建文件</li>
+<li>使用发布构建配置和ros_buildfarm模板为每个包生成一个sourcepkg和binarypkg job</li>
+<li>当由rosdistro缓存触发以更新更改的包时运行</li>
+<li>每24小时运行一次以保持job配置最新</li>
+</ul>
+<p><strong>release trigger job</strong></p>
+<ul>
+<li>每次job对应ros_buildfarm_config中的一个构建文件</li>
+<li>将构建存储库中的包与基于rosdistro缓存的预期包进行比较，并触发sourcepkg和binarypkg job来实施变更</li>
+</ul>
+<p>job参数</p>
+<p>missing only – 为存储库中不存在的包触发job</p>
+<p>source only – 仅触发源码包的job； 当需要在重建二进制文件之前更新源码包时很有用</p>
+<p>packaging job</p>
+<p>每15分钟执行一次发生变更的包的打包</p>
+<p><strong>source package job</strong></p>
+<ul>
+<li>根据ros2-gbp仓库中的平台元数据拉取包的源码，并创建不同平台的源码包（Ubuntu&#x2F;Fedora），同时上传至构建仓库</li>
+<li>不使用colcon、rosdep、bloom 等ROS 工具。 此时所有包信息都已呈现为特定于发行版的格式</li>
+<li>成功构建将触发二进制包构建，用于从创建的源码包生成的所有二进制包</li>
+<li>导入新的源码包时删除旧的二进制包</li>
+</ul>
+<p><strong>binary package job</strong></p>
+<ul>
+<li>从构建存储库中获取源代码</li>
+<li>安装构建依赖项</li>
+<li>将创建的二进制包上传到构建存储库</li>
+<li>不使用colcon、rosdep、bloom 等ROS 工具。 此时所有包信息都已呈现为特定于发行版的格式</li>
+<li>成功的构建将使新构建的二进制包导入构建存储库并使其下游的所有包无效</li>
+</ul>
+<p><strong>包失效</strong></p>
+<ul>
+<li>删除所有递归依赖于新重建包的包</li>
+<li>防止生产环境中的ABI被破坏</li>
+<li>API更改时对下游包的即时反馈</li>
+</ul>
+<p><strong>同步任务</strong></p>
+<p><strong>sync to testing job</strong></p>
+<ul>
+<li>从测试存储库中删除所有与job rosdistro、平台版本和体系结构相匹配的 ROS 包，以及相关的源码包</li>
+<li>从符合相同条件的构建库中导入所有ROS包</li>
+<li>当不再有出包的job时，包将被删除</li>
+<li>所有出二进制包和源代码包job都会block测试job，因此这些job只在完全重新构建时执行</li>
+<li>设置了自动阈值以防止缺陷版本清除测试存储库</li>
+</ul>
+<p><strong>sync to main job</strong></p>
+<ul>
+<li>从main存储库中删除所有与job rosdistro、平台版本和体系结构相匹配的 ROS 包，以及相关的源码包</li>
+<li>只会由ros核心团队手动执行</li>
+</ul>
+<p><strong>发布流程全景图</strong></p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/zTp380"><img src="https://s1.ax1x.com/2022/12/15/zTp380.png" srcset="/img/loading.gif" lazyload></a></p>
 
                 
               </div>
@@ -1415,12 +1548,12 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="category-chain-item">Linux</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/" class="category-chain-item">Robotics</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/ARM/" class="category-chain-item">ARM</a>
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/Syste/" class="category-chain-item">Syste</a>
   
   
 
@@ -1439,9 +1572,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/raspberry-pi/">#raspberry-pi</a>
+        <a href="/tags/robotic/">#robotic</a>
       
-        <a href="/tags/swap/">#swap</a>
+        <a href="/tags/drone/">#drone</a>
+      
+        <a href="/tags/ROS/">#ROS</a>
+      
+        <a href="/tags/catkin/">#catkin</a>
+      
+        <a href="/tags/colcon/">#colcon</a>
       
     </div>
   
@@ -1453,8 +1592,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>树莓派的SWAP分区扩展</div>
-      <div>https://jason-xy.github.io/2020/06/raspi-swap/</div>
+      <div>ROS package发布工作流</div>
+      <div>https://jason-xy.github.io/2022/12/ros-pkg-distro/</div>
     </div>
     <div class="license-meta">
       
@@ -1466,7 +1605,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2020年6月27日</div>
+          <div>2022年12月15日</div>
         </div>
       
       
@@ -1498,18 +1637,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/raspi-kde/" title="树莓派的KDE桌面安装">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">树莓派的KDE桌面安装</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/06/icoding-avl/" title="「Icoding题解」平衡二叉树(AVL)的插入算法">
-                        <span class="hidden-mobile">「Icoding题解」平衡二叉树(AVL)的插入算法</span>
+                      <a href="/2022/12/Migration-from-ROS1-to-ROS2/" title="将ros package从ros1迁移至ros2">
+                        <span class="hidden-mobile">将ros package从ros1迁移至ros2</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
