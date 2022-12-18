@@ -6,7 +6,7 @@ tags: ['robotic', 'drone', 'ROS', 'catkin', 'colcon']
 categories:
 - 技术
 - Robotics
-- Syste
+- System
 ---
 对于API相对稳定的ROS package通常会采用二进制发布的方式向社区项目提供支持，这里的二进制发布有许多可选的流程，最终的包形态也不尽相同，不同的包发布方式也各有优劣。当前较为主流的包发布方式还是以ROS社区的bloom+ros_buildfarm为主，但是很多特定场景下开发者们也可能通过snapshot/bundle或者container的形式进行发布。最近为了解决上述发布形式的一些问题也有开发者提出了基于nix的发布方式，以及结合C++包管理工具Conan进行发布的一系列方法。
 
