@@ -166,4 +166,4 @@ packaging job
 
 **发布流程全景图**
 
-[![](https://s1.ax1x.com/2022/12/15/zTp380.png)](https://imgse.com/i/zTp380)
+![](https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202212182314038.png)
