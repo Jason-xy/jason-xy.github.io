@@ -1,0 +1,1876 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tab.jpg">
+  <link rel="icon" href="/img/tab.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason Hsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="当前ROS2已经成为了应用最为广泛的机器人应用程序开发SDK之一，它拥有先进的分布式架构、更好的可靠性、实时性以及嵌入式设备支持。ROS2的诞生主要源于以下三个方面：  ROS1的历史遗留问题 机器人技术经过多年的发展产生了新的需求 在ROS发展的时间里产生了很多新的技术  History from ROS to ROS2 ROS最初的设计是为了给使用Willow Garage PR2机器人进行研">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction of ROS2">
+<meta property="og:url" content="https://jason-xy.github.io/2023/02/ros2-intro/index.html">
+<meta property="og:site_name" content="The Road to Full Stack">
+<meta property="og:description" content="当前ROS2已经成为了应用最为广泛的机器人应用程序开发SDK之一，它拥有先进的分布式架构、更好的可靠性、实时性以及嵌入式设备支持。ROS2的诞生主要源于以下三个方面：  ROS1的历史遗留问题 机器人技术经过多年的发展产生了新的需求 在ROS发展的时间里产生了很多新的技术  History from ROS to ROS2 ROS最初的设计是为了给使用Willow Garage PR2机器人进行研">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://robots.ieee.org/robots/pr2/Photos/SD/pr2-photo1-full.jpg">
+<meta property="og:image" content="https://www.circuspi.com/wp-content/uploads/2022/09/1.png">
+<meta property="og:image" content="https://www.circuspi.com/wp-content/uploads/2022/09/2.png">
+<meta property="article:published_time" content="2023-02-07T19:40:37.000Z">
+<meta property="article:modified_time" content="2023-02-08T17:28:55.631Z">
+<meta property="article:author" content="Jason Hsu">
+<meta property="article:tag" content="colcon">
+<meta property="article:tag" content="ROS2">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://robots.ieee.org/robots/pr2/Photos/SD/pr2-photo1-full.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Introduction of ROS2 - The Road to Full Stack</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3795310_i6hu1zbbt5s.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jason-xy.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home",404]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>The Road of Full Stack</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-guanli"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/self/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-friends"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Introduction of ROS2</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Jason Hsu
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-08 03:40" pubdate>
+          2023年2月8日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="技术"
+        id="heading-a95dd3e179418be1ecd2a719a22db70e" role="tab" data-toggle="collapse" href="#collapse-a95dd3e179418be1ecd2a719a22db70e"
+        aria-expanded="true"
+      >
+        技术
+        <span class="list-group-count">(55)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a95dd3e179418be1ecd2a719a22db70e"
+           role="tabpanel" aria-labelledby="heading-a95dd3e179418be1ecd2a719a22db70e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="false"
+      >
+        Algorithm
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/bpnn/" title="BP神经网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">BP神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/pnn/" title="感知器（神经网络模型）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">感知器（神经网络模型）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/recursion-tail/" title="尾递归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">尾递归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/coin/" title="概率生成问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率生成问题</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="OJ"
+        id="heading-d62c64b8415b88b69d6076336d525c08" role="tab" data-toggle="collapse" href="#collapse-d62c64b8415b88b69d6076336d525c08"
+        aria-expanded="false"
+      >
+        OJ
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d62c64b8415b88b69d6076336d525c08"
+           role="tabpanel" aria-labelledby="heading-d62c64b8415b88b69d6076336d525c08">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/icoding-create-hash/" title="「Icoding题解」哈希表创建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表创建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-hash-add-int/" title="「Icoding题解」哈希表添加"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」哈希表添加</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/icoding-avl/" title="「Icoding题解」平衡二叉树(AVL)的插入算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「Icoding题解」平衡二叉树(AVL)的插入算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-28/" title="「LeetCode」—— 28.实现 strStr() —KMP算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」—— 28.实现 strStr() —KMP算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-136/" title="「LeetCode」——136.只出现一次的数字"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——136.只出现一次的数字</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-217/" title="「LeetCode」——217.存在重复元素"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——217.存在重复元素</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-278/" title="「LeetCode」——278. 第一个错误的版本（二分查找）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——278. 第一个错误的版本（二分查找）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/leetcode-8/" title="「LeetCode」——8.字符串转换整数 (atoi)"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">「LeetCode」——8.字符串转换整数 (atoi)</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Course"
+        id="heading-3730c9866421d81473613698c0c0ac4f" role="tab" data-toggle="collapse" href="#collapse-3730c9866421d81473613698c0c0ac4f"
+        aria-expanded="false"
+      >
+        Course
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3730c9866421d81473613698c0c0ac4f"
+           role="tabpanel" aria-labelledby="heading-3730c9866421d81473613698c0c0ac4f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/05/eosreview/" title="和廖老师一起学嵌入式操作系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和廖老师一起学嵌入式操作系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/osreview/" title="计算机操作系统重点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机操作系统重点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/11/csp-review/" title="计算机组成原理复习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机组成原理复习</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CUDA"
+        id="heading-a33b7755e5f9b504d2d038eaca4ff28d" role="tab" data-toggle="collapse" href="#collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+        aria-expanded="false"
+      >
+        CUDA
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a33b7755e5f9b504d2d038eaca4ff28d"
+           role="tabpanel" aria-labelledby="heading-a33b7755e5f9b504d2d038eaca4ff28d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-l4t-ubuntu/" title="CUDA on Arm - L4t ubuntu基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - L4t ubuntu基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-memory/" title="CUDA on Arm - 存储单元"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 存储单元</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-parallelcomputing/" title="CUDA on Arm - 并行计算基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 并行计算基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-thread/" title="CUDA on Arm - 线程层次"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm - 线程层次</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/cuda-on-arm-gpuhardware/" title="CUDA on Arm-GPU硬件架构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CUDA on Arm-GPU硬件架构</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Embedded"
+        id="heading-069e7821d3b4c0bbf437147263eb4d0e" role="tab" data-toggle="collapse" href="#collapse-069e7821d3b4c0bbf437147263eb4d0e"
+        aria-expanded="false"
+      >
+        Embedded
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-069e7821d3b4c0bbf437147263eb4d0e"
+           role="tabpanel" aria-labelledby="heading-069e7821d3b4c0bbf437147263eb4d0e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hardware"
+        id="heading-3c02a379965ab0dfcd77b1c484450433" role="tab" data-toggle="collapse" href="#collapse-3c02a379965ab0dfcd77b1c484450433"
+        aria-expanded="false"
+      >
+        Hardware
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3c02a379965ab0dfcd77b1c484450433"
+           role="tabpanel" aria-labelledby="heading-3c02a379965ab0dfcd77b1c484450433">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/ad-stm32/" title="AD学习——STM32F103C8T6实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——STM32F103C8T6实战</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/09/ad20-learn/" title="AD学习——基本简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AD学习——基本简介</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Software"
+        id="heading-719d067b229178f03bcfa1da4ac4dede" role="tab" data-toggle="collapse" href="#collapse-719d067b229178f03bcfa1da4ac4dede"
+        aria-expanded="false"
+      >
+        Software
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-719d067b229178f03bcfa1da4ac4dede"
+           role="tabpanel" aria-labelledby="heading-719d067b229178f03bcfa1da4ac4dede">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/09/keil-1/" title="keil上手"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">keil上手</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ARM"
+        id="heading-47f45e65244c17ec9fa8771a5c6d60e1" role="tab" data-toggle="collapse" href="#collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+        aria-expanded="false"
+      >
+        ARM
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-47f45e65244c17ec9fa8771a5c6d60e1"
+           role="tabpanel" aria-labelledby="heading-47f45e65244c17ec9fa8771a5c6d60e1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/06/raspi-vpn/" title="Ras-Pi的VPN设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ras-Pi的VPN设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vs-code-pi/" title="使用VS Code远程开发树莓派"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用VS Code远程开发树莓派</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-source/" title="树莓派(Raspberry Pi)资源大全中文版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派(Raspberry Pi)资源大全中文版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-opencv/" title="树莓派安装OpenCV-4.3.0+Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装OpenCV-4.3.0+Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/raspi-config-sd/" title="树莓派安装raspi-config扩展SD卡空间"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派安装raspi-config扩展SD卡空间</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-kde/" title="树莓派的KDE桌面安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的KDE桌面安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-swap/" title="树莓派的SWAP分区扩展"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派的SWAP分区扩展</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/raspi-flash-os/" title="树莓派系统镜像烧写"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派系统镜像烧写</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Basic"
+        id="heading-972e73b7a882d0802a4e3a16946a2f94" role="tab" data-toggle="collapse" href="#collapse-972e73b7a882d0802a4e3a16946a2f94"
+        aria-expanded="false"
+      >
+        Basic
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-972e73b7a882d0802a4e3a16946a2f94"
+           role="tabpanel" aria-labelledby="heading-972e73b7a882d0802a4e3a16946a2f94">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/06/c-compile-speedup/" title="C/C++通用构建加速方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C/C++通用构建加速方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/linuxprocessesmanagement/" title="Linux进程管理-随笔记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux进程管理-随笔记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/08/detail-of-void/" title="void*是怎样的存在？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">void*是怎样的存在？</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/01/pc2jetpack/" title="PC模拟Jetson（Jetpack）运行环境"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PC模拟Jetson（Jetpack）运行环境</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/ubuntu-nvidia/" title="Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ubuntu20.04下安装Cuda11.0+Nvidia-440+Cudnn7.1.4+Tensorflow1.9</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/manjaro-ifly/" title="manjaro 切换国内源及中文输入法安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">manjaro 切换国内源及中文输入法安装</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Usage"
+        id="heading-c64518704ce0c0d5501a45763f464276" role="tab" data-toggle="collapse" href="#collapse-c64518704ce0c0d5501a45763f464276"
+        aria-expanded="false"
+      >
+        Usage
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c64518704ce0c0d5501a45763f464276"
+           role="tabpanel" aria-labelledby="heading-c64518704ce0c0d5501a45763f464276">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/12/Jetpack-Perf-install-and-test/" title="Jetpack(L4T) Perf性能分析工具安装及测试"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jetpack(L4T) Perf性能分析工具安装及测试</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/frp/" title="frp内网穿透方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">frp内网穿透方案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/linux-wifi/" title="linux 命令行下配置 wlan 无线网卡"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux 命令行下配置 wlan 无线网卡</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Robotics"
+        id="heading-c98c19727b6a8b8fcf6b4bf5ded39488" role="tab" data-toggle="collapse" href="#collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+        aria-expanded="true"
+      >
+        Robotics
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-c98c19727b6a8b8fcf6b4bf5ded39488"
+           role="tabpanel" aria-labelledby="heading-c98c19727b6a8b8fcf6b4bf5ded39488">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="ENV"
+        id="heading-84b2faa3b60428ae499f9c6672c1123d" role="tab" data-toggle="collapse" href="#collapse-84b2faa3b60428ae499f9c6672c1123d"
+        aria-expanded="false"
+      >
+        ENV
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-84b2faa3b60428ae499f9c6672c1123d"
+           role="tabpanel" aria-labelledby="heading-84b2faa3b60428ae499f9c6672c1123d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/intel-t265-ros-jetson-with-cuda/" title="Intel T265 + ROS视觉里程计搭建——Jetson平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Intel T265 + ROS视觉里程计搭建——Jetson平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Syste"
+        id="heading-5ab7f128bd6c32bb76f66a44765d6584" role="tab" data-toggle="collapse" href="#collapse-5ab7f128bd6c32bb76f66a44765d6584"
+        aria-expanded="true"
+      >
+        Syste
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5ab7f128bd6c32bb76f66a44765d6584"
+           role="tabpanel" aria-labelledby="heading-5ab7f128bd6c32bb76f66a44765d6584">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/02/ros2-intro/" title="Introduction of ROS2"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Introduction of ROS2</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="System"
+        id="heading-a45da96d0bf6575970f2d27af22be28a" role="tab" data-toggle="collapse" href="#collapse-a45da96d0bf6575970f2d27af22be28a"
+        aria-expanded="false"
+      >
+        System
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a45da96d0bf6575970f2d27af22be28a"
+           role="tabpanel" aria-labelledby="heading-a45da96d0bf6575970f2d27af22be28a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/12/ros-pkg-distro/" title="ROS package发布工作流"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROS package发布工作流</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/11/wuhutakeoff-v1-0/" title="四轴飞行器设计之系统集成"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">四轴飞行器设计之系统集成</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/12/Migration-from-ROS1-to-ROS2/" title="将ros package从ros1迁移至ros2"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">将ros package从ros1迁移至ros2</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2020/07/docker-compose/" title="Docker Compose部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker Compose部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/docker-portainer/" title="Docker部署及Portainer可视化面板搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker部署及Portainer可视化面板搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/vultr-vps/" title="Vultr VPS-服务器地址（机房）选择方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vultr VPS-服务器地址（机房）选择方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cdn/" title="WordPress全站优化策略——CDN加速配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——CDN加速配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/wp-cos/" title="WordPress全站优化策略——COS配置策略"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WordPress全站优化策略——COS配置策略</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/06/wordpress-docker/" title="使用docker部署WordPress"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用docker部署WordPress</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-nextcloud/" title="使用树莓派搭建私有云盘"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用树莓派搭建私有云盘</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cosfs/" title="挂载COS为本地磁盘——COSFS工具配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">挂载COS为本地磁盘——COSFS工具配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/raspi-bt/" title="树莓派部署宝塔面板+LAMP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">树莓派部署宝塔面板+LAMP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2020/07/cos-ftp/" title="腾讯云COS-FTP部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">腾讯云COS-FTP部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Introduction of ROS2</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>当前ROS2已经成为了应用最为广泛的机器人应用程序开发SDK之一，它拥有先进的分布式架构、更好的可靠性、实时性以及嵌入式设备支持。ROS2的诞生主要源于以下三个方面：</p>
+<ol>
+<li>ROS1的历史遗留问题</li>
+<li>机器人技术经过多年的发展产生了新的需求</li>
+<li>在ROS发展的时间里产生了很多新的技术</li>
+</ol>
+<h1 id="History-from-ROS-to-ROS2"><a href="#History-from-ROS-to-ROS2" class="headerlink" title="History from ROS to ROS2"></a>History from ROS to ROS2</h1><p><img src="https://robots.ieee.org/robots/pr2/Photos/SD/pr2-photo1-full.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>ROS最初的设计是为了给使用Willow Garage PR2机器人进行研究的项目或实验室提供便于使用的软件开发工具。为了提高系统的通用性，开发团队在抽象层花了很多功夫，特别的消息接口的设计与实现上。因此ROS具有了极高的复用性，大部分组件也可以用在其他大部分的机器人应用程序中。但是在当时ROS诞生的时期，也主要是面向学术研究使用，研究人员的主要需求也就如下一些内容：</p>
+<ol>
+<li>应用于单个机器人</li>
+<li>拥有工作站级别的计算资源</li>
+<li>基本没有实时性要求（有实时性要求的组件会有特定的解决方案）</li>
+<li>高性能的网络连接能力（大带宽的有线或近距离无线连接）</li>
+<li>主要应用于学术研究，最大化灵活性，没有任何限制和约束</li>
+</ol>
+<p>这些特性在ROS中都有着不错的实现，能比较完美地满足之前所提出的需求。但是ROS得发展远远超出了开发团队得预期，无论是轮式机器人、足式机器人甚至是工业机械臂等商业产品和项目都在应用ROS框架进行软件开发。随着应用场景的日益增加，也就伴随了新需求和新技术。</p>
+<p>如今新的场景与需求：</p>
+<ol>
+<li>集群机器人开发（当前也有许多开发者使用ROS进行集群开发，但是业内目前没有统一的标准，大部分开发者也只是在ROS当前的单master节点上进行hack）</li>
+<li>对于嵌入式设备的支持（让裸板的嵌入式设备原生接入ROS，而不是通过上位机的驱动接入）</li>
+<li>实时性要求（在ROS上原生支持实时控制，而不用像之前一样通过特定的组件）</li>
+<li>非理想网络条件（用来应对延迟、丢包、断连的场景）</li>
+<li>应对生产环境（更好的稳定性和真实环境中的鲁棒性）</li>
+<li>构建系统的规范与限制（在保持灵活性的同时让系统或配置更有条理）</li>
+</ol>
+<h1 id="New-technologies"><a href="#New-technologies" class="headerlink" title="New technologies"></a>New technologies</h1><p>ROS2依然是围绕着最核心的匿名消息发布和订阅机制进行起草的，在ROS1的基础上引入了许多新技术来满足新的需求，例如：</p>
+<ul>
+<li>Zeroconf（零网络配置，用于快速组网）</li>
+<li>Protocol Buffers（跨平台序列化数据结构的协议）</li>
+<li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/ros_with_zeromq.html">ZeroMQ</a> (and the other MQs)（异步消息传递库，应用于分布式或并发应用程序）</li>
+<li>Redis（分布式高性能缓存服务）</li>
+<li>WebSockets</li>
+<li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/ros_on_dds.html">DDS</a> (Data Distribution Service)（实时数据分发服务）</li>
+</ul>
+<h1 id="Build-Tool"><a href="#Build-Tool" class="headerlink" title="Build Tool"></a>Build Tool</h1><p>在ROS生态中，应用程序通常被分割为许多软件包，开发人员同时处理多个软件包的场景也是很常见的。这与传统的软件开发流程中开发者只面对一个软件包，并一次性提供所有需要依赖的软件包（这部分依赖通常没有迭代）的场景形成了鲜明对比。</p>
+<p>构建一组软件包的“手动”方法包括逐一构建所有软件包。对于每个软件包如何管理相互之间的依赖关系，如何设置环境以构建软件包，以及如何在之后设置环境以使用软件包。如果没有自动化该过程的工具，这样的工作流程在规模化开发时是不切实际的。</p>
+<p>在ROS1中有多个工具提供以上流程的自动化支持，即<code>catkin_make</code>、<code>catkin_make_isolated</code>和<code>catkin_tools</code>。对于ROS 2，提供此功能的构建工具称为<code>ament_tools</code>。</p>
+<h2 id="Build-tool-amp-build-system"><a href="#Build-tool-amp-build-system" class="headerlink" title="Build tool &amp; build system"></a>Build tool &amp; build system</h2><p>构建工具在一组软件包上运行，它确定依赖关系图，并按拓扑顺序为每个包调用特定的构建系统。ROS所使用的构建工具有<code>catkin_make</code>、<code>catkin_make_isolated</code>、<code>catkin_tools</code>和<code>ament_tools</code>。</p>
+<p>构建系统在单个软件包上运行。例如<code>Make</code>、<code>CMake</code>、Python <code>Python setuptools</code>。例如cmake软件包通过以下流程完成构建：<code>cmake</code>，<code>make</code>，<code>make install</code>。</p>
+<h2 id="Goals-of-ament-tools"><a href="#Goals-of-ament-tools" class="headerlink" title="Goals of ament_tools"></a>Goals of ament_tools</h2><p>统一构建工具的目标是构建一组具有单向依赖的软件包。它应该适用于ROS 1软件包以及在其清单文件（package.xml）中提供必要信息的ROS 2软件包。它还应该适用于本身不提供清单文件的软件包，因为必要的元信息可以推断或外部提供。这将允许将构建工具用于非ROS软件包，例如Gazebo的某些插件和SDFormat格式的地图信息。</p>
+<h2 id="Build-pipeline-of-ament-tools"><a href="#Build-pipeline-of-ament-tools" class="headerlink" title="Build pipeline of ament_tools"></a>Build pipeline of ament_tools</h2><p>初始化构建环境⬇️</p>
+<p>识别并组织不同的构建系统⬇️</p>
+<p>计算软件包依赖拓扑⬇️</p>
+<p>调用构建系统完成构建⬇️</p>
+<h2 id="Related-topics"><a href="#Related-topics" class="headerlink" title="Related topics"></a>Related topics</h2><p>超出构建工具之外的能力</p>
+<ul>
+<li>应对包含多种构建系统的工程</li>
+<li>拉取源代码 <a target="_blank" rel="noopener" href="http://wiki.ros.org/rosinstall_generator">rosinstall_generator</a> </li>
+<li>安装依赖<a target="_blank" rel="noopener" href="http://wiki.ros.org/rosdep">rosdep</a></li>
+<li>创建和发布二进制包 <a target="_blank" rel="noopener" href="http://wiki.ros.org/bloom">bloom</a></li>
+</ul>
+<h1 id="Compared-with-ROS1"><a href="#Compared-with-ROS1" class="headerlink" title="Compared with ROS1"></a>Compared with ROS1</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>ROS1</th>
+<th>ROS2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作系统</td>
+<td>最初仅支持应用于Linux操作系统（之后官方也有提供Windows的版本）</td>
+<td>完全跨平台，支持Linux、Windows、MacOS甚至RTOS</td>
+</tr>
+<tr>
+<td>C++标准</td>
+<td>C++03</td>
+<td>主要是C++11和14，之后会逐步迁移到C++17</td>
+</tr>
+<tr>
+<td>构建系统</td>
+<td>catkin</td>
+<td>colcon（ament_cmake）原生支持除cmake外的一些构建系统</td>
+</tr>
+<tr>
+<td>isolated build</td>
+<td>默认整体构建，可选是否单独构建某一个软件包（每个包需要保证依赖完整，同时共享命名空间容易造成命名冲突）</td>
+<td>仅支持单独构建每一个包</td>
+</tr>
+<tr>
+<td>中间件</td>
+<td>采用TCP&#x2F;IP协议作为通讯标准</td>
+<td>使用了实时的通讯框架DDS以满足实时性要求</td>
+</tr>
+<tr>
+<td>应用框架</td>
+<td>采用单master架构设计，一旦master节点出现问题，整个系统将无法工作<img src="https://www.circuspi.com/wp-content/uploads/2022/09/1.png" srcset="/img/loading.gif" lazyload></td>
+<td>采用了分布式的发现机制组网，这样其中的任何一个节点出现异常都不会导致整个系统停止工作<img src="https://www.circuspi.com/wp-content/uploads/2022/09/2.png" srcset="/img/loading.gif" lazyload></td>
+</tr>
+</tbody></table>
+<h1 id="Migrate-to-ROS2"><a href="#Migrate-to-ROS2" class="headerlink" title="Migrate to ROS2"></a>Migrate to ROS2</h1><h2 id="Prerequisites-amp-Steps"><a href="#Prerequisites-amp-Steps" class="headerlink" title="Prerequisites &amp; Steps"></a>Prerequisites &amp; Steps</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#prerequisites">Prerequisites</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#migration-steps">Migration steps</a><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#package-manifests">Package manifests</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#metapackages">Metapackages</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#message-service-and-action-definitions">Message, service, and action definitions</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#build-system">Build system</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#update-source-code">Update source code</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#parameters">Parameters</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#launch-files">Launch files</a></li>
+</ul>
+<h2 id="Migration-example"><a href="#Migration-example" class="headerlink" title="Migration example"></a>Migration example</h2><p>ROS1: <a target="_blank" rel="noopener" href="https://github.com/Jason-xy/VINS-Fusion/tree/master">https://github.com/Jason-xy/VINS-Fusion/tree/master</a></p>
+<p>ROS2: <a target="_blank" rel="noopener" href="https://github.com/Jason-xy/VINS-Fusion/tree/cuda">https://github.com/Jason-xy/VINS-Fusion/tree/cuda</a></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/why_ros2.html">Why ROS 2?</a></li>
+<li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/build_tool.html">A universal build tool</a></li>
+<li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/changes.html">Changes between ROS 1 and ROS 2</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/" class="category-chain-item">Robotics</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%8A%80%E6%9C%AF/Robotics/Syste/" class="category-chain-item">Syste</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/colcon/">#colcon</a>
+      
+        <a href="/tags/ROS2/">#ROS2</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Introduction of ROS2</div>
+      <div>https://jason-xy.github.io/2023/02/ros2-intro/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason Hsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/ros-pkg-distro/" title="ROS package发布工作流">
+                        <span class="hidden-mobile">ROS package发布工作流</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      Copyright  © 2019-2022 Jason_xy All Rights Reserved  <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
