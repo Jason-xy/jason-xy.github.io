@@ -6,7 +6,7 @@ tags: ['ROS2', 'colcon']
 categories:
 - 技术
 - Robotics
-- Syste
+- System
 
 ---
 
