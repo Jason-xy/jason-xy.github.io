@@ -26,10 +26,11 @@
 <meta property="og:description" content="当前ROS2已经成为了应用最为广泛的机器人应用程序开发SDK之一，它拥有先进的分布式架构、更好的可靠性、实时性以及嵌入式设备支持。ROS2的诞生主要源于以下三个方面：  ROS1的历史遗留问题 机器人技术经过多年的发展产生了新的需求 在ROS发展的时间里产生了很多新的技术  History from ROS to ROS2 ROS最初的设计是为了给使用Willow Garage PR2机器人进行研">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://robots.ieee.org/robots/pr2/Photos/SD/pr2-photo1-full.jpg">
+<meta property="og:image" content="https://design.ros2.org/img/ros_on_dds/api_levels.png">
 <meta property="og:image" content="https://www.circuspi.com/wp-content/uploads/2022/09/1.png">
 <meta property="og:image" content="https://www.circuspi.com/wp-content/uploads/2022/09/2.png">
 <meta property="article:published_time" content="2023-02-07T19:40:37.000Z">
-<meta property="article:modified_time" content="2023-02-08T17:34:09.140Z">
+<meta property="article:modified_time" content="2023-02-09T03:59:18.971Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="colcon">
 <meta property="article:tag" content="ROS2">
@@ -238,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          3.3k 字
         
       </span>
     
@@ -249,7 +250,7 @@
         
         
         
-          23 分钟
+          28 分钟
         
       </span>
     
@@ -1396,9 +1397,9 @@
 </ul>
 <h1 id="Build-Tool"><a href="#Build-Tool" class="headerlink" title="Build Tool"></a>Build Tool</h1><p>在ROS生态中，应用程序通常被分割为许多软件包，开发人员同时处理多个软件包的场景也是很常见的。这与传统的软件开发流程中开发者只面对一个软件包，并一次性提供所有需要依赖的软件包（这部分依赖通常没有迭代）的场景形成了鲜明对比。</p>
 <p>构建一组软件包的“手动”方法包括逐一构建所有软件包。对于每个软件包如何管理相互之间的依赖关系，如何设置环境以构建软件包，以及如何在之后设置环境以使用软件包。如果没有自动化该过程的工具，这样的工作流程在规模化开发时是不切实际的。</p>
-<p>在ROS1中有多个工具提供以上流程的自动化支持，即<code>catkin_make</code>、<code>catkin_make_isolated</code>和<code>catkin_tools</code>。对于ROS 2，提供此功能的构建工具称为<code>ament_tools</code>。</p>
-<h2 id="Build-tool-amp-build-system"><a href="#Build-tool-amp-build-system" class="headerlink" title="Build tool &amp; build system"></a>Build tool &amp; build system</h2><p>构建工具在一组软件包上运行，它确定依赖关系图，并按拓扑顺序为每个包调用特定的构建系统。ROS所使用的构建工具有<code>catkin_make</code>、<code>catkin_make_isolated</code>、<code>catkin_tools</code>和<code>ament_tools</code>。</p>
-<p>构建系统在单个软件包上运行。例如<code>Make</code>、<code>CMake</code>、Python <code>Python setuptools</code>。例如cmake软件包通过以下流程完成构建：<code>cmake</code>，<code>make</code>，<code>make install</code>。</p>
+<p>在ROS1中有多个工具提供以上流程的自动化支持，即 <code>catkin_make</code>、<code>catkin_make_isolated</code>和 <code>catkin_tools</code>。对于ROS 2，提供此功能的构建工具称为 <code>ament_tools</code>。</p>
+<h2 id="Build-tool-amp-build-system"><a href="#Build-tool-amp-build-system" class="headerlink" title="Build tool &amp; build system"></a>Build tool &amp; build system</h2><p>构建工具在一组软件包上运行，它确定依赖关系图，并按拓扑顺序为每个包调用特定的构建系统。ROS所使用的构建工具有 <code>catkin_make</code>、<code>catkin_make_isolated</code>、<code>catkin_tools</code>和 <code>ament_tools</code>。</p>
+<p>构建系统在单个软件包上运行。例如 <code>Make</code>、<code>CMake</code>、Python <code>Python setuptools</code>。例如cmake软件包通过以下流程完成构建：<code>cmake</code>，<code>make</code>，<code>make install</code>。</p>
 <h2 id="Goals-of-ament-tools"><a href="#Goals-of-ament-tools" class="headerlink" title="Goals of ament_tools"></a>Goals of ament_tools</h2><p>统一构建工具的目标是构建一组具有单向依赖的软件包。它应该适用于ROS 1软件包以及在其清单文件（package.xml）中提供必要信息的ROS 2软件包。它还应该适用于本身不提供清单文件的软件包，因为必要的元信息可以推断或外部提供。这将允许将构建工具用于非ROS软件包，例如Gazebo的某些插件和SDFormat格式的地图信息。</p>
 <h2 id="Build-pipeline-of-ament-tools"><a href="#Build-pipeline-of-ament-tools" class="headerlink" title="Build pipeline of ament_tools"></a>Build pipeline of ament_tools</h2><p>初始化构建环境⬇️</p>
 <p>识别并组织不同的构建系统⬇️</p>
@@ -1407,9 +1408,17 @@
 <h2 id="Related-topics"><a href="#Related-topics" class="headerlink" title="Related topics"></a>Related topics</h2><p>超出构建工具之外的能力</p>
 <ul>
 <li>应对包含多种构建系统的工程</li>
-<li>拉取源代码 <a target="_blank" rel="noopener" href="http://wiki.ros.org/rosinstall_generator">rosinstall_generator</a> </li>
+<li>拉取源代码 <a target="_blank" rel="noopener" href="http://wiki.ros.org/rosinstall_generator">rosinstall_generator</a></li>
 <li>安装依赖<a target="_blank" rel="noopener" href="http://wiki.ros.org/rosdep">rosdep</a></li>
 <li>创建和发布二进制包 <a target="_blank" rel="noopener" href="http://wiki.ros.org/bloom">bloom</a></li>
+</ul>
+<h1 id="DDS"><a href="#DDS" class="headerlink" title="DDS"></a>DDS</h1><h2 id="What-is-DDS"><a href="#What-is-DDS" class="headerlink" title="What is DDS"></a>What is DDS</h2><p>DDS提供了一种发布-订阅传输，这与 ROS 的发布-订阅传输非常相似。DDS使用对象管理组 (OMG)定义的“接口描述语言(IDL)”来进行消息定义和序列化。<br>DDS默认提供了发现系统，以支持任意两个节点的通讯而不需要ROS master这样的工具。这样使得系统拥有分布式特性，具有更好的容错性。当前DDS已经应用在了战舰、航空器、空间站等重要的设施中，有良好的可靠性和灵活性。</p>
+<h2 id="DDS-in-ROS2"><a href="#DDS-in-ROS2" class="headerlink" title="DDS in ROS2"></a>DDS in ROS2</h2><p>但据开发者而言DDS的可靠性和灵活性是以复杂性为代价的，ROS2的主要工作就是解决API和DDS配置的复杂性。ROS2的目标就是隐藏DDS的实现细节以及特定的接口和消息定义，提供DDS的节点发现、发布-订阅，以及底层消息序列化。这使得从用户的角度而言隐藏了DDS的绝大部分复杂性，与ROS1的接口调用方式相似。同时ROS2也为部分具有特殊需求的用户提供了对底层DDS接口的访问路径。<br><img src="https://design.ros2.org/img/ros_on_dds/api_levels.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Discovery-system"><a href="#Discovery-system" class="headerlink" title="Discovery system"></a>Discovery system</h2><p>DDS通过发现系统完全取代了ROS master，ROS本身只需要通过DDS API来获取节点列表，而不依赖于master。因此在默认情况下DDS是完全分布式的，不存在系统各部分相互通信时出现中心故障点。</p>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><ul>
+<li>DDSI-RTPS（实时消息通讯协议）</li>
+<li>shared-memory transport</li>
+<li>.msg -&gt; .idl<br>…</li>
 </ul>
 <h1 id="Compared-with-ROS1"><a href="#Compared-with-ROS1" class="headerlink" title="Compared with ROS1"></a>Compared with ROS1</h1><table>
 <thead>
@@ -1469,6 +1478,7 @@
 <li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/why_ros2.html">Why ROS 2?</a></li>
 <li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/build_tool.html">A universal build tool</a></li>
 <li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/changes.html">Changes between ROS 1 and ROS 2</a></li>
+<li><a target="_blank" rel="noopener" href="https://design.ros2.org/articles/ros_on_dds.html">ROS on DDS</a></li>
 </ul>
 
                 
