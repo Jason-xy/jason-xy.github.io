@@ -315,7 +315,7 @@ footer:
 #---------------------------
 index:
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2022/11/27/IMG_1055.jpg
+  banner_img: https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/PicGo/202306231911723.jpg
 
   # Height ratio of banner image
   # Available: 0 - 100
