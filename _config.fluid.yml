@@ -283,7 +283,7 @@ open_graph:
 #---------------------------
 footer:
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
-  content: 'Copyright  © 2019-2022 Jason_xy All Rights Reserved 
+  content: 'Copyright  © 2019-2023 Jason_xy All Rights Reserved
     <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a>
     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a>
     <i class="iconfont icon-love"></i>
