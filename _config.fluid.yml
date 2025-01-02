@@ -4,7 +4,7 @@
 # Global
 #---------------------------
 author: Jason Hsu
-language: zh-CN
+language: en
 timezone: 'Asia/Shanghai'
 
 # Force all links to be HTTPS (applicable to HTTP mixed error)
@@ -221,11 +221,12 @@ navbar:
   
    # Navigation bar menu. `key` is used to associate languages/*.yml. If there is no association, the value of `key` itself will be displayed; if `icon` is a css class, it can be omitted; adding `name` can force the display of the specified name
   menu:
-    - { key: '主页', link: '/', icon: 'iconfont icon-home-fill' }
-    - { key: '分类', link: '/categories/', icon: 'iconfont icon-guanli' }
-    - { key: '标签', link: '/tags/', icon: 'iconfont icon-tags-fill' }
-    - { key: '关于', link: '/self/', icon: 'iconfont icon-user-fill'}
-    - { key: '友链', link: '/links/', icon: 'iconfont icon-friends'}
+    - { key: 'Home', link: '/', icon: 'iconfont icon-home-fill' }
+    - { key: 'Categories', link: '/categories/', icon: 'iconfont icon-guanli' }
+    - { key: 'Tags', link: '/tags/', icon: 'iconfont icon-tags-fill' }
+    - { key: 'About', link: '/self/', icon: 'iconfont icon-user-fill'}
+    - { key: 'Links', link: '/links/', icon: 'iconfont icon-friends'}
+    - { key: 'Logs', link: '/logs/', icon: 'iconfont icon-note'}
 
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
 search:
@@ -614,15 +615,14 @@ about:
   banner_img_height: 60
   banner_mask_alpha: 0.3
   avatar: /img/tab.jpg
-  name: "Jason Hsu"
-  intro: "UESTC(Software Engineering) Student | DJI Flight System Developer"
+  name: "Yang Xu"
+  intro: "Strive to become a Full Stack Developer and Robotics Researcher"
   # More icons can be found from https://hexo.fluid-dev.com/docs/en/icon/  `class` is the css class of the icon. If adding `qrcode`, The icon is no longer a link, but a hovering QR code
   icons:
     - { class: "iconfont icon-github-fill", link: "https://github.com/jason-xy", tip: "GitHub" }
     - { class: "iconfont icon-bilibili-fill", link: "https://space.bilibili.com/354517342", tip: "Bili" }
     - { class: "iconfont icon-zhihu-fill", link: "https://www.zhihu.com/people/jason-50-85", tip: "Zhihu" }
     - { class: "iconfont icon-wodejianli", link: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/files/personal/%E5%BE%90%E6%B4%8B-%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6-18584810116.pdf", tip: "CV" }
-
 
 #---------------------------
 # Custom Page
