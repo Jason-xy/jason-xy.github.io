@@ -4,7 +4,7 @@ layout: about
 date: 2022-11-27 21:33:22
 ---
 
-## 🎓 Education
+# 🎓 Education
 
 - **📅 Sep 2019 - Jun 2023**  
   **🏛 University of Electronic Science and Technology of China**  
@@ -17,7 +17,7 @@ date: 2022-11-27 21:33:22
   **MPhil. in Intelligent Construction and Robotics, Division of Emerging Interdisciplinary Areas**
   - **GPA**: 3.87 / 4.30  
 
-## 💼 Internship Experience
+# 💼 Internship Experience
 
 - **📅 Jan 2022 - July 2023**  
   **🏢 DJI - Flight Systems Intern**  
