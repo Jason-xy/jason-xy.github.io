@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/22/image-20210822230802528.png">
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/22/image-20210822231019733.png">
 <meta property="article:published_time" content="2021-08-22T15:17:20.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.074Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.519Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="ubuntu">
 <meta property="article:tag" content="jetson">
@@ -1487,7 +1487,7 @@
 <p>输出：</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Pass</span><br></code></pre></td></tr></table></figure>
 
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="可能的问题"><a href="#可能的问题" class="headerlink" title="可能的问题"></a>可能的问题</h2><h3 id="如何设置Gridsize-amp-Blocksize"><a href="#如何设置Gridsize-amp-Blocksize" class="headerlink" title="如何设置Gridsize &amp; Blocksize"></a>如何设置Gridsize &amp; Blocksize</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">block_size = <span class="hljs-number">128</span>;<br>grid_size =(N + block_size - <span class="hljs-number">1</span>] / block_size;<br></code></pre></td></tr></table></figure>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="可能的问题"><a href="#可能的问题" class="headerlink" title="可能的问题"></a>可能的问题</h2><h3 id="如何设置Gridsize-Blocksize"><a href="#如何设置Gridsize-Blocksize" class="headerlink" title="如何设置Gridsize &amp; Blocksize"></a>如何设置Gridsize &amp; Blocksize</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">block_size = <span class="hljs-number">128</span>;<br>grid_size =(N + block_size - <span class="hljs-number">1</span>] / block_size;<br></code></pre></td></tr></table></figure>
 
 <p>这样可以最大限度地少浪费线程资源。</p>
 <p><code>grid_size = (n + block_size - 1) / block_size</code>可以这么理解，如果<code>n = a * block_size + b</code>（a为0 or 正整数，b为小于block_size的0 or 正整数）, 那么<code>(n + block_size - 1) / block_size</code>等价于<code>(a * block_size + b + block_size - 1) / block_size</code>等价于<code>a + (b + block_size - 1) / block_size</code>，由于会向下取整，所以<code>(b + block_size - 1) / block_size</code> 等价于1，最终<code>(n + block_size - 1) / block_size = a + 1</code>。<br>如果<code>n = a * block_size + b</code>定义为，a个线程block+个数小于block_size的零散的thread， 那么上面推导出的那个a就是值a个block，而上面推导出的+1就是为个数小于block_size的零散的thread而专门设置的block。</p>

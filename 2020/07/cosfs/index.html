@@ -29,7 +29,7 @@
 <meta property="og:description" content="功能说明COSFS 工具支持将 COS 存储桶挂载到本地，像使用本地文件系统一样直接操作腾讯云对象存储中的对象， COSFS 提供的主要功能包括：  支持 POSIX 文件系统的大部分功能，如：文件读写、目录操作、链接操作、权限管理、uid&#x2F;gid 管理等功能。 大文件分块传输功能。 MD5 数据校验功能。 将本机数据上传至 COS，建议使用 COS Migration 工具 或 COS">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-22T13:23:22.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.070Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.515Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="wordpress">
 <meta property="article:tag" content="cos">
@@ -1476,16 +1476,16 @@
 <h4 id="3-卸载存储桶"><a href="#3-卸载存储桶" class="headerlink" title="3. 卸载存储桶"></a>3. 卸载存储桶</h4><p>卸载存储桶示例：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">方式1：fusermount -u /mnt, fusermount 命令专用于卸载 FUSE 文件系统 <br>方式2：umount -l /mnt, 当有程序引用文件系统中文件时，进行卸载不会报错，并在没程序引用时完成卸载<br>方式3：umount /mnt， 当有程序引用文件系统中的文件时，进行卸载会报错<br></code></pre></td></tr></table></figure>
 
-<h2 id="常用挂载选项"><a href="#常用挂载选项" class="headerlink" title="常用挂载选项"></a>常用挂载选项</h2><h4 id="omultipart-size-x3D-size"><a href="#omultipart-size-x3D-size" class="headerlink" title="-omultipart_size&#x3D;[size]"></a>-omultipart_size&#x3D;[size]</h4><p>用来指定分块上传时单个分块的大小（单位： MB），默认是10MB。 由于分块上传对单个文件块的数目有最大限制（10000块），所以对于超出100GB（10MB * 10000）大小的文件，需要根据具体情况调整该参数。</p>
+<h2 id="常用挂载选项"><a href="#常用挂载选项" class="headerlink" title="常用挂载选项"></a>常用挂载选项</h2><h4 id="omultipart-size-size"><a href="#omultipart-size-size" class="headerlink" title="-omultipart_size&#x3D;[size]"></a>-omultipart_size&#x3D;[size]</h4><p>用来指定分块上传时单个分块的大小（单位： MB），默认是10MB。 由于分块上传对单个文件块的数目有最大限制（10000块），所以对于超出100GB（10MB * 10000）大小的文件，需要根据具体情况调整该参数。</p>
 <h4 id="oallow-other"><a href="#oallow-other" class="headerlink" title="-oallow_other"></a>-oallow_other</h4><p>如果要允许其他用户访问挂载文件夹，可以在运行 COSFS 的时候指定该参数。</p>
 <h4 id="odel-cache"><a href="#odel-cache" class="headerlink" title="-odel_cache"></a>-odel_cache</h4><p>默认情况下， COSFS 为了优化性能，在 umount 后，不会清除本地的缓存数据。 如果需要在 COSFS 退出时，自动清除缓存，可以在挂载时加入该选项。</p>
 <h4 id="onoxattr"><a href="#onoxattr" class="headerlink" title="-onoxattr"></a>-onoxattr</h4><p>禁用 getattr&#x2F;setxattr 功能，在1.0.9之前版本的 COSFS 不支持设置和获取扩展属性，如果在挂载时使用了 use_xattr 选项，可能会导致 mv 文件到 Bucket 失败。</p>
-<h4 id="ouse-cache-x3D-path"><a href="#ouse-cache-x3D-path" class="headerlink" title="-ouse_cache&#x3D;[path]"></a>-ouse_cache&#x3D;[path]</h4><p>使用缓存目录缓存文件，path 为本地缓存目录路径，该选项可以在文件缓存下来后，加速文件的读写（非第一次读写），如果不需要本地缓存或本地磁盘容量有限，可不指定该选项。</p>
-<h4 id="opasswd-file-x3D-path"><a href="#opasswd-file-x3D-path" class="headerlink" title="-opasswd_file&#x3D;[path]"></a>-opasswd_file&#x3D;[path]</h4><p>该选项可以指定 COSFS 密钥文件的所在路径，该选项设定的密钥文件需要设置权限为600。</p>
-<h4 id="odbglevel-x3D-dbg-info-warn-err-crit"><a href="#odbglevel-x3D-dbg-info-warn-err-crit" class="headerlink" title="-odbglevel&#x3D;[dbg|info|warn|err|crit]"></a>-odbglevel&#x3D;[dbg|info|warn|err|crit]</h4><p>设置 COSFS 日志记录级别，可选 info、dbg、warn、err 和 crit。生产环境中建议设置为 info，调试时可以设置为 dbg。如果您的系统日志，未定期清理且由于访问量很大，生成大量日志，您可以设置为 err 或者 crit。</p>
-<h4 id="oumask-x3D-perm"><a href="#oumask-x3D-perm" class="headerlink" title="-oumask&#x3D;[perm]"></a>-oumask&#x3D;[perm]</h4><p>该选项可以去除给定类型用户，对挂载目录内文件的操作权限。例如，-oumask&#x3D;755，对应挂载目录的权限变为022。</p>
-<h4 id="ouid-x3D-uid"><a href="#ouid-x3D-uid" class="headerlink" title="-ouid&#x3D;[uid]"></a>-ouid&#x3D;[uid]</h4><p>该选项允许用户 id 为 [uid] 的用户不受挂载目录中文件权限位的限制，可以访问挂载目录中的所有文件。 获取用户 uid 可以使用 id 命令，格式<code> id -u username</code>。例如执行<code>id -u user_00</code>，可获取到用户 user_00 的 uid。</p>
-<h4 id="oensure-diskfree-x3D-size"><a href="#oensure-diskfree-x3D-size" class="headerlink" title="-oensure_diskfree&#x3D;[size]"></a>-oensure_diskfree&#x3D;[size]</h4><p>用来指定当缓存文件所在磁盘，剩余空间不足 [size] MB 大小时，COSFS 运行将尽量减少使用磁盘空间（单位： MB）。 COSFS 的上传下载都会使用磁盘文件缓存，当上传大文件时，若不指定该参数，会写满缓存文件所在的磁盘。如果指定 -ouse_cache&#x3D;[path] 参数，缓存文件位于 path 目录下，否则，在 &#x2F;tmp 目录下。</p>
+<h4 id="ouse-cache-path"><a href="#ouse-cache-path" class="headerlink" title="-ouse_cache&#x3D;[path]"></a>-ouse_cache&#x3D;[path]</h4><p>使用缓存目录缓存文件，path 为本地缓存目录路径，该选项可以在文件缓存下来后，加速文件的读写（非第一次读写），如果不需要本地缓存或本地磁盘容量有限，可不指定该选项。</p>
+<h4 id="opasswd-file-path"><a href="#opasswd-file-path" class="headerlink" title="-opasswd_file&#x3D;[path]"></a>-opasswd_file&#x3D;[path]</h4><p>该选项可以指定 COSFS 密钥文件的所在路径，该选项设定的密钥文件需要设置权限为600。</p>
+<h4 id="odbglevel-dbg-info-warn-err-crit"><a href="#odbglevel-dbg-info-warn-err-crit" class="headerlink" title="-odbglevel&#x3D;[dbg|info|warn|err|crit]"></a>-odbglevel&#x3D;[dbg|info|warn|err|crit]</h4><p>设置 COSFS 日志记录级别，可选 info、dbg、warn、err 和 crit。生产环境中建议设置为 info，调试时可以设置为 dbg。如果您的系统日志，未定期清理且由于访问量很大，生成大量日志，您可以设置为 err 或者 crit。</p>
+<h4 id="oumask-perm"><a href="#oumask-perm" class="headerlink" title="-oumask&#x3D;[perm]"></a>-oumask&#x3D;[perm]</h4><p>该选项可以去除给定类型用户，对挂载目录内文件的操作权限。例如，-oumask&#x3D;755，对应挂载目录的权限变为022。</p>
+<h4 id="ouid-uid"><a href="#ouid-uid" class="headerlink" title="-ouid&#x3D;[uid]"></a>-ouid&#x3D;[uid]</h4><p>该选项允许用户 id 为 [uid] 的用户不受挂载目录中文件权限位的限制，可以访问挂载目录中的所有文件。 获取用户 uid 可以使用 id 命令，格式<code> id -u username</code>。例如执行<code>id -u user_00</code>，可获取到用户 user_00 的 uid。</p>
+<h4 id="oensure-diskfree-size"><a href="#oensure-diskfree-size" class="headerlink" title="-oensure_diskfree&#x3D;[size]"></a>-oensure_diskfree&#x3D;[size]</h4><p>用来指定当缓存文件所在磁盘，剩余空间不足 [size] MB 大小时，COSFS 运行将尽量减少使用磁盘空间（单位： MB）。 COSFS 的上传下载都会使用磁盘文件缓存，当上传大文件时，若不指定该参数，会写满缓存文件所在的磁盘。如果指定 -ouse_cache&#x3D;[path] 参数，缓存文件位于 path 目录下，否则，在 &#x2F;tmp 目录下。</p>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>如果您在使用 COSFS 工具过程中，有相关的疑问，请参见 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/30743">COSFS 工具类常见问题</a>。</p>
 
                 

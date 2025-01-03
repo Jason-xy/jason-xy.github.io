@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_opencv/1.png">
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_opencv/7.png">
 <meta property="article:published_time" content="2020-06-28T04:06:47.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.070Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.515Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="raspberry-pi">
 <meta property="article:tag" content="opencv">
@@ -1420,7 +1420,7 @@
 <p>你会看到：</p>
 <div align=center><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_opencv/5.png" srcset="/img/loading.gif" lazyload style="zoom:100%;" /></div>
 
-<p>选择<em><strong>“Advanced Options”</strong></em></p>
+<p>选择***“Advanced Options”***</p>
 <p>接着：</p>
 <div align=center><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_opencv/6.png" srcset="/img/loading.gif" lazyload style="zoom:100%;" /></div>
 
@@ -1455,7 +1455,7 @@
 <p>安装Python2.7和Python3</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install python2.7-dev python3-dev<br></code></pre></td></tr></table></figure>
 
-<h3 id="Step4-下载-x2F-拷贝OpenCV源码"><a href="#Step4-下载-x2F-拷贝OpenCV源码" class="headerlink" title="Step4 下载&#x2F;拷贝OpenCV源码"></a>Step4 下载&#x2F;拷贝OpenCV源码</h3><h5 id="（带GUI的操作系统）"><a href="#（带GUI的操作系统）" class="headerlink" title="（带GUI的操作系统）"></a>（带GUI的操作系统）</h5><p>如果你在百度云下载了相关文件则把提前下载好的OpenCV文件拷贝到&#x2F;home&#x2F;pi文件夹里，并用</p>
+<h3 id="Step4-下载-拷贝OpenCV源码"><a href="#Step4-下载-拷贝OpenCV源码" class="headerlink" title="Step4 下载&#x2F;拷贝OpenCV源码"></a>Step4 下载&#x2F;拷贝OpenCV源码</h3><h5 id="（带GUI的操作系统）"><a href="#（带GUI的操作系统）" class="headerlink" title="（带GUI的操作系统）"></a>（带GUI的操作系统）</h5><p>如果你在百度云下载了相关文件则把提前下载好的OpenCV文件拷贝到&#x2F;home&#x2F;pi文件夹里，并用</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">unzip<br></code></pre></td></tr></table></figure>
 
 <p>命令解压。</p>
@@ -1587,7 +1587,7 @@
 
 <p>解决方法：</p>
 <p>查看 build 文件夹下的日志文件 CMakeDownloadLog.txt，在日志文件CMakeDownloadLog.txt中搜索 boostdesc_bgm.i 关键词。日志文件里就有它的下载地址，到指定位置下载即可。<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv_contrib/issues/1301%EF%BC%8C%E7%82%B9%E5%BC%80%E4%B8%8A%E9%9D%A2%E8%BF%99%E4%B8%AA%E7%BD%91%E5%9D%80%E5%BE%80%E4%B8%8B%E6%8B%89%EF%BC%8C%E6%9C%89%E4%BA%BA%E6%8F%90%E4%BE%9B%E4%BA%86%E7%BC%BA%E5%A4%B1%E7%9A%84%E5%90%84%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5%EF%BC%8C%E7%82%B9%E5%87%BB%E4%BF%9D%E5%AD%98">https://github.com/opencv/opencv_contrib/issues/1301，点开上面这个网址往下拉，有人提供了缺失的各个文件的链接，点击保存</a>. 或者直接在这个网页里搜索 BenbenIO 这个用户的回答。<br>下载后，直接拷贝源码并生成同名文件，放在 <strong>opencv_contrib&#x2F;modules&#x2F;xfeatures2d&#x2F;src&#x2F;</strong> 路径下即可。</p>
-<h3 id="报错2：编译时头文件不对"><a href="#报错2：编译时头文件不对" class="headerlink" title="报错2：编译时头文件不对"></a><strong>报错2：</strong>编译时头文件不对</h3><p><strong>fatal error: features2d&#x2F;test&#x2F;test_detectors_regression.impl.hpp: 没有那个文件或目录</strong></p>
+<h3 id="报错2：-编译时头文件不对"><a href="#报错2：-编译时头文件不对" class="headerlink" title="**报错2：**编译时头文件不对"></a>**报错2：**编译时头文件不对</h3><p><strong>fatal error: features2d&#x2F;test&#x2F;test_detectors_regression.impl.hpp: 没有那个文件或目录</strong></p>
 <p><strong>#include “features2d&#x2F;test&#x2F;test_detectors_regression.impl.hpp”</strong></p>
 <div align=center><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Picture/wp/article/202006/raspi_opencv/7.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" /></div>
 

@@ -116,7 +116,7 @@
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173547334.png">
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624173727639.png">
 <meta property="article:published_time" content="2021-06-24T09:57:12.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.074Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.519Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="cs">
 <meta property="article:tag" content="review">
@@ -1533,10 +1533,10 @@
 <p><strong>并行</strong>是指两或多个事件在同一时刻发生<br><strong>并发</strong>是两或多个事件在同一时间间隔内发生</p>
 </li>
 <li><p>共享性   </p>
-<p>系统中资源可供内存中多个并发执行的进程共同使用<br><strong>互斥共享：</strong>一段时间只允许一个进程访问该资源<br><strong>同时访问：</strong>微观上仍是互斥的<br> 并发和共享是操作系统的两个最基本的特征，它们又是互为存在的条件</p>
+<p>系统中资源可供内存中多个并发执行的进程共同使用<br>**互斥共享：**一段时间只允许一个进程访问该资源<br>**同时访问：**微观上仍是互斥的<br> 并发和共享是操作系统的两个最基本的特征，它们又是互为存在的条件</p>
 </li>
 <li><p>虚拟性</p>
-<p><strong>时分复用：</strong>虚拟处理机技术， 虚拟设备技术<br><strong>空分复用：</strong>虚拟存储<br>通过某种技术把一个物理实体变为若干个逻辑上的对应物。若n是某一物理设备所对应的虚拟的逻辑设备数，则虚拟设备的速度必然是物理设备速度的1&#x2F;n。</p>
+<p>**时分复用：**虚拟处理机技术， 虚拟设备技术<br>**空分复用：**虚拟存储<br>通过某种技术把一个物理实体变为若干个逻辑上的对应物。若n是某一物理设备所对应的虚拟的逻辑设备数，则虚拟设备的速度必然是物理设备速度的1&#x2F;n。</p>
 </li>
 <li><p>异步性</p>
 <p>停停走走<br>运行进度不可预知</p>
@@ -1818,7 +1818,7 @@
 <li>进程占用CPU的时间</li>
 <li>进程阻塞时间</li>
 </ul>
-<p><strong>缺陷：</strong>对待短作业（进程）不公平，如果他们排在队列后面，则其等待时间远大于其执行时间。</p>
+<p>**缺陷：**对待短作业（进程）不公平，如果他们排在队列后面，则其等待时间远大于其执行时间。</p>
 <h3 id="时间片轮转"><a href="#时间片轮转" class="headerlink" title="时间片轮转"></a>时间片轮转</h3><p>原理：</p>
 <ul>
 <li>FCFS策略+时钟中断+时间片原则</li>
@@ -1868,16 +1868,16 @@
 <p><strong>产生死锁的原因可归结为如下两点：</strong></p>
 <p> （1）竞争资源。</p>
 <p> （2）进程间推进顺序非法。</p>
-<h3 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h3><p>（1）<strong>互斥条件：</strong>指进程对所分配到的资源进行排它性使用 。</p>
-<p>（2）<strong>请求和保持条件：</strong>指进程已经保持了至少一个资源，但又提出了新的资源请求 。 </p>
-<p>（3）<strong>不剥夺条件：</strong>指进程已获得的资源，在未使用完之前，不能被剥夺，只能在使用完时由自己释放。 </p>
-<p>（4）<strong>环路等待条件：</strong>指在发生死锁时，必然存在一个进程——资源的环形链  。</p>
+<h3 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h3><p>（1）**互斥条件：**指进程对所分配到的资源进行排它性使用 。</p>
+<p>（2）**请求和保持条件：**指进程已经保持了至少一个资源，但又提出了新的资源请求 。 </p>
+<p>（3）**不剥夺条件：**指进程已获得的资源，在未使用完之前，不能被剥夺，只能在使用完时由自己释放。 </p>
+<p>（4）**环路等待条件：**指在发生死锁时，必然存在一个进程——资源的环形链  。</p>
 <h3 id="预防"><a href="#预防" class="headerlink" title="预防"></a>预防</h3><p>是通过设置某些限制条件，去破坏产生死锁的四个必要条件中的一个或几个条件，来预防发生死锁。至于<strong>必要条件1</strong>，因为它是由设备的固有属性所决定的，不仅不能改变，还应加以保证。</p>
 <h4 id="破坏“请求和保持”条件"><a href="#破坏“请求和保持”条件" class="headerlink" title="破坏“请求和保持”条件"></a>破坏“请求和保持”条件</h4><p>系统规定所有进程在开始运行之前，都必须一次性地申请其在整个运行过程所需的全部资源。</p>
 <p>从而进程在整个运行期间，便不会再提出资源要求，从而摒弃了请求和保持条件，由此可以避免发生死锁。</p>
-<p><strong>优点：</strong>简单、易于实现且很安全。<br><strong>缺点：</strong>资源被严重浪费，使进程延迟运行。 </p>
+<p>**优点：**简单、易于实现且很安全。<br>**缺点：**资源被严重浪费，使进程延迟运行。 </p>
 <h4 id="摒弃“不剥夺”条件"><a href="#摒弃“不剥夺”条件" class="headerlink" title="摒弃“不剥夺”条件"></a>摒弃“不剥夺”条件</h4><p>当一个已经保持了某些资源的进程，再提出新的资源请求而不能立即得到满足时，必须释放它已经保持了的所有资源。待以后需要时再重新申请。从而摒弃了“不剥夺”条件。</p>
-<p><strong>缺点：</strong>实现起来比较复杂且要付出很大代价。</p>
+<p>**缺点：**实现起来比较复杂且要付出很大代价。</p>
 <ul>
 <li>一个资源在使用一段时间后，它的被迫释放可能会造成前段工作的失效。</li>
 <li>会使进程前后两次运行的信息不连续。 </li>
@@ -1897,10 +1897,10 @@
 <li>称〈P1，P2，…，Pn〉序列为安全序列。否则，如果系统无法找到这样一个安全序列，则称系统处于不安全状态。</li>
 </ul>
 <h2 id="银行家问题⭐"><a href="#银行家问题⭐" class="headerlink" title="银行家问题⭐"></a>银行家问题⭐</h2><h3 id="银行家算法中的数据结构"><a href="#银行家算法中的数据结构" class="headerlink" title="银行家算法中的数据结构"></a>银行家算法中的数据结构</h3><ul>
-<li><strong>可利用资源向量Available。</strong>这是一个含有m个元素的数组，其中的每一个元素代表一类可利用的资源数目。其数值随该类资源的分配和回收而动态地改变。 Available[j]&#x3D;k,表示系统中现有Rj类资源k个。</li>
-<li><strong>最大需求矩阵Max。</strong>这是一个n × m的矩阵，它定义了n个进程中每一个进程对m类资源的最大需求。Max[i,j]&#x3D;K，表示进程i需要Rj类资源的最大数目为K。   </li>
-<li><strong>分配矩阵Allocation。</strong>这是一个n×m的矩阵，它定义了系统中每一类资源当前已分配给每一进程的资源数。Allocation［i,j]&#x3D;K，表示进程i当前已分得Rj类资源的数目为K。</li>
-<li><strong>需求矩阵Need。</strong>这也是一个n×m的矩阵，用以表示每一个进程尚需的各类资源数。Need[i,j]&#x3D;K，表示进程Pi还需要Rj类资源K个，方能完成其任务。</li>
+<li>**可利用资源向量Available。**这是一个含有m个元素的数组，其中的每一个元素代表一类可利用的资源数目。其数值随该类资源的分配和回收而动态地改变。 Available[j]&#x3D;k,表示系统中现有Rj类资源k个。</li>
+<li>**最大需求矩阵Max。**这是一个n × m的矩阵，它定义了n个进程中每一个进程对m类资源的最大需求。Max[i,j]&#x3D;K，表示进程i需要Rj类资源的最大数目为K。   </li>
+<li>**分配矩阵Allocation。**这是一个n×m的矩阵，它定义了系统中每一类资源当前已分配给每一进程的资源数。Allocation［i,j]&#x3D;K，表示进程i当前已分得Rj类资源的数目为K。</li>
+<li>**需求矩阵Need。**这也是一个n×m的矩阵，用以表示每一个进程尚需的各类资源数。Need[i,j]&#x3D;K，表示进程Pi还需要Rj类资源K个，方能完成其任务。</li>
 </ul>
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623094536182.png" srcset="/img/loading.gif" lazyload alt="image-20210623094536182"></p>
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623094712811.png" srcset="/img/loading.gif" lazyload alt="image-20210623094712811"></p>
@@ -1909,7 +1909,7 @@
 <li>寄存器、高速缓存、主存储器和磁盘缓存均属于操作系统存储管理的管辖范畴，掉电后它们存储的信息不再存在。</li>
 <li>磁盘和可移动存储介质属于设备管理和文件系统的管辖范畴，它们存储的信息将被长期保存。</li>
 </ul>
-<h2 id="程序的装入"><a href="#程序的装入" class="headerlink" title="程序的装入"></a>程序的装入</h2><p><strong>绝对装入方式(Absolute Loading Mode) ：</strong>编译时，已知程序在内存的具体位置，则编译程序可产生实际存储地址（绝对地址）的目标代码。</p>
+<h2 id="程序的装入"><a href="#程序的装入" class="headerlink" title="程序的装入"></a>程序的装入</h2><p>**绝对装入方式(Absolute Loading Mode) ：**编译时，已知程序在内存的具体位置，则编译程序可产生实际存储地址（绝对地址）的目标代码。</p>
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/23/image-20210623101231280.png" srcset="/img/loading.gif" lazyload alt="image-20210623101231280"></p>
 <p><strong>可重定位装入方式(Relocation Loading Mode)</strong> </p>
 <p>重定位（地址映射）：</p>
@@ -2067,7 +2067,7 @@
 <li>在进程调度时，必须把它的所有页一次装入到主存的页框内；如果当时页框数不足，则该进程必须等待，系统再调度另外的进程。（纯分页方式）</li>
 </ul>
 <h4 id="实现分页存储管理的数据结构"><a href="#实现分页存储管理的数据结构" class="headerlink" title="实现分页存储管理的数据结构"></a>实现分页存储管理的数据结构</h4><ol>
-<li><strong>页表：</strong>每个进程对应 1 个页表，描述该进程的各页面在内存中对应的物理块号。</li>
+<li>**页表：**每个进程对应 1 个页表，描述该进程的各页面在内存中对应的物理块号。</li>
 </ol>
 <ul>
 <li>页表中包括页号、物理块号（还可有存取控制字段，对存储块中的内容进行保护）。</li>
@@ -2077,7 +2077,7 @@
 <ol start="2">
 <li><p><strong>作业表</strong>：整个系统1张，记录作业的页表情况，包含进程号、页表长度、页表始址等信息。</p>
 </li>
-<li><p><strong>空闲块表：</strong>整个系统1张，记录主存当前空闲块。</p>
+<li><p>**空闲块表：**整个系统1张，记录主存当前空闲块。</p>
 </li>
 </ol>
 <h4 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624094122698.png" srcset="/img/loading.gif" lazyload alt="image-20210624094122698"></p>
@@ -2186,10 +2186,10 @@
 <p><strong>段页式虚拟存储系统</strong></p>
 <p>许多虚拟存储管理系统是建立在段页式系统的基础上的，通过增加了请求调页、页面置换两大功能所形成的段页式虚拟存储系统。</p>
 <h3 id="请求分页存储管理方式"><a href="#请求分页存储管理方式" class="headerlink" title="请求分页存储管理方式"></a>请求分页存储管理方式</h3><h4 id="页表机制"><a href="#页表机制" class="headerlink" title="页表机制"></a><strong>页表机制</strong></h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624105328357.png" srcset="/img/loading.gif" lazyload alt="image-20210624105328357"></p>
-<p><strong>状态位：</strong>也称存在位，标志该页是否驻留内存。</p>
-<p><strong>访问位：</strong>记录一段时间内该页被访问的情况，如一段时间内该页被访问的次数或者多长时间未被访问。</p>
-<p><strong>修改位：</strong>标记该页是否被修改过。注：为减少置换开销，通常选择未被修改过的页面置换。</p>
-<p><strong>外存地址：</strong>用于记录该页在外存上的存储地址。</p>
+<p>**状态位：**也称存在位，标志该页是否驻留内存。</p>
+<p>**访问位：**记录一段时间内该页被访问的情况，如一段时间内该页被访问的次数或者多长时间未被访问。</p>
+<p>**修改位：**标记该页是否被修改过。注：为减少置换开销，通常选择未被修改过的页面置换。</p>
+<p>**外存地址：**用于记录该页在外存上的存储地址。</p>
 <h4 id="缺页中断机构"><a href="#缺页中断机构" class="headerlink" title="缺页中断机构"></a>缺页中断机构</h4><ul>
 <li>在请求分页系统中，每当所要访问的页面不在内存时，便产生一缺页中断，请求OS将所缺之页调入内存。</li>
 <li>地址转换时，检查页面的页表项中的存在位，如果为0，则产生一个缺页中断。</li>
@@ -2332,18 +2332,18 @@
 </ol>
 <h3 id="通用设备管理分层模型"><a href="#通用设备管理分层模型" class="headerlink" title="通用设备管理分层模型"></a><strong>通用设备管理分层模型</strong></h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624141938727.png" srcset="/img/loading.gif" lazyload alt="image-20210624141938727"></p>
 <h3 id="设备控制器的组成"><a href="#设备控制器的组成" class="headerlink" title="设备控制器的组成"></a><strong>设备控制器的组成</strong></h3><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144016184.png" srcset="/img/loading.gif" lazyload alt="image-20210624144016184"></p>
-<h3 id="I-x2F-O-通道"><a href="#I-x2F-O-通道" class="headerlink" title="I&#x2F;O 通道"></a><strong>I&#x2F;O</strong> <strong>通道</strong></h3><p>I&#x2F;O通道设备的引入 目的是使一些原来由CPU处理的I&#x2F;O任务转由通道来承担，从而把CPU从繁杂的I&#x2F;O任务中解脱出来。</p>
+<h3 id="I-O-通道"><a href="#I-O-通道" class="headerlink" title="I&#x2F;O 通道"></a><strong>I&#x2F;O</strong> <strong>通道</strong></h3><p>I&#x2F;O通道设备的引入 目的是使一些原来由CPU处理的I&#x2F;O任务转由通道来承担，从而把CPU从繁杂的I&#x2F;O任务中解脱出来。</p>
 <p> 采用通道有以下特点：</p>
 <ul>
 <li>① DMA（直接存储器存取）方式显著地减少了CPU的干预。</li>
 <li>②只需向I&#x2F;O通道发送一条I&#x2F;O指令，即可完成一组相关的读（或写）操作及有关控制。</li>
 <li>③可实现CPU、通道和I&#x2F;O设备三者的并行操作，从而更有效地提高整个系统的资源利用率。</li>
 </ul>
-<h3 id="中断简介"><a href="#中断简介" class="headerlink" title="中断简介"></a><strong>中断简介</strong></h3><p><strong>中断源：</strong>引起中断发生的事件</p>
-<p><strong>中断请求：</strong>中断源向CPU发出的请求中断处理信号</p>
-<p><strong>中断响应：</strong>CPU收到中断请求后转到相应的事件处理程序的过程</p>
-<p><strong>关中断&#x2F;开中断：</strong>CPU内部的PSW的中断允许位被清除&#x2F;被设置，不允许&#x2F;允许CPU响应中断。用于保证某段程序执行的原子性</p>
-<p><strong>中断屏蔽：</strong>在中断请求产生后，系统有选择地封锁一部分中断而允许另一部分仍能得到响应。有些具有最高优先级的中断不允许被屏蔽</p>
+<h3 id="中断简介"><a href="#中断简介" class="headerlink" title="中断简介"></a><strong>中断简介</strong></h3><p>**中断源：**引起中断发生的事件</p>
+<p>**中断请求：**中断源向CPU发出的请求中断处理信号</p>
+<p>**中断响应：**CPU收到中断请求后转到相应的事件处理程序的过程</p>
+<p>**关中断&#x2F;开中断：**CPU内部的PSW的中断允许位被清除&#x2F;被设置，不允许&#x2F;允许CPU响应中断。用于保证某段程序执行的原子性</p>
+<p>**中断屏蔽：**在中断请求产生后，系统有选择地封锁一部分中断而允许另一部分仍能得到响应。有些具有最高优先级的中断不允许被屏蔽</p>
 <p><strong>中断处理层的主要工作有：</strong></p>
 <ul>
 <li>进行进程上下文的切换</li>
@@ -2354,8 +2354,8 @@
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144304059.png" srcset="/img/loading.gif" lazyload alt="image-20210624144304059"></p>
 <p><strong>中断处理流程</strong></p>
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144327738.png" srcset="/img/loading.gif" lazyload alt="image-20210624144327738"></p>
-<h3 id="对I-x2F-O设备的控制方式"><a href="#对I-x2F-O设备的控制方式" class="headerlink" title="对I&#x2F;O设备的控制方式"></a>对I&#x2F;O设备的控制方式</h3><h4 id="轮询的可编程I-x2F-O方式"><a href="#轮询的可编程I-x2F-O方式" class="headerlink" title="轮询的可编程I&#x2F;O方式"></a><strong>轮询的可编程I&#x2F;O方式</strong></h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144418677.png" srcset="/img/loading.gif" lazyload alt="image-20210624144418677"></p>
-<h4 id="中断的可编程I-x2F-O方式"><a href="#中断的可编程I-x2F-O方式" class="headerlink" title="中断的可编程I&#x2F;O方式"></a>中断的可编程I&#x2F;O方式</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144438178.png" srcset="/img/loading.gif" lazyload alt="image-20210624144438178"></p>
+<h3 id="对I-O设备的控制方式"><a href="#对I-O设备的控制方式" class="headerlink" title="对I&#x2F;O设备的控制方式"></a>对I&#x2F;O设备的控制方式</h3><h4 id="轮询的可编程I-O方式"><a href="#轮询的可编程I-O方式" class="headerlink" title="轮询的可编程I&#x2F;O方式"></a><strong>轮询的可编程I&#x2F;O方式</strong></h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144418677.png" srcset="/img/loading.gif" lazyload alt="image-20210624144418677"></p>
+<h4 id="中断的可编程I-O方式"><a href="#中断的可编程I-O方式" class="headerlink" title="中断的可编程I&#x2F;O方式"></a>中断的可编程I&#x2F;O方式</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144438178.png" srcset="/img/loading.gif" lazyload alt="image-20210624144438178"></p>
 <h4 id="直接存储器访问方式"><a href="#直接存储器访问方式" class="headerlink" title="直接存储器访问方式"></a><strong>直接存储器访问方式</strong></h4><p><strong>DMA控制方式的特点：</strong></p>
 <p>①数据传输的基本单位是数据块，即在CPU与I&#x2F;O设备之间，每次传送至少一个数据块；</p>
 <p>②所传送的数据是从设备直接送入内存的，或者相反；</p>
@@ -2364,10 +2364,10 @@
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144613415.png" srcset="/img/loading.gif" lazyload alt="image-20210624144613415"></p>
 <p><strong>DMA工作过程</strong></p>
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144630693.png" srcset="/img/loading.gif" lazyload alt="image-20210624144630693"></p>
-<h4 id="I-x2F-O通道控制方式"><a href="#I-x2F-O通道控制方式" class="headerlink" title="I&#x2F;O通道控制方式"></a>I&#x2F;O通道控制方式</h4><p><strong>I&#x2F;O通道控制方式的引入</strong> </p>
+<h4 id="I-O通道控制方式"><a href="#I-O通道控制方式" class="headerlink" title="I&#x2F;O通道控制方式"></a>I&#x2F;O通道控制方式</h4><p><strong>I&#x2F;O通道控制方式的引入</strong> </p>
 <p>I&#x2F;O通道方式是DMA方式的发展，它可进一步减少CPU的干预，即把对一个数据块的读（或写）为单位的干预，减少为对一组数据块的读（或写）及有关的控制和管理为单位的干预。</p>
 <p>可实现CPU、通道和I&#x2F;O设备三者的并行操作，从而更有效地提高整个系统的资源利用率。 </p>
-<h2 id="I-x2F-O控制方式"><a href="#I-x2F-O控制方式" class="headerlink" title="I&#x2F;O控制方式"></a>I&#x2F;O控制方式</h2><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144715519.png" srcset="/img/loading.gif" lazyload alt="image-20210624144715519"></p>
+<h2 id="I-O控制方式"><a href="#I-O控制方式" class="headerlink" title="I&#x2F;O控制方式"></a>I&#x2F;O控制方式</h2><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624144715519.png" srcset="/img/loading.gif" lazyload alt="image-20210624144715519"></p>
 <h2 id="磁盘存储管理"><a href="#磁盘存储管理" class="headerlink" title="磁盘存储管理"></a>磁盘存储管理</h2><p><strong>提高磁盘I&#x2F;O速度的主要途径：</strong></p>
 <p>（1）选择性能好的磁盘</p>
 <p>（2）采用好的磁盘调度算法</p>
@@ -2443,10 +2443,10 @@
 <h3 id="文件控制块和索引节点"><a href="#文件控制块和索引节点" class="headerlink" title="文件控制块和索引节点"></a>文件控制块和索引节点</h3><p>文件控制块（FCB）：用于描述和控制文件的数据结构。</p>
 <p>文件目录：文件控制块的有序集合。</p>
 <p>通常，一个文件目录也被看做是一个文件，称为目录文件。</p>
-<h4 id="文件控制块的内容"><a href="#文件控制块的内容" class="headerlink" title="文件控制块的内容"></a>文件控制块的内容</h4><p><strong>基本信息：</strong>文件名、文件类型等；</p>
-<p><strong>地址信息：</strong>卷（存储文件的设备）、起始地址（起始物理地址）、文件长度（以字节、字或块为单位）等。</p>
-<p><strong>访问控制信息：</strong>文件所有者、访问信息（用户名和口令等）、合法操作等；</p>
-<p><strong>使用信息：</strong>创建时间、创建者身份、当前状态、最近修改时间、最近访问时间等。　 </p>
+<h4 id="文件控制块的内容"><a href="#文件控制块的内容" class="headerlink" title="文件控制块的内容"></a>文件控制块的内容</h4><p>**基本信息：**文件名、文件类型等；</p>
+<p>**地址信息：**卷（存储文件的设备）、起始地址（起始物理地址）、文件长度（以字节、字或块为单位）等。</p>
+<p>**访问控制信息：**文件所有者、访问信息（用户名和口令等）、合法操作等；</p>
+<p>**使用信息：**创建时间、创建者身份、当前状态、最近修改时间、最近访问时间等。　 </p>
 <h4 id="FCB"><a href="#FCB" class="headerlink" title="FCB"></a>FCB</h4><p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171409892.png" srcset="/img/loading.gif" lazyload alt="image-20210624171409892"></p>
 <h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><h3 id="单级目录结构"><a href="#单级目录结构" class="headerlink" title="单级目录结构"></a>单级目录结构</h3><p>所有用户的全部文件目录保存在一张目录表中，每个文件的目录项占用一个表项。 </p>
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171621519.png" srcset="/img/loading.gif" lazyload alt="image-20210624171621519"></p>
@@ -2466,19 +2466,19 @@
 <li>提高了文件目录检索效率</li>
 <li>简单的文件共享</li>
 </ul>
-<p><strong>问题：</strong>不便用户文件的逻辑分类；进一步解决重名、共享、检索效率等问题</p>
+<p>**问题：**不便用户文件的逻辑分类；进一步解决重名、共享、检索效率等问题</p>
 <h3 id="树形结构目录"><a href="#树形结构目录" class="headerlink" title="树形结构目录"></a>树形结构目录</h3><p>多级目录结构又称为树型目录结构，主目录在这里被称为根目录，把数据文件称为树叶，其它的目录均作为树的结点。</p>
 <p>树叶是数据文件。</p>
 <p>树的节点是目录，或称为子目录。</p>
 <p><img src="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/06/24/image-20210624171815129.png" srcset="/img/loading.gif" lazyload alt="image-20210624171815129"></p>
-<h2 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h2><p><strong>创建目录：</strong>在用户要创建一个新文件时，只需查看在自己的UFD及其子目录中，有无与新建文件相同的文件名。若无，便可在UFD或其某个子目录中增加一个新目录项。 </p>
+<h2 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h2><p>**创建目录：**在用户要创建一个新文件时，只需查看在自己的UFD及其子目录中，有无与新建文件相同的文件名。若无，便可在UFD或其某个子目录中增加一个新目录项。 </p>
 <p><strong>目录删除</strong>采用下述两种方法处理： </p>
 <p>（1）不删除非空目录。 </p>
 <p>（2）可删除非空目录。 </p>
-<p><strong>改变目录：</strong>改变工作目录</p>
-<p><strong>移动目录：</strong>将子目录或者文件移动到其他目录下。</p>
-<p><strong>链接操作：</strong>通过链接让同一个文件具有多个父目录。</p>
-<p><strong>查找：</strong>在目录中查找某个文件或者子目录。</p>
+<p>**改变目录：**改变工作目录</p>
+<p>**移动目录：**将子目录或者文件移动到其他目录下。</p>
+<p>**链接操作：**通过链接让同一个文件具有多个父目录。</p>
+<p>**查找：**在目录中查找某个文件或者子目录。</p>
 <h2 id="目录查询技术"><a href="#目录查询技术" class="headerlink" title="目录查询技术"></a>目录查询技术</h2><h3 id="线性检索法"><a href="#线性检索法" class="headerlink" title="线性检索法"></a>线性检索法</h3><p>线性检索法又称为顺序检索法。 </p>
 <p>①在单级目录中，利用用户提供的文件名，用顺序查找法直接从文件目录中找到指名文件的目录项。</p>
 <p>②在树型目录中，用户提供的文件名是由多个文件分量名组成的路径名，此时须对多级目录进行查找。 </p>

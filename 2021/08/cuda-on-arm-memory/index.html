@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824001447544.png">
 <meta property="og:image" content="https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/Gallery/2021/08/24/image-20210824002247739.png">
 <meta property="article:published_time" content="2021-08-24T07:42:20.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.074Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.519Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="ubuntu">
 <meta property="article:tag" content="jetson">
@@ -1425,8 +1425,8 @@
 <p><strong>当我们要为一个方阵<code>M[m * m]</code>申请GPU的存储单元时</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaMalloc((<span class="hljs-type">void</span> **) &amp;d_m,<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>) * m * m);<br></code></pre></td></tr></table></figure>
 
-<p><strong>d_m：</strong>指向存储在Device端数据的地址的指针（双重指针）。</p>
-<p><strong>sizeof(int) * m * m：</strong>存储在Device端空间的大小。</p>
+<p>**d_m：**指向存储在Device端数据的地址的指针（双重指针）。</p>
+<p>**sizeof(int) * m * m：**存储在Device端空间的大小。</p>
 <p><strong>当我们要释放申请的GPU的存储单元时</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaFree(d_m);<br></code></pre></td></tr></table></figure>
 
@@ -1448,10 +1448,10 @@
 <p><strong>当我们要将准备好的数据从CPU内存传输到GPU的存储单元时</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaMemcpy(d_m, h_m, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>) * m * m, cudaMemcpyHostToDevice);<br></code></pre></td></tr></table></figure>
 
-<p><strong>d_m：</strong>传输的目的地，GPU存储单元</p>
-<p><strong>h_m：</strong>数据的源地址，CPU存储单元</p>
-<p><strong>sizeof(int) * m * m：</strong>数据传输的大小</p>
-<p><strong>cudaMemcpyHostToDevice：</strong>数据传输的方向，CPU -&gt; GPU</p>
+<p>**d_m：**传输的目的地，GPU存储单元</p>
+<p>**h_m：**数据的源地址，CPU存储单元</p>
+<p>**sizeof(int) * m * m：**数据传输的大小</p>
+<p>**cudaMemcpyHostToDevice：**数据传输的方向，CPU -&gt; GPU</p>
 <p><strong>当我们要将准备好的数据从GPU存储单元传输到CPU的内存时</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cudaMemcpy(h_c, d_c, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>) * m * k, cudaMemcpyDeviceToHost);<br></code></pre></td></tr></table></figure>
 

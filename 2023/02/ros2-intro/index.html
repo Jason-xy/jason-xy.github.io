@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://www.circuspi.com/wp-content/uploads/2022/09/1.png">
 <meta property="og:image" content="https://www.circuspi.com/wp-content/uploads/2022/09/2.png">
 <meta property="article:published_time" content="2023-02-07T19:40:37.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.074Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.519Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="colcon">
 <meta property="article:tag" content="ROS2">
@@ -1413,7 +1413,7 @@
 <h1 id="Build-Tool"><a href="#Build-Tool" class="headerlink" title="Build Tool"></a>Build Tool</h1><p>在ROS生态中，应用程序通常被分割为许多软件包，开发人员同时处理多个软件包的场景也是很常见的。这与传统的软件开发流程中开发者只面对一个软件包，并一次性提供所有需要依赖的软件包（这部分依赖通常没有迭代）的场景形成了鲜明对比。</p>
 <p>构建一组软件包的“手动”方法包括逐一构建所有软件包。对于每个软件包如何管理相互之间的依赖关系，如何设置环境以构建软件包，以及如何在之后设置环境以使用软件包。如果没有自动化该过程的工具，这样的工作流程在规模化开发时是不切实际的。</p>
 <p>在ROS1中有多个工具提供以上流程的自动化支持，即 <code>catkin_make</code>、<code>catkin_make_isolated</code>和 <code>catkin_tools</code>。对于ROS 2，提供此功能的构建工具称为 <code>ament_tools</code>。</p>
-<h2 id="Build-tool-amp-build-system"><a href="#Build-tool-amp-build-system" class="headerlink" title="Build tool &amp; build system"></a>Build tool &amp; build system</h2><p>构建工具在一组软件包上运行，它确定依赖关系图，并按拓扑顺序为每个包调用特定的构建系统。ROS所使用的构建工具有 <code>catkin_make</code>、<code>catkin_make_isolated</code>、<code>catkin_tools</code>和 <code>ament_tools</code>。</p>
+<h2 id="Build-tool-build-system"><a href="#Build-tool-build-system" class="headerlink" title="Build tool &amp; build system"></a>Build tool &amp; build system</h2><p>构建工具在一组软件包上运行，它确定依赖关系图，并按拓扑顺序为每个包调用特定的构建系统。ROS所使用的构建工具有 <code>catkin_make</code>、<code>catkin_make_isolated</code>、<code>catkin_tools</code>和 <code>ament_tools</code>。</p>
 <p>构建系统在单个软件包上运行。例如 <code>Make</code>、<code>CMake</code>、Python <code>Python setuptools</code>。例如cmake软件包通过以下流程完成构建：<code>cmake</code>，<code>make</code>，<code>make install</code>。</p>
 <h2 id="Goals-of-ament-tools"><a href="#Goals-of-ament-tools" class="headerlink" title="Goals of ament_tools"></a>Goals of ament_tools</h2><p>统一构建工具的目标是构建一组具有单向依赖的软件包。它应该适用于ROS 1软件包以及在其清单文件（package.xml）中提供必要信息的ROS 2软件包。它还应该适用于本身不提供清单文件的软件包，因为必要的元信息可以推断或外部提供。这将允许将构建工具用于非ROS软件包，例如Gazebo的某些插件和SDFormat格式的地图信息。</p>
 <h2 id="Build-pipeline-of-ament-tools"><a href="#Build-pipeline-of-ament-tools" class="headerlink" title="Build pipeline of ament_tools"></a>Build pipeline of ament_tools</h2><p>初始化构建环境⬇️</p>
@@ -1474,7 +1474,7 @@
 <td>采用了分布式的发现机制组网，这样其中的任何一个节点出现异常都不会导致整个系统停止工作<img src="https://www.circuspi.com/wp-content/uploads/2022/09/2.png" srcset="/img/loading.gif" lazyload></td>
 </tr>
 </tbody></table>
-<h1 id="Migrate-to-ROS2"><a href="#Migrate-to-ROS2" class="headerlink" title="Migrate to ROS2"></a>Migrate to ROS2</h1><h2 id="Prerequisites-amp-Steps"><a href="#Prerequisites-amp-Steps" class="headerlink" title="Prerequisites &amp; Steps"></a>Prerequisites &amp; Steps</h2><ul>
+<h1 id="Migrate-to-ROS2"><a href="#Migrate-to-ROS2" class="headerlink" title="Migrate to ROS2"></a>Migrate to ROS2</h1><h2 id="Prerequisites-Steps"><a href="#Prerequisites-Steps" class="headerlink" title="Prerequisites &amp; Steps"></a>Prerequisites &amp; Steps</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#prerequisites">Prerequisites</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#migration-steps">Migration steps</a><ul>
 <li><a target="_blank" rel="noopener" href="https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Migration-Guide.html#package-manifests">Package manifests</a></li>

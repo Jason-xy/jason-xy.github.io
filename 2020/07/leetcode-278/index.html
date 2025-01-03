@@ -29,7 +29,7 @@
 <meta property="og:description" content="详述二分查找先看看Knuth（KMP算法发明者）怎么说： 1Although the basic idea of binary search is comparatively straightforward, the details can be surprisingly tricky...  总之就是二分查找的细节处理往往决定了程序是否能够正确运行。 比如，比较大小有没有等于号，mid该不该加1">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-09T02:15:05.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.070Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.515Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="algorithm">
 <meta property="article:tag" content="oj">
@@ -1383,9 +1383,9 @@
 <h3 id="寻找一个数"><a href="#寻找一个数" class="headerlink" title="寻找一个数"></a>寻找一个数</h3><p>这个场景是最简单的，可能也是大家最熟悉的，即搜索一个数，如果存在，返回其索引，否则返回 -1。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>    <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>; <br>    <span class="hljs-type">int</span> right = nums.length - <span class="hljs-number">1</span>; <span class="hljs-comment">// 注意（1）</span><br><br>    <span class="hljs-keyword">while</span>(left &lt;= right) &#123; <span class="hljs-comment">// 注意（2）</span><br>        <span class="hljs-type">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span>(nums[mid] == target)<br>            <span class="hljs-keyword">return</span> mid; <br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target)<br>            left = mid + <span class="hljs-number">1</span>; <span class="hljs-comment">// 注意（3）</span><br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &gt; target)<br>            right = mid - <span class="hljs-number">1</span>; <span class="hljs-comment">// 注意（4）</span><br>        &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>（1）</strong>数组索引最大是length-1；</p>
-<p><strong>（2）</strong>这里的while循环条件中为&lt;&#x3D;,如果为&lt;相当于查找区间为[left,right)，而无法找到最右边的值；如果为&#x3D;，那么查找区间就是[left,right]，这一点可以用在1，2，3中查找3的例子模拟验证一下。 </p>
-<p><strong>（3）、（4）</strong>如果mid不满足条件，那么边界应该移动到mid的下一个数</p>
+<p>**（1）**数组索引最大是length-1；</p>
+<p>**（2）**这里的while循环条件中为&lt;&#x3D;,如果为&lt;相当于查找区间为[left,right)，而无法找到最右边的值；如果为&#x3D;，那么查找区间就是[left,right]，这一点可以用在1，2，3中查找3的例子模拟验证一下。 </p>
+<p>**（3）、（4）**如果mid不满足条件，那么边界应该移动到mid的下一个数</p>
 <p>再来探讨一下<strong>停止搜索的条件</strong>：</p>
 <ol>
 <li><p>什么时候应该停止搜索呢？当然，找到了目标值的时候可以终止：</p>
@@ -1410,9 +1410,9 @@
 <p>综上可以看出，函数的返回值（即 left 变量的值）取值区间是闭区间 [0, nums.length]，所以我们简单添加两行代码就能在正确的时候 return -1：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">while</span> (left &lt; right) &#123;<br>    <span class="hljs-comment">//...</span><br>&#125;<br><span class="hljs-comment">// target 比所有数都大</span><br><span class="hljs-keyword">if</span> (left == nums.length) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br><span class="hljs-comment">// 类似之前算法的处理方式</span><br><span class="hljs-keyword">return</span> nums[left] == target ? left : <span class="hljs-number">-1</span>;<br></code></pre></td></tr></table></figure>
 
-<p><strong>（1）</strong>这里的初始化条件一定要满足left的取值区间 [0, nums.length]，并且当left&#x3D;nums.length时返回-1，否则很可能会漏掉-1的情况。</p>
+<p>**（1）**这里的初始化条件一定要满足left的取值区间 [0, nums.length]，并且当left&#x3D;nums.length时返回-1，否则很可能会漏掉-1的情况。</p>
 <p><strong>（2）</strong> 这里的终止条件是left &#x3D; right，相当于在搜索区间中，左边是闭区间，右边是开区间。</p>
-<p><strong>（3）</strong>while条件决定了搜索区间，那么这里要满足左闭右开，并且不漏掉元素的话就需要让right&#x3D;mid。</p>
+<p>**（3）**while条件决定了搜索区间，那么这里要满足左闭右开，并且不漏掉元素的话就需要让right&#x3D;mid。</p>
 <p>该算法能找到左边界的主要原因还是对 nums[mid] &#x3D;&#x3D; target 这种情况的处理：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (nums[mid] == target)<br>	right = mid;<br></code></pre></td></tr></table></figure>
 

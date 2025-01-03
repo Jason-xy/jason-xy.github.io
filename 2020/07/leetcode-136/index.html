@@ -21,15 +21,15 @@
   <meta name="author" content="Jason Hsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题面给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 说明： 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？ 示例 1: 12输入: [2,2,1]输出: 1  示例 2: 12输入: [4,1,2,1,2]输出: 4  题解注意这里的条件： 算法应该具有线性时间复杂度：时间复杂度O(n) 不使用额外空间：空间复杂度O(1)">
+    <meta name="description" content="题面给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 说明： 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？ 示例 1: 12输入: [2,2,1]输出: 1  示例 2: 12输入: [4,1,2,1,2]输出: 4  题解注意这里的条件： **算法应该具有线性时间复杂度：**时间复杂度O(n) **不使用额外空间：**空间">
 <meta property="og:type" content="article">
 <meta property="og:title" content="「LeetCode」——136.只出现一次的数字">
 <meta property="og:url" content="https://jason-xy.github.io/2020/07/leetcode-136/index.html">
 <meta property="og:site_name" content="The Road to Full Stack">
-<meta property="og:description" content="题面给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 说明： 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？ 示例 1: 12输入: [2,2,1]输出: 1  示例 2: 12输入: [4,1,2,1,2]输出: 4  题解注意这里的条件： 算法应该具有线性时间复杂度：时间复杂度O(n) 不使用额外空间：空间复杂度O(1)">
+<meta property="og:description" content="题面给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 说明： 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？ 示例 1: 12输入: [2,2,1]输出: 1  示例 2: 12输入: [4,1,2,1,2]输出: 4  题解注意这里的条件： **算法应该具有线性时间复杂度：**时间复杂度O(n) **不使用额外空间：**空间">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-02T09:45:23.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.070Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.515Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="algorithm">
 <meta property="article:tag" content="oj">
@@ -1382,8 +1382,8 @@
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: [4,1,2,1,2]</span><br><span class="hljs-section">输出: 4</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>注意这里的条件：</p>
-<p><strong>算法应该具有线性时间复杂度：</strong>时间复杂度O(n)</p>
-<p><strong>不使用额外空间：</strong>空间复杂度O(1)</p>
+<p>**算法应该具有线性时间复杂度：**时间复杂度O(n)</p>
+<p>**不使用额外空间：**空间复杂度O(1)</p>
 <p>目前我能想到的就是利用异或运算的运算性质。</p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs llvm">异或运算性质：<br><span class="hljs-number">1</span>、交换律<br><span class="hljs-number">2</span>、结合律<br><span class="hljs-number">3</span>、对于任何数<span class="hljs-keyword">x</span>，都有<span class="hljs-keyword">x</span>^<span class="hljs-keyword">x</span><span class="hljs-operator">=</span><span class="hljs-number">0</span>，<span class="hljs-keyword">x</span>^<span class="hljs-number">0</span><span class="hljs-operator">=</span><span class="hljs-keyword">x</span><br><span class="hljs-number">4</span>、自反性 A XOR B XOR B <span class="hljs-operator">=</span> A <span class="hljs-keyword">xor</span> <span class="hljs-number">0</span> <span class="hljs-operator">=</span> A<br></code></pre></td></tr></table></figure>
 

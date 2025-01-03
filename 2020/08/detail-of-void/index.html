@@ -29,7 +29,7 @@
 <meta property="og:description" content="——转载自知乎void*是怎样的存在 说到C就不得不提指针，而一提到指针，有一个是比较特殊的，那就是void*。void*到底是怎样的存在？ 指针类型的含义在说明void*之前，先了解一下普通指针类型的含义。 123456789101112&#x2F;&#x2F;来源：公众号【编程珠玑】&#x2F;&#x2F;main.c#include &lt;stdio.h&gt;int main(void)&amp;#123;    int a[] &#x3D;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-05T13:53:52.000Z">
-<meta property="article:modified_time" content="2025-01-03T06:10:50.070Z">
+<meta property="article:modified_time" content="2025-01-03T06:11:51.519Z">
 <meta property="article:author" content="Jason Hsu">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="c&#x2F;c++">
@@ -1417,7 +1417,7 @@
 <h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a><strong>如何使用</strong></h2><p>既然如此，那么void<em>有什么用呢？实际上我们在很多接口中都会发现它们的参数类型都是void</em>,例如:</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">ssize_t read(int fd, void *buf, size_t count);<br>void *memcpy(void *dest, const void *src, size_t n);<br></code></pre></td></tr></table></figure>
 
-<p>为何要如此设计？因为对于这种通用型接口，你不知道用户的数据类型是什么，但是你必须能够处理用户的各种类型数据，因而会使用void<em>。void</em>能包容地接受各种类型的指针。也就是说，如果你期望接口能够接受任何类型的参数，你可以使用void<em>类型。但是在具体使用的时候，你必须转换为具体的指针类型。例如，你传入接口的是int</em>，那么你在使用的时候就应该按照int*使用。</p>
+<p>为何要如此设计？因为对于这种通用型接口，你不知道用户的数据类型是什么，但是你必须能够处理用户的各种类型数据，因而会使用void*。void<em>能包容地接受各种类型的指针。也就是说，如果你期望接口能够接受任何类型的参数，你可以使用void</em>类型。但是在具体使用的时候，你必须转换为具体的指针类型。例如，你传入接口的是int*，那么你在使用的时候就应该按照int*使用。</p>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a><strong>注意</strong></h2><p>使用void*需要特别注意的是，你必须清楚原始传入的是什么类型，然后转换成对应类型。例如，你准备使用库函数qsort进行排序：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">void qsort(void *base,size_t nmemb,size_t size , int(*compar)(const void *,const void *));<br></code></pre></td></tr></table></figure>
 
