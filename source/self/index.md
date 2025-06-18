@@ -31,11 +31,13 @@ date: 2022-11-27 21:33:22
 
 # 📚 Publications
 
-- P. Liu, C. Feng, **Y. Xu**, Y. Ning, H. Xu and S. Shen. OmniNxt: a fully open-source and compact aerial robot with omnidirectional visual perception. In Proc. of the IEEE/RSJ International Conference on Robotics and Automation (IROS), Abu Dhabi, UAE, October 2024. Video: [YouTube](https://youtu.be/IOuJ7Y6dpeY)
+- X. Lu, Y. Zhou, J. Mai, K. Dai, **Y. Xu** and S. Shen. Event-based visual-inertial state estimation for high-speed maneuvers. IEEE Transactions on Robotics, 0(0), pp. 0-0, June 2025. [Bilibili](https://b23.tv/DOf4rGS)
+
+- L. Wang, Y. Ning, H. Chen, P. Liu, **Y. Xu**, H. Xu, X. Lyu and S. Shen. Autonomous flights inside narrow tunnels. IEEE Transactions on Robotics, 0(0), pp. 0-0, February 2025. Video: [YouTube](https://youtu.be/S20QSIypYgY)
 
 - **Y. Xu**, Q. Huang, S. Shen and H. Yin. Incorporating point uncertainty in radar SLAM. IEEE Robotics and Automation Letters, 10(3), pp. 2168 - 2175, December 2024.
 
-- L. Wang, Y. Ning, H. Chen, P. Liu, **Y. Xu**, H. Xu, X. Lyu and S. Shen. Autonomous flights inside narrow tunnels. IEEE Transactions on Robotics, 0(0), pp. 0-0, February 2025. Video: [YouTube](https://youtu.be/S20QSIypYgY)
+- P. Liu, C. Feng, **Y. Xu**, Y. Ning, H. Xu and S. Shen. OmniNxt: a fully open-source and compact aerial robot with omnidirectional visual perception. In Proc. of the IEEE/RSJ International Conference on Robotics and Automation (IROS), Abu Dhabi, UAE, October 2024. Video: [YouTube](https://youtu.be/IOuJ7Y6dpeY)
 
 # 🏆 Awards
 

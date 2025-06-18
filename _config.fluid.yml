@@ -218,7 +218,7 @@ navbar:
     # Ratio of opacity, 1.0 is completely opaque
     # available: 0 - 1.0
     alpha: 0.7
-  
+
    # Navigation bar menu. `key` is used to associate languages/*.yml. If there is no association, the value of `key` itself will be displayed; if `icon` is a css class, it can be omitted; adding `name` can force the display of the specified name
   menu:
     - { key: 'Home', link: '/', icon: 'iconfont icon-home-fill' }
@@ -466,7 +466,7 @@ post:
     # CreativeCommons license
     # Options: BY | BY-SA | BY-ND | BY-NC | BY-NC-SA | BY-NC-ND
     license: 'BY'
-    
+
     # Show author
     author:
       enable: true

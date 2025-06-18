@@ -5,3 +5,7 @@
 # New post
 
 `hexo new [layout] <title>`
+
+# Run server
+
+`hexo s -p [port]`
