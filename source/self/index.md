@@ -17,6 +17,10 @@ date: 2022-11-27 21:33:22
   **MPhil. in Intelligent Construction and Robotics, Division of Emerging Interdisciplinary Areas**
   - **GPA**: 3.87 / 4.30
 
+- **📅 Sep 2025 - Now**
+  **🏛 Hong Kong University of Science and Technology**
+  **PhD. Student in Electronic and Computer Engineering, School of Engineering**
+
 # 💼 Internship Experience
 
 - **📅 Jan 2022 - July 2023**
