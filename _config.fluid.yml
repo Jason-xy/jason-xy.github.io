@@ -227,6 +227,7 @@ navbar:
     - { key: 'About', link: '/self/', icon: 'iconfont icon-user-fill'}
     - { key: 'Links', link: '/links/', icon: 'iconfont icon-friends'}
     - { key: 'Logs', link: '/logs/', icon: 'iconfont icon-note'}
+    - { key: 'Uptime', link: 'https://uptime.yxuew.xyz', icon: 'iconfont icon-clock-fill'}
 
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
 search:
