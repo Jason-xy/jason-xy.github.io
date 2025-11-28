@@ -227,7 +227,7 @@ navbar:
     - { key: 'About', link: '/self/', icon: 'iconfont icon-user-fill'}
     - { key: 'Links', link: '/links/', icon: 'iconfont icon-friends'}
     - { key: 'Logs', link: '/logs/', icon: 'iconfont icon-note'}
-    - { key: 'Uptime', link: 'https://uptime.yxuew.xyz', icon: 'iconfont icon-clock-fill'}
+    - { key: 'Uptime', link: 'https://uptime.yxuew.xyz', icon: 'iconfont icon-codeforces'}
 
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
 search:
@@ -280,12 +280,24 @@ open_graph:
   fb_admins:
   fb_app_id:
 
+web_analytics:
+  enable: true
+  baidu:
+  google:
+  tencent:
+  woyaola:
+  cnzz:
+  leancloud:
+    app_id: 1Fp1tS5UwY8HXIx1BUKn7buG-MdYXbMMI
+    app_key: GQlVpMcw48IcI6ohZVphDoaf
+    server_url:
+
 #---------------------------
 # Footer
 #---------------------------
 footer:
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
-  content: 'Copyright  © 2019-2023 Jason_xy All Rights Reserved
+  content: 'Copyright  © 2019-2026 Yang Xu All Rights Reserved
     <a href="http://beian.miit.gov.cn" target="_blank" title="中华人民共和国工业和信息化部">蜀ICP备19039469号-3 |</a>
     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo |</span></a>
     <i class="iconfont icon-love"></i>
@@ -293,11 +305,13 @@ footer:
 
   # Display website PV and UV statistics
   statistics:
-    enable: false
+    enable: true
 
     # Data source. If use leancloud, you need to set the parameter in `web_analytics: leancloud`
     # Options: busuanzi | leancloud
-    source: "busuanzi"
+    source: "leancloud"
+    pv_format: "Total views {} 👀 |"
+    uv_format: "Total visitors {} 👣"
 
   # For Chinese mainland website policy, other areas keep disable
   beian:
@@ -660,50 +674,14 @@ links:
     - {
       title: "YIYANG SUN",
       intro: "Love for life and frontend tech.",
-      link: "https://blog.syy11.cn/",
+      link: "https://github.com/suenyiyang",
       avatar: "https://avatars.githubusercontent.com/u/57290456?v=4"
-    }
-    - {
-      title: "Cosmos",
-      intro: "今日事,今日畢",
-      link: "https://cosmos-uestc.space/",
-      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/avatar-300x300.png"
     }
     - {
       title: "进击の算法",
       intro: "全栈工程师 刘训灼学长",
-      link: "https://liuxunzhuo.tech/",
+      link: "https://www.liuxunzhuo.com/",
       avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/a3779df830b0bd6aa0cd43d489c0c420-300x300.jpg"
-    }
-    - {
-      title: "南瓜奶酪",
-      intro: "让信念燃烧青春",
-      link: "https://blog.china97.cn/",
-      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2021/01/8ba6b3fe09630e500c7dcb5e848e22ed-300x300.jpeg"
-    }
-    - {
-      title: "稚晖君",
-      intro: "十年饮冰，难凉热血",
-      link: "http://pengzhihui.com/",
-      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/zhj-e1593015094344.jpg"
-    }
-    - {
-      title: "XyxGroup",
-      intro: "他山之石，可以攻玉",
-      link: "http://www.xinxinlighting.com/",
-      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/06/F962592221F0585E4D5538BD2C18C163-e1592653204343-300x300.jpg"
-    }
-    - {
-      title: "Mr_zwX",
-      intro: "眼界决定境界，格局决定结局",
-      link: "https://xuanland.cn/",
-      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/07/head-300x300.jpg"
-    }
-    - {
-      title: "ROYLEO",
-      intro: "鸡起犬眠，豕餐牛作。苏才郭福，姬子彭年",
-      link: "https://yirenliu.cn/",
-      avatar: "https://wpcos-1300629776.cos.ap-chengdu.myqcloud.com/wp-content/uploads/2020/09/touxiang-e5d29a1ce4bc4f4194b0d5db73b28fe1-300x300.jpg"
     }
 
   # When the member avatar fails to load, replace the specified image
